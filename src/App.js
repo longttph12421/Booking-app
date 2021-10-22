@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Components from "./views/Components/Components";
+import HomePage from "./views/homePage/HomePage";
 import LandingPage from "./views/LandingPage/LandingPage";
 import ProfilePage from "./views/ProfilePage/ProfilePage";
 import LoginPage from "./views/LoginPage/LoginPage";
@@ -9,11 +9,11 @@ function App() {
   return (
     <div>
       <Switch>
-        <Route path="/landing-page" component={LandingPage} />
-        <Route path="/profile-page" component={ProfilePage} />
-        <Route path="/login-page" component={LoginPage} />
+        <Route path="/landing" component={LandingPage} />
+        <Route path="/profile" component={ProfilePage} />
+        <Route path="/login" component={LoginPage} />
         <Route path="/product" component={ProductBox} />
-        <Route path="/" component={Components} />
+        <Route path="/" component={HomePage} />
       </Switch>
     </div>
   );

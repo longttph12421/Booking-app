@@ -15,20 +15,18 @@ import Button from "../../components/CustomButtons/Button.js";
 import Parallax from "../../components/Parallax/Parallax.js";
 // sections for this page
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
-import SectionExamples from "./Sections/SectionExamples.js";
-import SectionDownload from "./Sections/SectionDownload.js";
 import styles from "../../assets/jss/material-kit-react/views/components.js";
-
+import SectionBasics from "../Components/Sections/SectionBasics"
 const useStyles = makeStyles(styles);
 
-export default function Components(props) {
+export default function HomePage(props) {
   const classes = useStyles();
   const { ...rest } = props;
  // image={require("../../assets/img/logo.png").default}
   return (
     <div>
       <Header
-        brand={"ABC"}
+        brand={""}
         rightLinks={<HeaderLinks />}
         fixed
         color="transparent"
@@ -43,10 +41,8 @@ export default function Components(props) {
           <GridContainer>
             <GridItem>
               <div className={classes.brand}>
-                <h1 className={classes.title}>My Dinh eye clinic</h1>
-                <h3 className={classes.subtitle}>
-                 Better vision for a great life
-                </h3>
+                <h1 className={classes.title}>NỀN TẢNG Y TẾ</h1>
+                <h3 className={classes.subtitle}>CHĂM SÓC MẮT TOÀN DIỆN</h3>
               </div>
             </GridItem>
           </GridContainer>
@@ -60,6 +56,9 @@ export default function Components(props) {
               View Login Page
             </Button>
           </Link>
+          <SectionBasics/>
+          <SectionBasics/>
+          <SectionBasics/>
         </GridItem>
       </div>
       <Footer />
