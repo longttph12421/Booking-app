@@ -1,9 +1,16 @@
+import { BorderBottom } from "@material-ui/icons";
 import { container, title } from "../../material-kit-react";
 
 import imagesStyle from "../imagesStyles";
 
 const profilePageStyle = {
   container,
+  text: {
+    margin: "20px",
+    padding: "0px",
+    fontSize: "15px",
+    color: "#333",
+  },
   profile: {
     textAlign: "center",
     "& img": {

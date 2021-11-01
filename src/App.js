@@ -5,6 +5,7 @@ import LandingPage from "./views/LandingPage/LandingPage";
 import ProfilePage from "./views/ProfilePage/ProfilePage";
 import LoginPage from "./views/LoginPage/LoginPage";
 import ProductBox from "./container/product/ProductBox";
+import Component from "./views/Components/Components";
 function App() {
   return (
     <div>
@@ -13,6 +14,7 @@ function App() {
         <Route path="/profile" component={ProfilePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/product" component={ProductBox} />
+        <Route path="/Component" component={Component} />
         <Route path="/" component={HomePage} />
       </Switch>
     </div>

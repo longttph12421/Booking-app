@@ -17,6 +17,7 @@ import Parallax from "../../components/Parallax/Parallax.js";
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import SectionExamples from "./Sections/SectionExamples.js";
 import SectionDownload from "./Sections/SectionDownload.js";
+import SectionBasics from "./Sections/SectionBasics";
 import styles from "../../assets/jss/material-kit-react/views/components.js";
 
 const useStyles = makeStyles(styles);
@@ -60,6 +61,7 @@ export default function Components(props) {
               View Login Page
             </Button>
           </Link>
+          <SectionBasics/>
         </GridItem>
       </div>
       <Footer />
