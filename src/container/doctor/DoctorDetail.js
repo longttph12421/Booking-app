@@ -1,209 +1,187 @@
-import styles from "../../assets/jss/material-kit-react/views/profilePage.js";
+import React from "react";
+import Button from "../../components/CustomButtons/Button";
+import { Grid, Box } from "@material-ui/core";
+import { CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "../../components/CustomButtons/Button"
-import Grid from "@material-ui/core/Grid";
-import { Divider } from "@material-ui/core";
-const useStyles = makeStyles({
-  imageradios: {
-    margin: "0px",
-    padding: "15px",
-    paddingRight: "15px",
-    borderRadius: "50%",
-    height: "200px",
-    width: "200px",
-  },
-  icon: {
-    margin: "4px",
-  },
-  datlichkham: {
-    display: "block",
-    width: "100%",
-  },
-  chongio: {
-    padding: "10px 10px 10px 10px",
-    margin: "5px 0px 0px 20px",
-    background: "#d7e360",
-  },
-  chititet: {
-    textDecoration: "none",
-  },
-  huongdan: {
-    margin: "12px 0 0 20px",
-  },
-  texta: {
-    margin: "18px",
-    padding: "0px",
-    fontSize: "20px",
-    color: "#333",
-  },
-  texta3: {
-    margin: "25px 0 0 20px",
-    padding: "0px",
-    fontSize: "20px",
-    color: "#333",
-  },
-  texta1: {
-    fontSize: "18px",
-    color: "#333",
-    margin: "20px",
-    padding: "0px",
-  },
-  detail: {
-    margin: "25px 0 0 5px",
-  },
-  texta2: {
-    padding: "5px",
-  },
-  selectTime: {
-    color: "#666",
-    margin: "12px 0 0 20px",
-  },
+import EventNoteIcon from "@material-ui/icons/EventNote";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles.js";
+import Muted from "../../components/Typography/Muted.js";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import Link from "@material-ui/core/Link";
 
-  lichkham: {
-    fontSize: "20px",
-    color: "#333",
-    margin: "0 0 5px 0",
-    padding: "15px",
-  },
-  select: {
-    borderRadius: "0px",
-    BorderBottom: "1px solid #999",
-    background: "transparent",
-    color: "#337ab7",
-    padding: "3px",
-  },
-});
+const useStyles = makeStyles(imagesStyles);
 function DoctorDetail() {
   const classes = useStyles();
+  const [date, setDate] = React.useState("2");
 
+  const handleChange = (event) => {
+    setDate(event.target.value);
+  };
   const doctor = {
     name: "Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng",
-    pass: "Nguyên Trưởng phòng chỉ đạo tuyến tại Bệnh viện Da liễu Trung ương  ",
-    tieude: "ĐỊA CHỈ KHÁM",
-    ten: "Phòng khám Chuyên khoa Da Liễu",
-    diachi: "207 Phố Huế - Hai Bà Trưng - Hà Nội",
-    gia: "250.000 VND  ",
+    detail:
+      "Nguyên Trưởng phòng chỉ đạo tuyến tại Bệnh viện Da liễu Trung ương  ",
+    title: "ĐỊA CHỈ KHÁM",
+    roomName: "Phòng khám Chuyên khoa Da Liễu",
+    address: "207 Phố Huế - Hai Bà Trưng - Hà Nội",
+    price: "250.000 VND  ",
   };
 
   return (
-    <div>
-      <Grid container>
-        <Grid item xs={2}>
-          <img
-            src="https://cdn.bookingcare.vn/fr/w200/2020/03/17/114430-bshung.jpg"
-            alt="..."
-            className={classes.imageradios}
-          />
-        </Grid>
-        <Grid item xs={7}>
-          <div className={classes.texta}>{doctor.name}</div>
-          <div className={classes.text}>{doctor.pass}</div>
-        </Grid>
-      </Grid>
-      <div className={classes.selectTime}>
-        <p>
-          <select className={classes.select}>
-            <option>Thứ 2 - 25/10</option>
-            <option>Thứ 3 - 26/10</option>
-            <option>Thứ 4 - 27/10</option>
-          </select>
-        </p>
-      </div>
-      <Grid container>
-        <Grid item xs={6}>
-          <h3 className={classes.lichkham}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className={classes.icon}
-              viewBox="0 0 16 16"
-            >
-              <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-            </svg>
-            Lịch Khám
-          </h3>
-          <div className={classes.datlichkham}>
-            <Button className={classes.chongio}>15:00 - 15:30</Button>
-            <Button className={classes.chongio}>15:00 - 15:30</Button>
-            <Button className={classes.chongio}>15:00 - 15:30</Button>
-            <Button className={classes.chongio}>15:00 - 15:30</Button>
-            <Button className={classes.chongio}>15:00 - 15:30</Button>
-            <Button className={classes.chongio}>15:00 - 15:30</Button>
-            <Button className={classes.chongio}>15:00 - 15:30</Button>
-            <Button className={classes.chongio}>15:00 - 15:30</Button>
-          </div>
-          <div className={classes.huongdan}>
-            Chọn
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-arrow-up"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"
-              />
-            </svg>
-            và đặt (miễn phí)
-          </div>
-        </Grid>
+    <React.Fragment>
+      <CssBaseline />
+      <Box
+        sx={{
+          width: "90%",
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      >
+        <hr className="mt-4" />
+        <Grid container columnSpacing={{ xs: 1, sm: 4, md: 3 }}>
+          <Grid item xs={12} md={4}>
+            <div>
+              <div className="d-flex justify-content-center">
+                <img
+                  src="https://cdn.bookingcare.vn/fr/w200/2020/03/17/114430-bshung.jpg"
+                  alt="..."
+                  className={
+                    classes.imgRaised +
+                    " " +
+                    classes.imgRoundedCircle +
+                    " " +
+                    classes.imgFluid
+                  }
+                />
+              </div>
+              <div className="text-center mt-3">
+                <h5>{doctor.name} </h5>
+                <Muted>{doctor.detail} </Muted>
+                <Link
+                  component="button"
+                  variant="body2"
+                  onClick={() => {
+                    console.info("I'm a button.");
+                  }}
+                >
+                  Xem thêm
+                </Link>
+              </div>
+            </div>
+          </Grid>
 
-        <Grid item xs={6}>
-          <div className={classes.texta1}>{doctor.tieude}</div>
-          <div className={classes.texta}>{doctor.ten}</div>
-          <div className={classes.text}>{doctor.diachi}</div>
-          <div className={classes.text}>
-            Giá Khám: {doctor.gia}.
-            <a href="" className={classes.chititet}>
-              {" "}
-              Xem chi tiết
-            </a>
-          </div>
+          <Grid item xs={12} md={8}>
+            <Select className="col-md-3" value={date} onChange={handleChange}>
+              <MenuItem value={2}>Thứ 2 - 25/10</MenuItem>
+              <MenuItem value={3}>Thứ 3 - 26/10</MenuItem>
+              <MenuItem value={4}>Thứ 4 - 27/10</MenuItem>
+            </Select>
+
+            <div>
+              <h5 className="mt-3">
+                <EventNoteIcon />
+                LỊCH KHÁM
+              </h5>
+            </div>
+            <Box mt={3}>
+              <Grid container spacing={1}>
+                <Grid item>
+                  <Button color="lime">15:00 - 15:30</Button>
+                </Grid>
+                <Grid item>
+                  <Button color="lime">15:00 - 15:30</Button>
+                </Grid>
+                <Grid item>
+                  <Button color="lime">15:00 - 15:30</Button>
+                </Grid>
+                <Grid item>
+                  <Button color="lime">15:00 - 15:30</Button>
+                </Grid>
+                <Grid item>
+                  <Button color="lime">15:00 - 15:30</Button>
+                </Grid>
+                <Grid item>
+                  <Button color="lime">15:00 - 15:30</Button>
+                </Grid>
+              </Grid>
+            </Box>
+            <div className="mt-3">
+              Chọn <ArrowUpwardIcon size="sm" /> và đặt (miễn phí)
+            </div>
+            <hr />
+            <div>{doctor.title}</div>
+            <div>{doctor.name}</div>
+            <div>{doctor.address}</div>
+            <div>
+              Giá Khám: {doctor.price}.{" "}
+              <Link
+                component="button"
+                variant="body2"
+                onClick={() => {
+                  console.info("I'm a button.");
+                }}
+              >
+                Xem thêm
+              </Link>
+            </div>
+            <div>
+              Loại Bảo Hiểm áp dụng.
+              <Link
+                component="button"
+                variant="body2"
+                onClick={() => {
+                  console.info("I'm a button.");
+                }}
+              >
+                Xem thêm
+              </Link>
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-      <hr />
-      <h2 className={classes.texta3}>{doctor.name}</h2>
-      <ul className={classes.detail}>
-        <li>
-          <span>Phó giáo sư, Tiến sĩ, Bác sĩ cao cấp chuyên khoa Da liễu</span>
-        </li>
-        <li>         
-          <span>Tốt nghiệp Đại học Y Hà Nội (1977)</span>
-        </li>
-        <li>
-          <span>Giảng viên bộ môn Da liễu tại Đại Học Y Hà Nội</span>
-        </li>
-        <li>
-          <span>
-            Nguyên Trưởng phòng chỉ đạo tuyến tại Bệnh viện Da liễu Trung ương
-          </span>
-        </li>
-        <li>
-          <span>
-            Đạt chứng chỉ Diploma về Da liễu tại Viện da liễu Băng Cốc - Thái
-            Lan
-          </span>
-        </li>
-        <li>
-          <span>
-            Bác sĩ thường xuyên tham gia các Hội thảo, Hội nghị Quốc tế về Da
-            liễu
-          </span>
-        </li>
-        <li>
-          <span>Tổng thư ký hội Da liễu Việt Nam</span>
-        </li>
-        <li>
-          <span>Hội viên của Hội Da liễu Đông Nam Á, Châu Á và Thế giới</span>
-        </li>
-      </ul>
-    </div>
+      </Box>
+      <hr className="mt-4" />
+      <Box mt={3}>
+        <ul>
+          <h3>{doctor.name}</h3>
+          <li>
+            <span>
+              Phó giáo sư, Tiến sĩ, Bác sĩ cao cấp chuyên khoa Da liễu
+            </span>
+          </li>
+          <li>
+            <span>Tốt nghiệp Đại học Y Hà Nội (1977)</span>
+          </li>
+          <li>
+            <span>Giảng viên bộ môn Da liễu tại Đại Học Y Hà Nội</span>
+          </li>
+          <li>
+            <span>
+              Nguyên Trưởng phòng chỉ đạo tuyến tại Bệnh viện Da liễu Trung ương
+            </span>
+          </li>
+          <li>
+            <span>
+              Đạt chứng chỉ Diploma về Da liễu tại Viện da liễu Băng Cốc - Thái
+              Lan
+            </span>
+          </li>
+          <li>
+            <span>
+              Bác sĩ thường xuyên tham gia các Hội thảo, Hội nghị Quốc tế về Da
+              liễu
+            </span>
+          </li>
+          <li>
+            <span>Tổng thư ký hội Da liễu Việt Nam</span>
+          </li>
+          <li>
+            <span>Hội viên của Hội Da liễu Đông Nam Á, Châu Á và Thế giới</span>
+          </li>
+        </ul>
+      </Box>
+    </React.Fragment>
   );
 }
 export default DoctorDetail;
