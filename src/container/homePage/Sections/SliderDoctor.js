@@ -8,6 +8,7 @@ import CardFooter from "../../../components/Card/CardFooter";
 import GridItem from "../../../components/Grid/GridItem";
 import { makeStyles } from "@material-ui/core/styles";
 import imagesStyles from "../../../assets/jss/material-kit-react/imagesStyles";
+import React from "react";
 const useStyles = makeStyles(imagesStyles);
 export default function SliderDoctor() {
   const classes = useStyles();
@@ -45,8 +46,7 @@ export default function SliderDoctor() {
     ],
   };
   return (
-    <div>
-      <h2> BÁC SĨ NỔI BẬT</h2>
+    <React.Fragment>
       <Slider {...settings} className="p-3">
         <GridItem spacing={1}>
           <Card>
@@ -64,8 +64,8 @@ export default function SliderDoctor() {
                 alt=""
               />
             </CardBody>
-            <CardFooter>
-              <button>abc</button>
+            <CardFooter className="d-flex justify-content-center">
+              <button>xem thêm </button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -86,8 +86,8 @@ export default function SliderDoctor() {
                 alt="..."
               />
             </CardBody>
-            <CardFooter>
-              <button>abc</button>
+            <CardFooter className="d-flex justify-content-center">
+              <button>xem thêm </button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -108,8 +108,8 @@ export default function SliderDoctor() {
                 alt="..."
               />
             </CardBody>
-            <CardFooter>
-              <button>abc</button>
+            <CardFooter className="d-flex justify-content-center">
+              <button>xem thêm </button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -130,8 +130,8 @@ export default function SliderDoctor() {
                 alt=""
               />
             </CardBody>
-            <CardFooter>
-              <button>abc</button>
+            <CardFooter className="d-flex justify-content-center">
+              <button>xem thêm </button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -152,8 +152,8 @@ export default function SliderDoctor() {
                 alt=""
               />
             </CardBody>
-            <CardFooter>
-              <button>abc</button>
+            <CardFooter className="d-flex justify-content-center">
+              <button>xem thêm </button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -174,12 +174,12 @@ export default function SliderDoctor() {
                 alt=""
               />
             </CardBody>
-            <CardFooter>
-              <button>abc</button>
+            <CardFooter className="d-flex justify-content-center">
+              <button>xem thêm </button>
             </CardFooter>
           </Card>
         </GridItem>
       </Slider>
-    </div>
+    </React.Fragment>
   );
 }

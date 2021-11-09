@@ -16,10 +16,11 @@ import Parallax from "../../components/Parallax/Parallax.js";
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import styles from "../../assets/jss/material-kit-react/views/components.js";
 import DoctorDetail from "../doctor/DoctorDetail.js";
+import Doctor from "../doctor/Doctor";
 import SliderDoctor from "./Sections/SliderDoctor.js";
-import BookingForm from "../bookingForm/BookingForm";
-import ProductSlider from "./Sections/PoductSlider";
+import ProductSlider from "./Sections/ProductSlider";
 import TipSlider from "./Sections/TipSlider";
+import { CssBaseline } from "@material-ui/core";
 const useStyles = makeStyles(styles);
 
 export default function HomePage(props) {
@@ -54,19 +55,22 @@ export default function HomePage(props) {
 
       <div className={classNames(classes.main, classes.mainRaised)}>
         <GridContainer>
-          <GridItem md={12} className={classes.textCenter}>
+          <GridItem md={12} className={"mt-5 " + classes.textCenter}>
+            <h2>BÁC SĨ NỔI BẬT TUẦN QUA</h2>
             <SliderDoctor />
           </GridItem>
-          <hr/>
-          <GridItem md={12} className={classes.textCenter}>
+          <CssBaseline />
+          <GridItem md={12} className={"mt-5 " + classes.textCenter}>
+            <h2>SẢN PHẨM BÁN CHẠY</h2>
             <ProductSlider />
           </GridItem>
-          <hr />
-          <GridItem md={12} className={classes.textCenter}>
+
+          <GridItem md={12} className={"mt-5 " + classes.textCenter}>
+            <h2>CẨM NANG</h2>
             <TipSlider />
           </GridItem>
-          <hr />
-          <BookingForm />
+
+          <Doctor />
           <DoctorDetail />
         </GridContainer>
       </div>

@@ -1,3 +1,4 @@
+import React from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -8,16 +9,14 @@ import CardFooter from "../../../components/Card/CardFooter";
 import GridItem from "../../../components/Grid/GridItem";
 import { makeStyles } from "@material-ui/core/styles";
 import imagesStyles from "../../../assets/jss/material-kit-react/imagesStyles";
-import React from "react";
-import { Box } from "@material-ui/core";
 const useStyles = makeStyles(imagesStyles);
-export default function TipSlider() {
+export default function ProductSlider() {
   const classes = useStyles();
   var settings = {
     dots: true,
     infinite: true,
-    slidesToShow: 2,
-    slidesToScroll: 2,
+    slidesToShow: 4,
+    slidesToScroll: 4,
     autoplay: true,
     autoplaySpeed: 2000,
     responsive: [
