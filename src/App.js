@@ -6,6 +6,7 @@ import ProfilePage from "./views/ProfilePage/ProfilePage";
 import LoginPage from "./views/LoginPage/LoginPage";
 import ProductBox from "./container/product/ProductBox";
 import Component from "./views/Components/Components";
+import Carousels from "./components/carousel/Carousel"
 function App() {
   return (
     <div>
@@ -15,7 +16,7 @@ function App() {
         <Route path="/login" component={LoginPage} />
         <Route path="/product" component={ProductBox} />
         <Route path="/Component" component={Component} />
-        <Route path="/" component={HomePage} />
+        <Route path="/" component={Carousels} />
       </Switch>
     </div>
   );

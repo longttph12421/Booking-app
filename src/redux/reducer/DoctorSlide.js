@@ -6,7 +6,7 @@ export const getListD = createAsyncThunk("doctor/getList", async () => {
     return response.data;
 });
 
-export const doctortSlice = createSlice({
+export const doctorSlice = createSlice({
     name: "doctor",
     initialState: {
         value: [],
@@ -26,6 +26,6 @@ export const doctortSlice = createSlice({
     },
 });
 
-export const { getListDoctor } = doctortSlice.actions;
+export const { getListDoctor } = doctorSlice.actions;
 
-export default doctortSlice.reducer;
+export default doctorSlice.reducer;
