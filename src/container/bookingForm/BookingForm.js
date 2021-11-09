@@ -2,6 +2,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "../../components/CustomButtons/Button"
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import { getListD } from "../../redux/reducer/DoctorSlide";
+import { getListB } from "../../redux/reducer/BookingSlide";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 //import Modal
 const useStyles = makeStyles( (theme) =>({
     
@@ -27,7 +31,7 @@ const useStyles = makeStyles( (theme) =>({
     root: {
         '& > *': {
           margin: theme.spacing(2),
-          width: '70ch',
+          //width: '70ch',
         },
       },
       giakham:{
@@ -83,7 +87,25 @@ function BookingForm() {
         diachi: "207 Phố Huế - Hai Bà Trưng - Hà Nội",
         gia: "250.000 VND  ",
     };
+
+    const DoctorList = useSelector((state) => state.doctor.value);
+    const BookingList = useSelector((state) => state.booking.value);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+      dispatch(getListD());
+      dispatch(getListB());
+    }, [dispatch]);
+
+    const onClickBT = () => {
+        console.log(DoctorList);
+        console.log(BookingList);
+        //toast.toastSuccess("abc");
+        alert("buton");
+      };
+
     return (
+        
         <div>
             <Grid container>
                 <Grid container direction="row">
@@ -91,7 +113,7 @@ function BookingForm() {
                         <img
                             src="https://cdn.bookingcare.vn/fr/w200/2020/03/17/114430-bshung.jpg"
                             alt="..."
-                            className={classes.imageradios}
+                          //  className={classes.imageradios}
                         />
                     </Grid>
                     <Grid item xs={7} className={classes.bacsi}>
