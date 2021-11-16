@@ -13,14 +13,13 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import DateTime from "../../components/DateTime/DateTime";
 import constants from "../../configures/constants";
 import Container from "@material-ui/core/Container";
-import InfoArea from "../../components/InfoArea/InfoArea"
 
 //------------------------------------------------------
 
-function BookingForm() {
+function BookingForm({onsubmit}) {
   return (
     <React.Fragment>
-      <form>
+      <form onSubmit={onsubmit}>
         <Container>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>

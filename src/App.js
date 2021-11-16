@@ -1,28 +1,28 @@
-import React, {Component} from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
-import Sidebar from './components/CustomDropdown/sidebar/SideBar';
-import Router from './configures/router';
-import './theme/homeAdmin.css';
-import TopNav from "./components/CustomDropdown/topnav/TopNav";
-
-class App extends Component{
-    render() {
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import routes from "./configures/routes"
+function App() {
+  const showContent = (routes) => {
+    var content = null;
+    if (routes.length > 0) {
+      content = routes.map((rou, index) => {
         return (
-            <BrowserRouter>
-                <Route render={(props) => (
-                    <div className='layout'>
-                        <Sidebar {...props}/>
-                        <div className="layout__content">
-                            <TopNav/>
-                            <div className="layout__content-main">
-                                <Router/>
-                            </div>
-                        </div>
-                    </div>
-                )}/>
-            </BrowserRouter>
+          <Route
+            key={index}
+            path={rou.path}
+            exact={rou.exact}
+            component={rou.main}
+          />
         );
+      });
     }
+    return <Switch>{content}</Switch>;
+  };
+  return (
+    <div>
+      {showContent(routes)}
+    </div>
+  );
 }
 
 export default App;

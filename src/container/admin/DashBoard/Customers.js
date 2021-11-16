@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Table from '../../../components/CustomTabs/Table';
 import customerList from "../../../assets/routerAdmin/customers-list.json";
-import {CustomeService} from "../../../services/CustomeService";
+import {CustomerService} from "../../../services/CustomerService";
 const customerTableHead = [
     '',
     'name',
@@ -22,14 +22,14 @@ class Customers extends Component{
             data:{},
             listDataTable:[],
         }
-        this.service = new CustomeService();
+        this.service = new CustomerService();
     }
     componentDidMount = () => {
         this.getListDataCustomer();
     }
 
     getListDataCustomer = async ()=>{
-        let rs = await this.service.getListCusromer();
+        let rs = await this.service.getListCustomer();
         console.log('rs',rs);
         if(rs && rs.data && rs.data.data){
             this.setState({

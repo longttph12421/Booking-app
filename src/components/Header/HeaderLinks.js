@@ -30,24 +30,22 @@ export default function HeaderLinks(props) {
       <ListItem className={classes.listItem}>
         <CustomDropdown
           noLiPadding
-          buttonText="Components"
+          buttonText="DỊCH VỤ"
           buttonProps={{
-            className: classes.navLink,
+            className: classes.navLink,         
             color: "transparent",
           }}
           buttonIcon={Apps}
           dropdownList={[
-            <Link to="/" className={classes.dropdownLink}>
-              Home
-            </Link>,
             <Link to="/booking" className={classes.dropdownLink}>
-              Booking
+              Dặt lịch khám
             </Link>,
             <Link to="/Product" className={classes.dropdownLink}>
-              Product
+              Sản phẩm
             </Link>,
           ]}
         />
+
       </ListItem>
       <ListItem className={classes.listItem}>
         <Button
@@ -56,7 +54,7 @@ export default function HeaderLinks(props) {
           target="_blank"
           className={classes.navLink}
         >
-          <CloudDownload className={classes.icons} /> Download
+          <span className={classes.text}>GIỚI THIỆU</span>
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
@@ -66,7 +64,17 @@ export default function HeaderLinks(props) {
           target="_blank"
           className={classes.navLink}
         >
-          LOGIN
+          <span className={classes.text}>ĐẶT LỊCH KHÁM</span>
+        </Button>
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <Button
+          href="#"
+          color="transparent"
+          target="_blank"
+          className={classes.navLink}
+        >
+          <span className={classes.text}>HỖ TRỢ</span>
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
