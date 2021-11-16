@@ -77,7 +77,7 @@ export default function Footer(props) {
             className={aClasses}
             target="_blank"
           >
-            Team Dragon
+            Long
           </a>{" "}        
         </div>
       </div>

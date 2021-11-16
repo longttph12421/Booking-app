@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
-import { Router } from "react-router-dom";
+import { Router} from "react-router-dom";
 import "./index.css";
 import App from "./App";
 
@@ -9,8 +9,6 @@ import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 var hist = createBrowserHistory();
 
@@ -18,20 +16,18 @@ ReactDOM.render(
   <React.StrictMode>
     <Router history={hist}>
       <Provider store={store}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <App />
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-        </MuiPickersUtilsProvider>
+        <App />
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </Provider>
     </Router>
   </React.StrictMode>,

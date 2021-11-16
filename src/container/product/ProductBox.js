@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getListD } from "../../redux/reducer/DoctorSlide";
+import { getList } from "../../redux/reducer/ProductSlide";
 import * as toast from "../../common/toastHelper";
 function ProductBox() {
   const ProductList = useSelector((state) => state.product.value);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getListD());
+    dispatch(getList());
   }, [dispatch]);
   const onClickBT = () => {
     console.log(ProductList);

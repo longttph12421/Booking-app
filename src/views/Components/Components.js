@@ -17,11 +17,6 @@ import Parallax from "../../components/Parallax/Parallax.js";
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import SectionExamples from "./Sections/SectionExamples.js";
 import SectionDownload from "./Sections/SectionDownload.js";
-import SectionBasics from "./Sections/SectionBasics";
-import SectionCompletedExamples from "./Sections/SectionCompletedExamples.js";
-import SectionPills from "./Sections/SectionPills.js";
-import SectionTypography from "./Sections/SectionTypography.js";
-import SectionJavascript from "./Sections/SectionJavascript";
 import styles from "../../assets/jss/material-kit-react/views/components.js";
 
 const useStyles = makeStyles(styles);
@@ -29,7 +24,7 @@ const useStyles = makeStyles(styles);
 export default function Components(props) {
   const classes = useStyles();
   const { ...rest } = props;
-  // image={require("../../assets/img/logo.png").default}
+ // image={require("../../assets/img/logo.png").default}
   return (
     <div>
       <Header
@@ -50,7 +45,7 @@ export default function Components(props) {
               <div className={classes.brand}>
                 <h1 className={classes.title}>My Dinh eye clinic</h1>
                 <h3 className={classes.subtitle}>
-                  Better vision for a great life
+                 Better vision for a great life
                 </h3>
               </div>
             </GridItem>
@@ -65,13 +60,6 @@ export default function Components(props) {
               View Login Page
             </Button>
           </Link>
-          <SectionJavascript />
-          <SectionTypography />
-          <SectionBasics />
-          <SectionPills />
-          <SectionExamples />
-          <SectionDownload />
-          <SectionCompletedExamples />
         </GridItem>
       </div>
       <Footer />

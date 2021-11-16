@@ -11,18 +11,18 @@ import Header from "../../components/Header/Header.js";
 import Footer from "../../components/Footer/Footer.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
 import GridItem from "../../components/Grid/GridItem.js";
+import Button from "../../components/CustomButtons/Button.js";
 import Parallax from "../../components/Parallax/Parallax.js";
 // sections for this page
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import styles from "../../assets/jss/material-kit-react/views/components.js";
-import DoctorDetail from "../../container/doctor/DoctorDetail.js";
-import SimpleSlider from "./Sections/Index.js";
+import SectionBasics from "../Components/Sections/SectionBasics"
 const useStyles = makeStyles(styles);
 
 export default function HomePage(props) {
   const classes = useStyles();
   const { ...rest } = props;
-
+ // image={require("../../assets/img/logo.png").default}
   return (
     <div>
       <Header
@@ -36,7 +36,7 @@ export default function HomePage(props) {
         }}
         {...rest}
       />
-      <Parallax image={require("../../assets/img/backgrou.jpg").default}>
+      <Parallax image={require("../../assets/img/bg4.jpg").default}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem>
@@ -51,9 +51,15 @@ export default function HomePage(props) {
 
       <div className={classNames(classes.main, classes.mainRaised)}>
         <GridItem md={12} className={classes.textCenter}>
-         <SimpleSlider/>
+          <Link to={"/login-page"} className={classes.link}>
+            <Button color="primary" size="lg" simple>
+              View Login Page
+            </Button>
+          </Link>
+          <SectionBasics/>
+          <SectionBasics/>
+          <SectionBasics/>
         </GridItem>
-        <DoctorDetail/>
       </div>
       <Footer />
     </div>
