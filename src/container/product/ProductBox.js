@@ -1,27 +1,64 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getListD } from "../../redux/reducer/DoctorSlide";
-import * as toast from "../../common/toastHelper";
+import { getList } from "../../redux/reducer/ProductSlide";
+import { makeStyles } from "@material-ui/core/styles";
+import ProductSlider from "../homePage/Sections/PoductSlider";
+import Card from "../../components/Card/Card";
+import CardBody from "../../components/Card/CardBody";
+import CardFooter from "../../components/Card/CardFooter";
+import CardHeader from "../../components/Card/CardHeader";
+import GridItem from "../../components/Grid/GridItem";
+import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles";
+import GridContainer from "../../components/Grid/GridContainer";
+import Button from "../../components/CustomButtons/Button";
+import { useHistory } from "react-router-dom";
+
+const useStyles = makeStyles(imagesStyles);
 function ProductBox() {
+  let history = useHistory();
+  const classes = useStyles();
   const ProductList = useSelector((state) => state.product.value);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getListD());
+    dispatch(getList());
   }, [dispatch]);
   const onClickBT = () => {
-    console.log(ProductList);
-    toast.toastSuccess("abc");
-    alert(
-      "product: " +
-        ProductList.map((pr) => {
-          return pr.title;
-        })
-    );
+    history.push("/ProductDetail");
   };
   return (
     <div>
-      <h1>kết nối Product với store</h1>
-      <button onClick={onClickBT}>click</button>
+      <ProductSlider />
+
+      <GridContainer>
+        {
+        ProductList.map((product) => {
+          return (
+            <GridItem spacing={1} xs={12} lg={3}>
+              <Card>
+                <CardHeader>{product.name}</CardHeader>
+                <CardBody className="d-flex justify-content-center">
+                  <img onClick={onClickBT}
+                    className={
+                      classes.imgRaised +
+                      " " +
+                      classes.imgRoundedCircle +
+                      " " +
+                      classes.imgFluid
+                    }
+                    src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                    alt=""
+                  />
+                </CardBody>
+                <CardFooter>
+                  <Button color="primary" size="sm" onClick={onClickBT}>detail</Button>
+                  <Button color="primary" size="sm" className="">add to cart</Button>
+                </CardFooter>
+              </Card>
+            </GridItem>
+          );
+        })
+        }
+      </GridContainer>
     </div>
   );
 }

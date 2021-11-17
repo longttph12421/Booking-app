@@ -8,7 +8,6 @@ import CardFooter from "../../../components/Card/CardFooter";
 import GridItem from "../../../components/Grid/GridItem";
 import { makeStyles } from "@material-ui/core/styles";
 import imagesStyles from "../../../assets/jss/material-kit-react/imagesStyles";
-import GridContainer from "../../../components/Grid/GridContainer";
 const useStyles = makeStyles(imagesStyles);
 export default function ProductSlider() {
   const classes = useStyles();

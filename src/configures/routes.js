@@ -6,7 +6,8 @@ import ProfilePage from "../views/ProfilePage/ProfilePage";
 import LoginPage from "../views/LoginPage/LoginPage";
 import ProductBox from "../container/product/ProductBox";
 import Component from "../views/Components/Components";
-
+import LandingPage from "../views/LandingPage/LandingPage"
+import ProductDetail from '../container/product/ProductDetail';
 const routes = [
   { path: "/", exact: true, name: "Home", main: () => <HomePage /> },
   {
@@ -44,6 +45,18 @@ const routes = [
     exact: true,
     name: "Component",
     main: () => <Component />,
+  },
+  {
+    path: "/ProductDetail",
+    exact: true,
+    name: "ProductDetail",
+    main: () => <ProductDetail />,
+  },
+  {
+    path: "/Landing",
+    exact: true,
+    name: "Component",
+    main: () => <LandingPage />,
   },
 ];
 
