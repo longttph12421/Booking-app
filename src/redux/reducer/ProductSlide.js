@@ -3,25 +3,32 @@ import * as ProductService from "../../services/ProductService";
 
 export const getList = createAsyncThunk("product/getList", async () => {
   const response = await ProductService.getList();
-  return response.data;
+  return response.data.data;
+});
+
+export const addToCart = createAsyncThunk("product/addToCart", async (data) => {
+  const response = await ProductService.addProduct(data);
+  return response.data.data;
 });
 
 export const productSlice = createSlice({
   name: "product",
   initialState: {
-    value: [],
+    data: [],
   },
   reducers: {},
   extraReducers: {
     [getList.pending]: () => {
       //show loading
     },
+
     [getList.fulfilled]: (state, action) => {
-      state.value = action.payload;
+      state.data = action.payload;
     },
+
     [getList.rejected]: (state, error) => {
       console.log(error);
-      state.value = state;
+      state.data = state;
     },
   },
 });

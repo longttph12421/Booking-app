@@ -8,6 +8,7 @@ import ProductBox from "../container/product/ProductBox";
 import Component from "../views/Components/Components";
 import LandingPage from "../views/LandingPage/LandingPage"
 import ProductDetail from '../container/product/ProductDetail';
+
 const routes = [
   { path: "/", exact: true, name: "Home", main: () => <HomePage /> },
   {

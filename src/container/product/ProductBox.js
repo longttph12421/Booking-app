@@ -12,32 +12,42 @@ import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles";
 import GridContainer from "../../components/Grid/GridContainer";
 import Button from "../../components/CustomButtons/Button";
 import { useHistory } from "react-router-dom";
-
+import { addToCart } from "../../redux/reducer/ProductSlide";
 const useStyles = makeStyles(imagesStyles);
 function ProductBox() {
   let history = useHistory();
   const classes = useStyles();
-  const ProductList = useSelector((state) => state.product.value);
+  const ProductList = useSelector((state) => state.product.data);
   const dispatch = useDispatch();
+  const data = {
+    name: "abc",
+  };
+
   useEffect(() => {
     dispatch(getList());
   }, [dispatch]);
+
+  const abc = () => {
+    dispatch(addToCart(data));
+  };
+
   const onClickBT = () => {
     history.push("/ProductDetail");
   };
+
   return (
     <div>
       <ProductSlider />
 
       <GridContainer>
-        {
-        ProductList.map((product) => {
+        {ProductList.map((product) => {
           return (
             <GridItem spacing={1} xs={12} lg={3}>
               <Card>
                 <CardHeader>{product.name}</CardHeader>
                 <CardBody className="d-flex justify-content-center">
-                  <img onClick={onClickBT}
+                  <img
+                    onClick={onClickBT}
                     className={
                       classes.imgRaised +
                       " " +
@@ -50,14 +60,17 @@ function ProductBox() {
                   />
                 </CardBody>
                 <CardFooter>
-                  <Button color="primary" size="sm" onClick={onClickBT}>detail</Button>
-                  <Button color="primary" size="sm" className="">add to cart</Button>
+                  <Button color="primary" size="sm" onClick={onClickBT}>
+                    detail
+                  </Button>
+                  <Button color="primary" size="sm" className="">
+                    add to cart
+                  </Button>
                 </CardFooter>
               </Card>
             </GridItem>
           );
-        })
-        }
+        })}
       </GridContainer>
     </div>
   );
