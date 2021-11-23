@@ -1,6 +1,7 @@
 import React from "react";
+import HomePage from "./container/homePage/HomePage";
 import { Route, Switch } from "react-router-dom";
-import routes from "./configures/routes"
+import routes from "./configures/routes";
 function App() {
   const showContent = (routes) => {
     var content = null;
@@ -20,7 +21,7 @@ function App() {
   };
   return (
     <div>
-      {showContent(routes)}
+      <HomePage />
     </div>
   );
 }

@@ -16,10 +16,11 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "../../assets/jss/material-kit-react/components/headerStyle";
-
+import { useHistory } from "react-router-dom";
 const useStyles = makeStyles(styles);
 
 export default function Header(props) {
+  let history = useHistory();
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   React.useEffect(() => {
@@ -62,7 +63,12 @@ export default function Header(props) {
     [classes.fixed]: fixed,
   });
   const brandComponent = (
-    <Button className={classes.title}>
+    <Button
+      className={classes.title}
+      onclick={() => {
+        history.push("/");
+      }}
+    >
       {<VisibilityIcon fontSize="large" />}
       {brand}
     </Button>

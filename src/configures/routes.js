@@ -1,16 +1,17 @@
-import React from 'react'
-import Dashboard from '../container/admin/DashBoard/Dashboard'
-import Customers from '../container/admin/DashBoard/Customers'
-import HomePage from "../container/homePage/HomePage";
+import React from "react";
+import Dashboard from "../container/admin/DashBoard/Dashboard";
+import Customers from "../container/admin/DashBoard/Customers";
+import Index from "../container/homePage/Sections/Index";
 import ProfilePage from "../views/ProfilePage/ProfilePage";
 import LoginPage from "../views/LoginPage/LoginPage";
 import ProductBox from "../container/product/ProductBox";
 import Component from "../views/Components/Components";
-import LandingPage from "../views/LandingPage/LandingPage"
-import ProductDetail from '../container/product/ProductDetail';
-
+import LandingPage from "../views/LandingPage/LandingPage";
+import ProductDetail from "../container/product/ProductDetail";
+import Doctor from "../container/doctor/Doctor";
+import DoctorDetail from "../container/doctor/DoctorDetail";
 const routes = [
-  { path: "/", exact: true, name: "Home", main: () => <HomePage /> },
+  { path: "/", exact: true, name: "Home", main: () => <Index /> },
   {
     path: "/admin",
     exact: true,
@@ -23,6 +24,7 @@ const routes = [
     name: "Customer",
     main: () => <Customers />,
   },
+
   {
     path: "/Product",
     exact: true,
@@ -58,6 +60,18 @@ const routes = [
     exact: true,
     name: "Component",
     main: () => <LandingPage />,
+  },
+  {
+    path: "/Doctor",
+    exact: true,
+    name: "Doctor",
+    main: () => <Doctor />,
+  },
+  {
+    path: "/DoctorDetail",
+    exact: true,
+    name: "DoctorDetail",
+    main: () => <DoctorDetail />,
   },
 ];
 

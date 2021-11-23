@@ -4,6 +4,8 @@ import classNames from "classnames";
 // react components for routing our app without refresh
 //import { Link } from "react-router-dom";
 // @material-ui/core components
+import { Route, Switch } from "react-router-dom";
+import routes from "../../configures/routes";
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 // core components
@@ -16,17 +18,29 @@ import Parallax from "../../components/Parallax/Parallax.js";
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import styles from "../../assets/jss/material-kit-react/views/components.js";
 import DoctorDetail from "../doctor/DoctorDetail.js";
-import Doctor from "../doctor/Doctor";
-import SliderDoctor from "./Sections/SliderDoctor.js";
-import ProductSlider from "./Sections/ProductSlider";
-import TipSlider from "./Sections/TipSlider";
-import { CssBaseline } from "@material-ui/core";
+import Doctor from "../doctor/Doctor.js";
+import Index from "./Sections/Index";
 const useStyles = makeStyles(styles);
 
 export default function HomePage(props) {
   const classes = useStyles();
   const { ...rest } = props;
-
+  const showContent = (routes) => {
+    var content = null;
+    if (routes.length > 0) {
+      content = routes.map((rou, index) => {
+        return (
+          <Route
+            key={index}
+            path={rou.path}
+            exact={rou.exact}
+            component={rou.main}
+          />
+        );
+      });
+    }
+    return <Switch>{content}</Switch>;
+  };
   return (
     <div>
       <Header
@@ -54,25 +68,7 @@ export default function HomePage(props) {
       </Parallax>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <GridContainer>
-          <GridItem md={12} className={"mt-5 " + classes.textCenter}>
-            <h2>BÁC SĨ NỔI BẬT TUẦN QUA</h2>
-            <SliderDoctor />
-          </GridItem>
-          <CssBaseline />
-          <GridItem md={12} className={"mt-5 " + classes.textCenter}>
-            <h2>SẢN PHẨM BÁN CHẠY</h2>
-            <ProductSlider />
-          </GridItem>
-
-          <GridItem md={12} className={"mt-5 " + classes.textCenter}>
-            <h2>CẨM NANG</h2>
-            <TipSlider />
-          </GridItem>
-
-          <Doctor />
-          <DoctorDetail />
-        </GridContainer>
+        {showContent(routes)}
       </div>
       <Footer />
     </div>
