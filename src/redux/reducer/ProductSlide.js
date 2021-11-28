@@ -11,10 +11,17 @@ export const addToCart = createAsyncThunk("product/addToCart", async (data) => {
   return response.data.data;
 });
 
+export const findById = createAsyncThunk("product/findById", async (id) => {
+  const response = await ProductService.findById(id);
+  
+  return response.data.data;
+});
 export const productSlice = createSlice({
   name: "product",
   initialState: {
     data: [],
+    product :{},
+
   },
   reducers: {},
   extraReducers: {
@@ -30,7 +37,21 @@ export const productSlice = createSlice({
       console.log(error);
       state.data = state;
     },
+    
+    [findById.pending]: () => {
+      //show loading
+    },
+
+    [findById.fulfilled]: (state, action) => {
+      state.product = action.payload;
+    },
+
+    [findById.rejected]: (state, error) => {
+      console.log(error);
+      state.product = state;
+    },
   },
+
 });
 
 export const { getListProduct } = productSlice.actions;

@@ -8,6 +8,7 @@ import CardFooter from "../../../components/Card/CardFooter";
 import GridItem from "../../../components/Grid/GridItem";
 import { makeStyles } from "@material-ui/core/styles";
 import imagesStyles from "../../../assets/jss/material-kit-react/imagesStyles";
+import Button  from  "../../../components/CustomButtons/Button";
 import React from "react";
 const useStyles = makeStyles(imagesStyles);
 export default function SliderDoctor() {
@@ -50,7 +51,7 @@ export default function SliderDoctor() {
       <Slider {...settings} className="p-3">
         <GridItem spacing={1}>
           <Card>
-            <CardHeader>viêm kết mạc</CardHeader>
+            <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
                 className={
@@ -65,14 +66,14 @@ export default function SliderDoctor() {
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
+            <Button size="sm" color="primary">xem thêm </Button>
             </CardFooter>
           </Card>
         </GridItem>
 
         <GridItem spacing={1}>
           <Card>
-            <CardHeader>header</CardHeader>
+            <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
                 className={
@@ -82,19 +83,19 @@ export default function SliderDoctor() {
                   " " +
                   classes.imgFluid
                 }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                src="https://cdn.bookingcare.vn/fr/w200/2020/03/17/114430-bshung.jpg"
                 alt="..."
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
+              <Button size="sm" color="primary">xem thêm </Button>
             </CardFooter>
           </Card>
         </GridItem>
 
         <GridItem spacing={1}>
           <Card>
-            <CardHeader>header</CardHeader>
+            <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
                 className={
@@ -104,19 +105,63 @@ export default function SliderDoctor() {
                   " " +
                   classes.imgFluid
                 }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                src="https://cdn.bookingcare.vn/fr/w200/2021/01/18/105401-bsckii-tran-minh-khuyen.jpg"
                 alt="..."
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
+              <Button size="sm" color="primary">xem thêm </Button>
             </CardFooter>
           </Card>
         </GridItem>
 
         <GridItem spacing={1}>
           <Card>
-            <CardHeader>header</CardHeader>
+            <CardHeader></CardHeader>
+            <CardBody className="d-flex justify-content-center">
+              <img
+                className={
+                  classes.imgRaised +
+                  " " +
+                  classes.imgRoundedCircle +
+                  " " +
+                  classes.imgFluid
+                }
+                src="https://cdn.bookingcare.vn/fr/w200/2021/06/01/143859-bs-van.jpg"
+                alt=""
+              />
+            </CardBody>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">xem thêm </Button>
+            </CardFooter>
+          </Card>
+        </GridItem>
+
+        <GridItem spacing={1}>
+          <Card>
+            <CardHeader></CardHeader>
+            <CardBody className="d-flex justify-content-center">
+              <img
+                className={
+                  classes.imgRaised +
+                  " " +
+                  classes.imgRoundedCircle +
+                  " " +
+                  classes.imgFluid
+                }
+                src="https://cdn.bookingcare.vn/fr/w200/2021/01/21/142313-bs-tran-huu-binh.jpg"
+                alt=""
+              />
+            </CardBody>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">xem thêm </Button>
+            </CardFooter>
+          </Card>
+        </GridItem>
+
+        <GridItem spacing={1}>
+          <Card>
+            <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
                 className={
@@ -131,51 +176,7 @@ export default function SliderDoctor() {
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
-            </CardFooter>
-          </Card>
-        </GridItem>
-
-        <GridItem spacing={1}>
-          <Card>
-            <CardHeader>header</CardHeader>
-            <CardBody className="d-flex justify-content-center">
-              <img
-                className={
-                  classes.imgRaised +
-                  " " +
-                  classes.imgRoundedCircle +
-                  " " +
-                  classes.imgFluid
-                }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
-                alt=""
-              />
-            </CardBody>
-            <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
-            </CardFooter>
-          </Card>
-        </GridItem>
-
-        <GridItem spacing={1}>
-          <Card>
-            <CardHeader>header</CardHeader>
-            <CardBody className="d-flex justify-content-center">
-              <img
-                className={
-                  classes.imgRaised +
-                  " " +
-                  classes.imgRoundedCircle +
-                  " " +
-                  classes.imgFluid
-                }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
-                alt=""
-              />
-            </CardBody>
-            <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
+              <Button size="sm" color="primary">xem thêm </Button>
             </CardFooter>
           </Card>
         </GridItem>

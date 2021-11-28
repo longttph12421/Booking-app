@@ -39,6 +39,13 @@ const imagesStyles = {
     left: "0",
     padding: "1.25rem",
   },
+  imgproduct:{
+    width:"400px",
+    height:"300px",
+    
+
+  },
+ 
 };
 
 export default imagesStyles;

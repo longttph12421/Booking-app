@@ -9,6 +9,7 @@ import GridItem from "../../../components/Grid/GridItem";
 import { makeStyles } from "@material-ui/core/styles";
 import imagesStyles from "../../../assets/jss/material-kit-react/imagesStyles";
 import React from "react";
+import Button  from  "../../../components/CustomButtons/Button";
 import { Box } from "@material-ui/core";
 const useStyles = makeStyles(imagesStyles);
 export default function TipSlider() {
@@ -51,135 +52,94 @@ export default function TipSlider() {
       <Slider {...settings} className="p-3">
         <GridItem spacing={1}>
           <Card>
-            <CardHeader>viêm kết mạc</CardHeader>
+            <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
                 className={
                   classes.imgRaised +
-                  " " +
-                  classes.imgRoundedCircle +
+                  
+                  
                   " " +
                   classes.imgFluid
                 }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                src="https://www.matsaigon.com/wp-content/uploads/kinh-ap-trong-1.jpg"
                 alt=""
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
+            <Button size="sm" color="primary">xem thêm </Button>
             </CardFooter>
           </Card>
         </GridItem>
 
         <GridItem spacing={1}>
           <Card>
-            <CardHeader>header</CardHeader>
+            <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
                 className={
                   classes.imgRaised +
-                  " " +
-                  classes.imgRoundedCircle +
+                  
+                  
                   " " +
                   classes.imgFluid
                 }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                src="https://www.matsaigon.com/wp-content/uploads/luu-y-khi-su-dung-kinh-ap-trong-2-768x512.jpg"
                 alt="..."
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
+              <Button size="sm" color="primary">xem thêm </Button>
             </CardFooter>
           </Card>
         </GridItem>
 
+       
         <GridItem spacing={1}>
           <Card>
-            <CardHeader>header</CardHeader>
+            <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
                 className={
                   classes.imgRaised +
-                  " " +
-                  classes.imgRoundedCircle +
-                  " " +
-                  classes.imgFluid
-                }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
-                alt="..."
-              />
-            </CardBody>
-            <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
-            </CardFooter>
-          </Card>
-        </GridItem>
-
-        <GridItem spacing={1}>
-          <Card>
-            <CardHeader>header</CardHeader>
-            <CardBody className="d-flex justify-content-center">
-              <img
-                className={
-                  classes.imgRaised +
-                  " " +
-                  classes.imgRoundedCircle +
+                 
+                  
                   " " +
                   classes.imgFluid
                 }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                src="https://www.matsaigon.com/wp-content/uploads/thuc-pham-tot-cho-mat.jpg"
                 alt=""
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
+            <Button size="sm" color="primary">xem thêm </Button>
             </CardFooter>
           </Card>
         </GridItem>
 
         <GridItem spacing={1}>
           <Card>
-            <CardHeader>header</CardHeader>
+            <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
                 className={
                   classes.imgRaised +
                   " " +
-                  classes.imgRoundedCircle +
+                  
                   " " +
                   classes.imgFluid
                 }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                src="https://www.matsaigon.com/wp-content/uploads/thuc-pham-tot-cho-mat-1.jpg"
                 alt=""
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
+            <Button size="sm" color="primary">xem thêm </Button>
             </CardFooter>
           </Card>
         </GridItem>
 
-        <GridItem spacing={1}>
-          <Card>
-            <CardHeader>header</CardHeader>
-            <CardBody className="d-flex justify-content-center">
-              <img
-                className={
-                  classes.imgRaised +
-                  " " +
-                  classes.imgRoundedCircle +
-                  " " +
-                  classes.imgFluid
-                }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
-                alt=""
-              />
-            </CardBody>
-            <CardFooter className="d-flex justify-content-center">
-              <button>xem thêm </button>
-            </CardFooter>
-          </Card>
-        </GridItem>
+      
       </Slider>
     </React.Fragment>
   );

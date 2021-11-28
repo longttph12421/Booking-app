@@ -82,7 +82,7 @@ export default function ProductSlider() {
                   " " +
                   classes.imgFluid
                 }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                src="https://cdn.bookingcare.vn/fr/w200/2020/03/17/114430-bshung.jpg"
                 alt="..."
               />
             </CardBody>
@@ -104,7 +104,7 @@ export default function ProductSlider() {
                   " " +
                   classes.imgFluid
                 }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                src="https://cdn.bookingcare.vn/fr/w200/2021/01/18/105401-bsckii-tran-minh-khuyen.jpg"
                 alt="..."
               />
             </CardBody>
@@ -126,7 +126,7 @@ export default function ProductSlider() {
                   " " +
                   classes.imgFluid
                 }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                src="https://cdn.bookingcare.vn/fr/w200/2021/06/01/143859-bs-van.jpg"
                 alt=""
               />
             </CardBody>
@@ -148,7 +148,7 @@ export default function ProductSlider() {
                   " " +
                   classes.imgFluid
                 }
-                src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg"
+                src="https://cdn.bookingcare.vn/fr/w200/2021/01/21/142313-bs-tran-huu-binh.jpg"
                 alt=""
               />
             </CardBody>

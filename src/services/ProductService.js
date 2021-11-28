@@ -15,6 +15,11 @@ export const getList = () => {
   return axiosHelper.post(`${constants.API_URL}rest/product/getAll`,data);
 };
 
+export const findById = (id) => {
+  
+  
+  return axiosHelper.get(`${constants.API_URL}rest/product/${id}`);
+};
 export function Search(params) {
   return axiosHelper.get(`${constants.API_URL}/${url(1)}?search=${params}`);
 }
@@ -29,6 +34,7 @@ export const updateProduct = (payload) => {
     payload
   );
 };
+
 
 export const deleteProduct = (data) => {
   return axiosHelper.delete(
