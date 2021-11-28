@@ -10,6 +10,7 @@ import LandingPage from "../views/LandingPage/LandingPage";
 import ProductDetail from "../container/product/ProductDetail";
 import Doctor from "../container/doctor/Doctor";
 import DoctorDetail from "../container/doctor/DoctorDetail";
+import ProductCart from "../container/product/ProductCart";
 const routes = [
   { path: "/", exact: true, name: "Home", main: () => <Index /> },
   {
@@ -30,6 +31,12 @@ const routes = [
     exact: true,
     name: "Product",
     main: () => <ProductBox />,
+  },
+  {
+    path: "/Cart",
+    exact: true,
+    name: "Product",
+    main: () => <ProductCart />,
   },
   {
     path: "/Category",

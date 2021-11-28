@@ -20,6 +20,7 @@ import styles from "../../assets/jss/material-kit-react/views/components.js";
 import DoctorDetail from "../doctor/DoctorDetail.js";
 import Doctor from "../doctor/Doctor.js";
 import Index from "./Sections/Index";
+import { Box, CssBaseline } from "@material-ui/core";
 const useStyles = makeStyles(styles);
 
 export default function HomePage(props) {
@@ -68,7 +69,8 @@ export default function HomePage(props) {
       </Parallax>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
-        {showContent(routes)}
+       <CssBaseline/>
+       <Box mt={5}> {showContent(routes)}</Box>
       </div>
       <Footer />
     </div>
