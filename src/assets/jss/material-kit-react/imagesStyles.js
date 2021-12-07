@@ -1,3 +1,4 @@
+
 const imagesStyles = {
   imgFluid: {
     maxWidth: "100%",
@@ -39,13 +40,15 @@ const imagesStyles = {
     left: "0",
     padding: "1.25rem",
   },
-  imgproduct:{
-    width:"400px",
-    height:"300px",
-    
-
+  text: {
+    color: "#3C4858",
+    margin: "1.75rem 0 0.875rem",
+    textDecoration: "none",
+    fontWeight: "700",
+    fontFamily: '"Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",BlinkMacSystemFont, sans-serif',
+    position: "relative",
+    width: "100%",
   },
- 
 };
 
 export default imagesStyles;

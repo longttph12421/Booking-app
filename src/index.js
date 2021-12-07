@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
-import { Router} from "react-router-dom";
+import { Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
-
+import Loading from "./components/loading/Loading";
 import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -17,6 +17,7 @@ ReactDOM.render(
     <Router history={hist}>
       <Provider store={store}>
         <App />
+        <Loading />
         <ToastContainer
           position="top-center"
           autoClose={5000}

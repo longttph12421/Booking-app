@@ -7,9 +7,9 @@ export const getAll = () => {
       property: "id",
     },
   ];
-  return axiosHelper.post(`${constants.API_URL}rest/staff/getAll`,data);
+  return axiosHelper.post(`${constants.API_URL}rest/time/getAll`,data);
 };
 
 export function findById(id) {
-  return axiosHelper.get(`${constants.API_URL}rest/staff/${id}`);
+  return axiosHelper.get(`${constants.API_URL}rest/time/${id}`);
 }

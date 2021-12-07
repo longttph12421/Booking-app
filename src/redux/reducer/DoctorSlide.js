@@ -1,29 +1,32 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as DoctorService from "../../services/DoctorService";
 
-export const getListD = createAsyncThunk("doctor/getList", async () => {
-    const response = await DoctorService.getList();
-    return response.data;
+export const getAll = createAsyncThunk("staff/getAll", async () => {
+  
+  const response = await DoctorService.getAll();
+  return response.data.data;
 });
 
 export const doctorSlice = createSlice({
-    name: "doctor",
-    initialState: {
-        value: [],
+  name: "doctor",
+  initialState: {
+    data: [],
+    value: {},
+  },
+  reducers: {},
+  extraReducers: {
+    [getAll.pending]: () => {
     },
-    reducers: {},
-    extraReducers: {
-        [getListD.pending]: () => {
-            //show loading
-        },
-        [getListD.fulfilled]: (state, action) => {
-            state.value = action.payload;
-        },
-        [getListD.rejected]: (state, error) => {
-            console.log(error);
-            state.value = state;
-        },
+
+    [getAll.fulfilled]: (state, action) => {
+      state.data = action.payload;
     },
+
+    [getAll.rejected]: (state, error) => {
+      console.log(error);
+      state.data = state;
+    },
+  },
 });
 
 export const { getListDoctor } = doctorSlice.actions;

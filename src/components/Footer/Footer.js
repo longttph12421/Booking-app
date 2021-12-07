@@ -9,7 +9,7 @@ import { List, ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
-import Favorite from "@material-ui/icons/Favorite";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import footerStyle from "../../assets/jss/material-kit-react/components/footerStyle"
 //import styles from "assets/jss/material-kit-react/components/footerStyle.js";
 
@@ -37,7 +37,7 @@ export default function Footer(props) {
                 className={classes.block}
                 target="_blank"
               >
-                About us
+                GIỚI THIỆU
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
@@ -46,7 +46,7 @@ export default function Footer(props) {
                 className={classes.block}
                 target="_blank"
               >
-                Contact
+                LIÊN HỆ
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
@@ -64,14 +64,14 @@ export default function Footer(props) {
                 className={classes.block}
                 target="_blank"
               >
-                Support
+                HỖ TRỢ
               </a>
             </ListItem>
           </List>
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} , made with{" "}
-          <Favorite className={classes.icon} /> by{" "}
+          &copy; {1900 + new Date().getYear()} , bản quyền{" "}
+          <FavoriteIcon/> thuộc{" "}
           <a
             href="#"
             className={aClasses}

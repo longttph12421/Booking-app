@@ -32,20 +32,22 @@ export default function HeaderLinks(props) {
           noLiPadding
           buttonText="DỊCH VỤ"
           buttonProps={{
-            className: classes.navLink,         
+            className: classes.navLink,
             color: "transparent",
           }}
           buttonIcon={Apps}
           dropdownList={[
-            <Link to="/booking" className={classes.dropdownLink}>
-              Dặt lịch khám
+            <Link to="/doctor" className={classes.dropdownLink}>
+              Đặt lịch khám
             </Link>,
-            <Link to="/Product" className={classes.dropdownLink}>
+            <Link to="/service" className={classes.dropdownLink}>
+              Dịch vụ khám
+            </Link>,
+            <Link to="/product" className={classes.dropdownLink}>
               Sản phẩm
             </Link>,
           ]}
         />
-
       </ListItem>
       <ListItem className={classes.listItem}>
         <Button

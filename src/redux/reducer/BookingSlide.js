@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as BookingService from "../../services/BookingService";
 
 export const getListB = createAsyncThunk("booking/getList", async () => {
+
     const response = await BookingService.getList();
     return response.data;
 });

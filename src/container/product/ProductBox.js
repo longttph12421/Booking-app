@@ -1,78 +1,60 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getList, findById } from "../../redux/reducer/ProductSlide";
+import { getList } from "../../redux/reducer/ProductSlide";
 import { makeStyles } from "@material-ui/core/styles";
-import ProductSlider from "../homePage/Sections/PoductSlider";
+import ProductSlider from "../homePage/Sections/ProductSlider";
 import Card from "../../components/Card/Card";
 import CardBody from "../../components/Card/CardBody";
 import CardFooter from "../../components/Card/CardFooter";
+import CardHeader from "../../components/Card/CardHeader";
 import GridItem from "../../components/Grid/GridItem";
 import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles";
 import GridContainer from "../../components/Grid/GridContainer";
 import Button from "../../components/CustomButtons/Button";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { addToCart } from "../../redux/reducer/ProductSlide";
-import Muted  from "../../components/Typography/Muted";
-
-
 const useStyles = makeStyles(imagesStyles);
+
 function ProductBox() {
   let history = useHistory();
   const classes = useStyles();
   const ProductList = useSelector((state) => state.product.data);
   const dispatch = useDispatch();
-  const data = {
-    name: "abc",
-  };
-
   useEffect(() => {
     dispatch(getList());
   }, [dispatch]);
 
-  const abc = () => {
-    dispatch(addToCart(data));
-  };
-
-  const onClickBT = (id) => {
-    dispatch(findById(id));
+  const onClickBT = () => {
     history.push("/ProductDetail");
   };
 
   return (
     <div>
       <ProductSlider />
-
       <GridContainer>
         {ProductList.map((product) => {
           return (
-            <GridItem spacing={1} xs={3} lg={12}>
+            <GridItem spacing={1} xs={12} lg={3} key={product.id}>
               <Card>
-               
-                
-              
+                <CardHeader>{product.name}</CardHeader>
                 <CardBody className="d-flex justify-content-center">
-                  
-                  <img
-                    onClick={() =>
-                    {
-                      onClickBT(product.id)
-                    }} 
-                    className={
-                      classes.imgRaised +
-                      " " +
-                     
-                      classes.imgFluid
-                    }
-                    src={product.image}
-                    alt=""
-                  />
+                  <Link to={`/product/${product.id}`}>
+                    <img
+                      onClick={onClickBT}
+                      className={
+                        classes.imgRaised +
+                        " " +
+                        classes.imgRoundedCircle +
+                        " " +
+                        classes.imgFluid
+                      }
+                      src={product.image}
+                      alt="..."
+                    />
+                  </Link>
                 </CardBody>
-                <CardFooter className="d-flex justify-content-center"> <Muted> <h4>{product.name}</h4></Muted></CardFooter>
                 <CardFooter>
-                  <Button color="primary" size="sm"  onClick={() =>
-                    {
-                      onClickBT(product.id)
-                    }} >
+                  <Button color="primary" size="sm" onClick={onClickBT}>
                     detail
                   </Button>
                   <Button color="primary" size="sm" className="">

@@ -8,7 +8,8 @@ import CardFooter from "../../../components/Card/CardFooter";
 import GridItem from "../../../components/Grid/GridItem";
 import { makeStyles } from "@material-ui/core/styles";
 import imagesStyles from "../../../assets/jss/material-kit-react/imagesStyles";
-import Button  from  "../../../components/CustomButtons/Button";
+import Button from "../../../components/CustomButtons/Button";
+import Muted from "../../../components/Typography/Muted";
 import React from "react";
 const useStyles = makeStyles(imagesStyles);
 export default function SliderDoctor() {
@@ -66,7 +67,16 @@ export default function SliderDoctor() {
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-            <Button size="sm" color="primary">xem thêm </Button>
+              {" "}
+              <Muted>
+                {" "}
+                <h4>Trần Hoài Hương</h4>
+              </Muted>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -88,7 +98,16 @@ export default function SliderDoctor() {
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <Button size="sm" color="primary">xem thêm </Button>
+              {" "}
+              <Muted>
+                {" "}
+                <h4>Nguyễn Duy Hưng</h4>
+              </Muted>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -110,7 +129,16 @@ export default function SliderDoctor() {
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <Button size="sm" color="primary">xem thêm </Button>
+              {" "}
+              <Muted>
+                {" "}
+                <h4>Trần Minh Khuyên</h4>
+              </Muted>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -132,7 +160,16 @@ export default function SliderDoctor() {
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <Button size="sm" color="primary">xem thêm </Button>
+              {" "}
+              <Muted>
+                {" "}
+                <h4>Võ Thanh Vân</h4>
+              </Muted>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -154,7 +191,16 @@ export default function SliderDoctor() {
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <Button size="sm" color="primary">xem thêm </Button>
+              {" "}
+              <Muted>
+                {" "}
+                <h4>Trần Hữu Bình</h4>
+              </Muted>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -176,7 +222,16 @@ export default function SliderDoctor() {
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <Button size="sm" color="primary">xem thêm </Button>
+              {" "}
+              <Muted>
+                {" "}
+                <h4>Trần Hoài Hương</h4>
+              </Muted>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>

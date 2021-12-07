@@ -9,11 +9,14 @@ import GridItem from "../../../components/Grid/GridItem";
 import { makeStyles } from "@material-ui/core/styles";
 import imagesStyles from "../../../assets/jss/material-kit-react/imagesStyles";
 import React from "react";
-import Button  from  "../../../components/CustomButtons/Button";
-import { Box } from "@material-ui/core";
+import Button from "../../../components/CustomButtons/Button";
+import Muted from "../../../components/Typography/Muted";
+import styles from "../../../assets/jss/material-kit-react/views/componentsSections/typographyStyle.js"
 const useStyles = makeStyles(imagesStyles);
+const Styles = makeStyles(styles);
 export default function TipSlider() {
   const classes = useStyles();
+  const classes2 = Styles();
   var settings = {
     dots: true,
     infinite: true,
@@ -55,19 +58,18 @@ export default function TipSlider() {
             <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
-                className={
-                  classes.imgRaised +
-                  
-                  
-                  " " +
-                  classes.imgFluid
-                }
+                className={classes.imgRaised + " " + classes.imgFluid}
                 src="https://www.matsaigon.com/wp-content/uploads/kinh-ap-trong-1.jpg"
                 alt=""
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-            <Button size="sm" color="primary">xem thêm </Button>
+              <h4>Cẩm nang về mắt</h4>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -77,42 +79,39 @@ export default function TipSlider() {
             <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
-                className={
-                  classes.imgRaised +
-                  
-                  
-                  " " +
-                  classes.imgFluid
-                }
+                className={classes.imgRaised + " " + classes.imgFluid}
                 src="https://www.matsaigon.com/wp-content/uploads/luu-y-khi-su-dung-kinh-ap-trong-2-768x512.jpg"
                 alt="..."
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <Button size="sm" color="primary">xem thêm </Button>
+              <h4>Cẩm nang về mắt</h4>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
 
-       
         <GridItem spacing={1}>
           <Card>
             <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
-                className={
-                  classes.imgRaised +
-                 
-                  
-                  " " +
-                  classes.imgFluid
-                }
+                className={classes.imgRaised + " " + classes.imgFluid}
                 src="https://www.matsaigon.com/wp-content/uploads/thuc-pham-tot-cho-mat.jpg"
                 alt=""
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-            <Button size="sm" color="primary">xem thêm </Button>
+              <h4>Cẩm nang về mắt</h4>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -122,24 +121,21 @@ export default function TipSlider() {
             <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
-                className={
-                  classes.imgRaised +
-                  " " +
-                  
-                  " " +
-                  classes.imgFluid
-                }
+                className={classes.imgRaised + " " + " " + classes.imgFluid}
                 src="https://www.matsaigon.com/wp-content/uploads/thuc-pham-tot-cho-mat-1.jpg"
                 alt=""
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-            <Button size="sm" color="primary">xem thêm </Button>
+              <h4>Cẩm nang về mắt</h4>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
-
-      
       </Slider>
     </React.Fragment>
   );

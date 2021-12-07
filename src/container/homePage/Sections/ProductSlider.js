@@ -8,10 +8,11 @@ import CardBody from "../../../components/Card/CardBody";
 import CardFooter from "../../../components/Card/CardFooter";
 import GridItem from "../../../components/Grid/GridItem";
 import { makeStyles } from "@material-ui/core/styles";
-import Button  from  "../../../components/CustomButtons/Button";
+import Button from "../../../components/CustomButtons/Button";
 import imagesStyles from "../../../assets/jss/material-kit-react/imagesStyles";
+import Muted from "../../../components/Typography/Muted";
 const useStyles = makeStyles(imagesStyles);
-export default function ProductSlider() {
+function ProductSlider() {
   const classes = useStyles();
   var settings = {
     dots: true,
@@ -54,18 +55,20 @@ export default function ProductSlider() {
             <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
-                className={
-                  classes.imgRaised +
-                  " " +
-                  
-                  classes.imgFluid
-                }
+                className={classes.imgRaised + " " + classes.imgFluid}
                 src="https://nhathuoclongchau.com/upload/post/48048/images/kinh-can.jpg"
                 alt=""
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <Button size="sm" color="primary">xem thêm </Button>
+              <Muted>
+                <h4>Kính cận</h4>
+              </Muted>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
@@ -75,71 +78,77 @@ export default function ProductSlider() {
             <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
-                className={
-                  classes.imgRaised +
-                  " " +
-                  
-                  classes.imgFluid
-                }
+                className={classes.imgRaised + " " + classes.imgFluid}
                 src="https://matkinhminhnhat.vn/upload/images/xu-huong-thoi-trang-moi-kinh-lao-cho-nguoi-gia.jpg"
                 alt="..."
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <Button size="sm" color="primary">xem thêm </Button>
+              {" "}
+              <Muted>
+                {" "}
+                <h4>Kính áp tròng</h4>
+              </Muted>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
-
-       
-
-        
 
         <GridItem spacing={1}>
           <Card>
             <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
-                className={
-                  classes.imgRaised +
-                  " " +
-                  
-                  classes.imgFluid
-                }
+                className={classes.imgRaised + " " + classes.imgFluid}
                 src="https://nhathuoclongchau.com/upload/post/48048/images/kinh-can.jpg"
                 alt=""
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <Button size="sm" color="primary">xem thêm </Button>
+              {" "}
+              <Muted>
+                {" "}
+                <h4>Kính cận</h4>
+              </Muted>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
-        
+
         <GridItem spacing={1}>
           <Card>
             <CardHeader></CardHeader>
             <CardBody className="d-flex justify-content-center">
               <img
-                className={
-                  classes.imgRaised +
-                  " " +
-                 
-                  classes.imgFluid
-                }
+                className={classes.imgRaised + " " + classes.imgFluid}
                 src="https://matkinhminhnhat.vn/upload/images/xu-huong-thoi-trang-moi-kinh-lao-cho-nguoi-gia.jpg"
                 alt="..."
               />
             </CardBody>
             <CardFooter className="d-flex justify-content-center">
-              <Button size="sm" color="primary">xem thêm </Button>
+              {" "}
+              <Muted>
+                {" "}
+                <h4>Kính lão</h4>
+              </Muted>
+            </CardFooter>
+            <CardFooter className="d-flex justify-content-center">
+              <Button size="sm" color="primary">
+                xem thêm{" "}
+              </Button>
             </CardFooter>
           </Card>
         </GridItem>
-
-
-     
       </Slider>
     </React.Fragment>
   );
 }
+export default ProductSlider;

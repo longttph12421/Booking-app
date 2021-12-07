@@ -20,7 +20,6 @@ import styles from "../../assets/jss/material-kit-react/views/components.js";
 import DoctorDetail from "../doctor/DoctorDetail.js";
 import Doctor from "../doctor/Doctor.js";
 import Index from "./Sections/Index";
-import { Box, CssBaseline } from "@material-ui/core";
 const useStyles = makeStyles(styles);
 
 export default function HomePage(props) {
@@ -29,18 +28,11 @@ export default function HomePage(props) {
   const showContent = (routes) => {
     var content = null;
     if (routes.length > 0) {
-      content = routes.map((rou, index) => {
-        return (
-          <Route
-            key={index}
-            path={rou.path}
-            exact={rou.exact}
-            component={rou.main}
-          />
-        );
+      content = routes.map((route, index) => {
+        return <Switch key={index}>{route}</Switch>;
       });
     }
-    return <Switch>{content}</Switch>;
+    return content;
   };
   return (
     <div>
@@ -69,8 +61,7 @@ export default function HomePage(props) {
       </Parallax>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
-       <CssBaseline/>
-       <Box mt={5}> {showContent(routes)}</Box>
+        {showContent(routes)}
       </div>
       <Footer />
     </div>

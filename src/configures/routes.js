@@ -2,84 +2,22 @@ import React from "react";
 import Dashboard from "../container/admin/DashBoard/Dashboard";
 import Customers from "../container/admin/DashBoard/Customers";
 import Index from "../container/homePage/Sections/Index";
-import ProfilePage from "../views/ProfilePage/ProfilePage";
-import LoginPage from "../views/LoginPage/LoginPage";
 import ProductBox from "../container/product/ProductBox";
 import Component from "../views/Components/Components";
-import LandingPage from "../views/LandingPage/LandingPage";
 import ProductDetail from "../container/product/ProductDetail";
 import Doctor from "../container/doctor/Doctor";
 import DoctorDetail from "../container/doctor/DoctorDetail";
-import ProductCart from "../container/product/ProductCart";
-const routes = [
-  { path: "/", exact: true, name: "Home", main: () => <Index /> },
-  {
-    path: "/admin",
-    exact: true,
-    name: "Admin",
-    main: () => <Dashboard />,
-  },
-  {
-    path: "/admin/Customer",
-    exact: true,
-    name: "Customer",
-    main: () => <Customers />,
-  },
+import { Route } from "react-router-dom";
 
-  {
-    path: "/Product",
-    exact: true,
-    name: "Product",
-    main: () => <ProductBox />,
-  },
-  {
-    path: "/Cart",
-    exact: true,
-    name: "Product",
-    main: () => <ProductCart />,
-  },
-  {
-    path: "/Category",
-    exact: true,
-    name: "Category",
-    main: () => <ProfilePage />,
-  },
-  {
-    path: "/Login",
-    exact: true,
-    name: "Login",
-    main: () => <LoginPage />,
-  },
-  {
-    path: "/Component",
-    exact: true,
-    name: "Component",
-    main: () => <Component />,
-  },
-  {
-    path: "/ProductDetail",
-    exact: true,
-    name: "ProductDetail",
-    main: () => <ProductDetail />,
-  },
-  {
-    path: "/Landing",
-    exact: true,
-    name: "Component",
-    main: () => <LandingPage />,
-  },
-  {
-    path: "/Doctor",
-    exact: true,
-    name: "Doctor",
-    main: () => <Doctor />,
-  },
-  {
-    path: "/DoctorDetail",
-    exact: true,
-    name: "DoctorDetail",
-    main: () => <DoctorDetail />,
-  },
+const routes = [
+  <Route path="/" exact component={Index}/>,
+  <Route path="/admin" exact component={Dashboard}/>,
+  <Route path="/admin/customer" exact component={Customers}/>,
+  <Route path="/product" exact component={ProductBox}/>,
+  <Route path="/product/:id" exact component={ProductDetail}/>,
+  <Route path="/component" exact component={Component}/>,
+  <Route path="/doctor" exact component={Doctor}/>,
+  <Route path="/doctor/:id" exact component={DoctorDetail}/>,
 ];
 
 export default routes;

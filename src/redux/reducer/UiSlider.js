@@ -4,6 +4,7 @@ export const UiSlider = createSlice({
   name: "UI",
   initialState: {
     modal: false,
+    loading: false,
   },
   reducers: {
     openModal: (state) => {
@@ -12,10 +13,16 @@ export const UiSlider = createSlice({
     closeModal: (state) => {
       state.modal = false;
     },
+    showLoading: (state) => {
+      state.loading = true;
+    },
+    hiddenLoading: (state) => {
+      state.loading = false;
+    },
   },
   extraReducers: {},
 });
 
-export const { openModal, closeModal } = UiSlider.actions;
+export const { openModal, closeModal, showLoading, hiddenLoading} = UiSlider.actions;
 
 export default UiSlider.reducer;

@@ -12,7 +12,7 @@ export const findById = createAsyncThunk("product/findById", async (id) => {
   return response.data.data;
 });
 
-export const productSlice = createSlice({
+export const TimeSlide = createSlice({
   name: "product",
   initialState: {
     data: [],
@@ -45,6 +45,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const { getListProduct } = productSlice.actions;
+export const { getListProduct } = TimeSlide.actions;
 
-export default productSlice.reducer;
+export default TimeSlide.reducer;

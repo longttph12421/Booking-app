@@ -42,7 +42,7 @@ const CustomModal = ({ title, modalBody, onSave }) => {
             paper: classes.modal,
           }}
           fullWidth={true}
-          maxWidth="md"
+          maxWidth="md" 
           open={classicModal}
           TransitionComponent={Transition}
           keepMounted
