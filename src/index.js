@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
-import { Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import Loading from "./components/loading/Loading";
@@ -16,19 +16,21 @@ ReactDOM.render(
   <React.StrictMode>
     <Router history={hist}>
       <Provider store={store}>
-        <App />
-        <Loading />
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        <Suspense fallback="Loading...">
+          <App />
+          <Loading />
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </Suspense>
       </Provider>
     </Router>
   </React.StrictMode>,

@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 const useStyles = makeStyles(imagesStyles);
 
-function ProductBox() {
+function Product() {
   let history = useHistory();
   const classes = useStyles();
   const ProductList = useSelector((state) => state.product.data);
@@ -54,10 +54,13 @@ function ProductBox() {
                   </Link>
                 </CardBody>
                 <CardFooter>
-                  <Button color="primary" size="sm" onClick={onClickBT}>
-                    detail
-                  </Button>
-                  <Button color="primary" size="sm" className="">
+                  <Link to={`/product/${product.id}`}>
+                    <Button color="primary" size="sm">
+                      {" "}
+                      Detail
+                    </Button>
+                  </Link>
+                  <Button color="primary" size="sm">
                     add to cart
                   </Button>
                 </CardFooter>
@@ -70,4 +73,4 @@ function ProductBox() {
   );
 }
 
-export default ProductBox;
+export default Product;

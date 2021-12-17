@@ -33,18 +33,16 @@ export default function Footer(props) {
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="#"
+                href="/about"
                 className={classes.block}
-                target="_blank"
               >
                 GIỚI THIỆU
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="#"
+                href="/contact"
                 className={classes.block}
-                target="_blank"
               >
                 LIÊN HỆ
               </a>
@@ -53,7 +51,6 @@ export default function Footer(props) {
               <a
                 href="#"
                 className={classes.block}
-                target="_blank"
               >
                 Blog
               </a>
@@ -62,7 +59,6 @@ export default function Footer(props) {
               <a
                 href="#"
                 className={classes.block}
-                target="_blank"
               >
                 HỖ TRỢ
               </a>

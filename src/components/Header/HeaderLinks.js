@@ -50,33 +50,23 @@ export default function HeaderLinks(props) {
         />
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          href="#"
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
+        <Button href="/about" color="transparent" className={classes.navLink}>
           <span className={classes.text}>GIỚI THIỆU</span>
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          href="#"
-          color="transparent"
-          target="_blank"
-          className={classes.navLink}
-        >
+        <Button href="/doctor" color="transparent" className={classes.navLink}>
           <span className={classes.text}>ĐẶT LỊCH KHÁM</span>
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
         <Button
-          href="#"
+          href="/contact"
           color="transparent"
           target="_blank"
           className={classes.navLink}
         >
-          <span className={classes.text}>HỖ TRỢ</span>
+          <span className={classes.text}>LIÊN HỆ</span>
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>

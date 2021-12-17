@@ -30,9 +30,6 @@ export const TimeSlide = createSlice({
       console.log(error);
       state.data = state;
     },
-    [findById.pending]: () => {
-      UiSlider.showLoading();
-    },
 
     [findById.fulfilled]: (state, action) => {
       state.value = action.payload;

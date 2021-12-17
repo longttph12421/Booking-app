@@ -2,10 +2,6 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react components for routing our app without refresh
-//import { Link } from "react-router-dom";
-// @material-ui/core components
-import { Route, Switch } from "react-router-dom";
-import routes from "../../configures/routes";
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 // core components
@@ -17,23 +13,11 @@ import Parallax from "../../components/Parallax/Parallax.js";
 // sections for this page
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import styles from "../../assets/jss/material-kit-react/views/components.js";
-import DoctorDetail from "../doctor/DoctorDetail.js";
-import Doctor from "../doctor/Doctor.js";
-import Index from "./Sections/Index";
-const useStyles = makeStyles(styles);
 
+const useStyles = makeStyles(styles);
 export default function HomePage(props) {
   const classes = useStyles();
   const { ...rest } = props;
-  const showContent = (routes) => {
-    var content = null;
-    if (routes.length > 0) {
-      content = routes.map((route, index) => {
-        return <Switch key={index}>{route}</Switch>;
-      });
-    }
-    return content;
-  };
   return (
     <div>
       <Header
@@ -61,7 +45,7 @@ export default function HomePage(props) {
       </Parallax>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
-        {showContent(routes)}
+        {props.children}
       </div>
       <Footer />
     </div>

@@ -4,7 +4,7 @@ class DashBoard extends Component{
     render() {
         return (
             <div>
-                DashBoard
+                DashBoard admin
             </div>
         );
     }

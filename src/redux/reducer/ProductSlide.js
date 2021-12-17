@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as UiSlider from "./UiSlider";
 import * as ProductService from "../../services/ProductService";
 
 export const getList = createAsyncThunk("product/getAll", async () => {
@@ -20,7 +19,6 @@ export const productSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [getList.pending]: () => {},
 
     [getList.fulfilled]: (state, action) => {
       state.data = action.payload;
@@ -29,9 +27,6 @@ export const productSlice = createSlice({
     [getList.rejected]: (state, error) => {
       console.log(error);
       state.data = state;
-    },
-    [findById.pending]: () => {
-      UiSlider.showLoading();
     },
 
     [findById.fulfilled]: (state, action) => {

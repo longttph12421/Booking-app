@@ -1,11 +1,7 @@
 import React from "react";
-import HomePage from "./container/homePage/HomePage";
+import Routes from "./configures/Routers";
 function App() {
-  return (
-    <div>
-      <HomePage />
-    </div>
-  );
+  return <Routes />;
 }
 
 export default App;

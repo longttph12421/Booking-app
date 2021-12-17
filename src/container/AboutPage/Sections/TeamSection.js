@@ -16,10 +16,6 @@ import CardFooter from "../../../components/Card/CardFooter.js";
 
 import styles from "../../../assets/jss/material-kit-react/views/landingPageSections/teamStyle.js";
 
-import team1 from "../../../assets/img/faces/avatar.jpg";
-import team2 from "../../../assets/img/faces/christian.jpg";
-import team3 from "../../../assets/img/faces/kendall.jpg";
-
 const useStyles = makeStyles(styles);
 
 export default function TeamSection() {
@@ -31,25 +27,22 @@ export default function TeamSection() {
   );
   return (
     <div className={classes.section}>
-      <h2 className={classes.title}>Here is our team</h2>
+      <h2 className={classes.title}>Đội ngũ y bác sĩ danh tiếng</h2>
       <div>
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <Card plain>
               <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                <img src={team1} alt="..." className={imageClasses} />
+                <img src="https://cdn.bookingcare.vn/fr/w200/2021/01/14/160049-bs-hoai-huong.jpg" alt="..." className={imageClasses} />
               </GridItem>
               <h4 className={classes.cardTitle}>
-                Gigi Hadid
+                Nguyễn Thị Mai
                 <br />
-                <small className={classes.smallTitle}>Model</small>
+                <small className={classes.smallTitle}>Giáo sư tiến sĩ</small>
               </h4>
               <CardBody>
-                <p className={classes.description}>
-                  You can write here details about one of your team members. You
-                  can give more details about what they do. Feel free to add
-                  some <a href="#pablo">links</a> for people to be able to
-                  follow them outside the site.
+              <p className={classes.description}>
+                 Giáo sư tiến sĩ Nguyễn Thị Mai đã có 10 năm kinh nghiệm trong lính vực Mắt. Làm việc tại nhật kí yêu thương<a href="/doctor/1">Xem thêm</a>
                 </p>
               </CardBody>
               <CardFooter className={classes.justifyCenter}>
@@ -80,19 +73,16 @@ export default function TeamSection() {
           <GridItem xs={12} sm={12} md={4}>
             <Card plain>
               <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                <img src={team2} alt="..." className={imageClasses} />
+                <img src="https://cdn.bookingcare.vn/fr/w200/2020/03/17/114430-bshung.jpg" alt="..." className={imageClasses} />
               </GridItem>
               <h4 className={classes.cardTitle}>
-                Christian Louboutin
+                Dào Văn Dưỡng
                 <br />
-                <small className={classes.smallTitle}>Designer</small>
+                <small className={classes.smallTitle}>Giáo sư tiến sĩ</small>
               </h4>
               <CardBody>
-                <p className={classes.description}>
-                  You can write here details about one of your team members. You
-                  can give more details about what they do. Feel free to add
-                  some <a href="#pablo">links</a> for people to be able to
-                  follow them outside the site.
+              <p className={classes.description}>
+                 Giáo sư tiến sĩ Dào Văn Dưỡngc đã có 10 năm kinh nghiệm trong lính vực tán gái. Làm việc tại nhật kí yêu thương<a href="/doctor/1">Xem thêm</a>
                 </p>
               </CardBody>
               <CardFooter className={classes.justifyCenter}>
@@ -116,19 +106,16 @@ export default function TeamSection() {
           <GridItem xs={12} sm={12} md={4}>
             <Card plain>
               <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                <img src={team3} alt="..." className={imageClasses} />
+                <img src="https://scontent.fhan3-4.fna.fbcdn.net/v/t39.30808-6/259127553_3074790722796669_5860938531612923022_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=DZREndS01rMAX_-HrGc&_nc_ht=scontent.fhan3-4.fna&oh=00_AT-B84IpB2feBd64pr-JRGOvvABmJq23nb8SD24DDmDPxg&oe=61C0577E" alt="..." className={imageClasses} />
               </GridItem>
               <h4 className={classes.cardTitle}>
-                Kendall Jenner
+               Dương Văn Đức
                 <br />
-                <small className={classes.smallTitle}>Model</small>
+                <small className={classes.smallTitle}>Giáo sư tiến sĩ</small>
               </h4>
               <CardBody>
                 <p className={classes.description}>
-                  You can write here details about one of your team members. You
-                  can give more details about what they do. Feel free to add
-                  some <a href="#pablo">links</a> for people to be able to
-                  follow them outside the site.
+                 Giáo sư tiến sĩ Dương Văn Đức đã có 10 năm kinh nghiệm trong lính vực tán gái. Làm việc tại nhật kí yêu thương<a href="/doctor/1">Xem thêm</a>
                 </p>
               </CardBody>
               <CardFooter className={classes.justifyCenter}>

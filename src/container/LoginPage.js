@@ -7,21 +7,22 @@ import Icon from "@material-ui/core/Icon";
 import Email from "@material-ui/icons/Email";
 import People from "@material-ui/icons/People";
 // core components
-import Header from "../../components/Header/Header.js";
-import HeaderLinks from "../../components/Header/HeaderLinks.js";
-import Footer from "../../components/Footer/Footer.js";
-import GridContainer from "../../components/Grid/GridContainer.js";
-import GridItem from "../../components/Grid/GridItem.js";
-import Button from "../../components/CustomButtons/Button.js";
-import Card from "../../components/Card/Card.js";
-import CardBody from "../../components/Card/CardBody.js";
-import CardHeader from "../../components/Card/CardHeader.js";
-import CardFooter from "../../components/Card/CardFooter.js";
-import CustomInput from "../../components/CustomInput/CustomInput.js";
-
-import styles from "../../assets/jss/material-kit-react/views/loginPage.js";
-
-import image from "../../assets/img/bg7.jpg";
+import Header from "../components/Header/Header";
+import HeaderLinks from "../components/Header/HeaderLinks.js";
+import Footer from "../components/Footer/Footer.js";
+import GridContainer from "../components/Grid/GridContainer.js";
+import GridItem from "../components/Grid/GridItem.js";
+import Button from "../components/CustomButtons/Button.js";
+import Card from "../components/Card/Card.js";
+import CardBody from "../components/Card/CardBody.js";
+import CardHeader from "../components/Card/CardHeader.js";
+import CardFooter from "../components/Card/CardFooter.js";
+import CustomInput from "../components/CustomInput/CustomInput.js";
+import TwitterIcon from '@material-ui/icons/Twitter';
+import styles from "../assets/jss/material-kit-react/views/loginPage.js";
+import FacebookIcon from '@material-ui/icons/Facebook';
+import PersonPinSharpIcon from '@material-ui/icons/PersonPinSharp';
+import image from "../assets/img/bg7.jpg";
 
 const useStyles = makeStyles(styles);
 
@@ -34,13 +35,6 @@ export default function LoginPage(props) {
   const { ...rest } = props;
   return (
     <div>
-      <Header
-        absolute
-        color="transparent"
-        brand="Material Kit React"
-        rightLinks={<HeaderLinks />}
-        {...rest}
-      />
       <div
         className={classes.pageHeader}
         style={{
@@ -64,7 +58,7 @@ export default function LoginPage(props) {
                         color="transparent"
                         onClick={(e) => e.preventDefault()}
                       >
-                        <i className={"fab fa-twitter"} />
+                        <TwitterIcon/>
                       </Button>
                       <Button
                         justIcon
@@ -73,7 +67,7 @@ export default function LoginPage(props) {
                         color="transparent"
                         onClick={(e) => e.preventDefault()}
                       >
-                        <i className={"fab fa-facebook"} />
+                        <FacebookIcon/>
                       </Button>
                       <Button
                         justIcon
@@ -82,14 +76,14 @@ export default function LoginPage(props) {
                         color="transparent"
                         onClick={(e) => e.preventDefault()}
                       >
-                        <i className={"fab fa-google-plus-g"} />
+                        <PersonPinSharpIcon />
                       </Button>
                     </div>
                   </CardHeader>
                   <p className={classes.divider}>Or Be Classical</p>
                   <CardBody>
                     <CustomInput
-                      labelText="First Name..."
+                      labelText="UserName..."
                       id="first"
                       formControlProps={{
                         fullWidth: true,
@@ -103,7 +97,7 @@ export default function LoginPage(props) {
                         ),
                       }}
                     />
-                    <CustomInput
+                    {/* <CustomInput
                       labelText="Email..."
                       id="email"
                       formControlProps={{
@@ -117,7 +111,7 @@ export default function LoginPage(props) {
                           </InputAdornment>
                         ),
                       }}
-                    />
+                    /> */}
                     <CustomInput
                       labelText="Password"
                       id="pass"
@@ -139,7 +133,7 @@ export default function LoginPage(props) {
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <Button simple color="primary" size="lg">
-                      Get started
+                      LOGIN
                     </Button>
                   </CardFooter>
                 </form>

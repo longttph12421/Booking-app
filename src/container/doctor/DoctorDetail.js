@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "../../components/CustomButtons/Button";
 import { Grid, Box } from "@material-ui/core";
-import { CssBaseline } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -10,28 +9,29 @@ import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles.js";
 import Muted from "../../components/Typography/Muted.js";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import Link from "@material-ui/core/Link";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getById } from "../../redux/reducer/DoctorSlide";
 
 const useStyles = makeStyles(imagesStyles);
-function DoctorDetail() {
+
+function DoctorDetail({ match }) {
   const classes = useStyles();
   const [date, setDate] = React.useState("2");
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
     setDate(event.target.value);
   };
-  const doctor = {
-    name: "Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng",
-    detail:
-      "Nguyên Trưởng phòng chỉ đạo tuyến tại Bệnh viện Da liễu Trung ương  ",
-    title: "ĐỊA CHỈ KHÁM",
-    roomName: "Phòng khám Chuyên khoa Da Liễu",
-    address: "207 Phố Huế - Hai Bà Trưng - Hà Nội",
-    price: "250.000 VND  ",
-  };
+
+  useEffect(() => {
+    dispatch(getById(match.params.id));
+  }, [match.params.id]);
+
+  const doctor = useSelector((state) => state.doctor.value);
 
   return (
-    <React.Fragment>
-      <CssBaseline />
+    <div>
       <Box
         sx={{
           width: "90%",
@@ -181,7 +181,7 @@ function DoctorDetail() {
           </li>
         </ul>
       </Box>
-    </React.Fragment>
+    </div>
   );
 }
 export default DoctorDetail;
