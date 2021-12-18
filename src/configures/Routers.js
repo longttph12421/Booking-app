@@ -12,7 +12,8 @@ import LoginPage from "../container/LoginPage";
 import Doctor from "../container/doctor/Doctor";
 import DoctorDetail from "../container/doctor/DoctorDetail";
 import AboutPage from "../container/AboutPage/AboutPage";
-import Contact from "../container/AboutPage/Sections/Contact"
+import Contact from "../container/AboutPage/Sections/Contact";
+import AdminProduct from "../container/admin/DashBoard/AdminProduct";
 function Routers() {
   return (
     <Switch>
@@ -21,6 +22,9 @@ function Routers() {
           <Switch>
             <AdminRoute exact path="/admin">
               <Dashboard />
+            </AdminRoute>
+            <AdminRoute exact path="/admin/product">
+              <AdminProduct />
             </AdminRoute>
           </Switch>
         </AdminLayout>
@@ -43,7 +47,7 @@ function Routers() {
             <Route exact path="/product" component={Product} />
             <Route exact path="/product/:id" component={ProductDetail} />
             <Route exact path="/doctor" component={Doctor} />
-            <Route exact path="/doctor/:ids" component={DoctorDetail} />
+            <Route exact path="/doctor/:id" component={DoctorDetail} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/about" component={AboutPage} />
             <Route exact path="/" component={Index} />
@@ -51,7 +55,7 @@ function Routers() {
         </HomePage>
       </Route>
 
-      <Route path="/*" component={Page404} />
+      <Route exact path="/*" component={Page404} />
     </Switch>
   );
 }
