@@ -33,8 +33,8 @@ function Routers() {
         exact
         path="/login"
         render={() => {
-          return localStorage.getItem("accessTokenLogin") !== null ? (
-            <Redirect to="/home" />
+          return localStorage.getItem("TokenLoginnnn") !== null ? (
+            <Redirect to="/" />
           ) : (
             <LoginPage />
           );

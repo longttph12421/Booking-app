@@ -10,50 +10,64 @@ import BarChartIcon from "@material-ui/icons/BarChart";
 import LayersIcon from "@material-ui/icons/Layers";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import { Link } from "react-router-dom";
+import Muted from "../../Typography/Muted";
 export const mainItems = (
   <div>
-    <Link to="/admin">
+    <Link to="/admin" style={{ textDecoration: "none"}}>
       <ListItem button>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
+        <Muted>
         <ListItemText primary="Dashboard" />
+        </Muted>
+
       </ListItem>
     </Link>
 
-    <Link to="/admin/order">
+    <Link to="/admin/staff" style={{ textDecoration: "none" }}>
       <ListItem button>
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
-        <ListItemText primary="Orders" />
+        <Muted>
+        <ListItemText primary="Staff" />
+        </Muted>
       </ListItem>
     </Link>
 
-    <Link to="/admin/customers">
+    <Link to="/admin/customers" style={{ textDecoration: "none" }}>
       <ListItem button>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="Customers" />
+        <Muted>
+        <ListItemText primary="Customer" />
+        </Muted>
       </ListItem>
     </Link>
 
-    <Link to="/admin/product">
+    <Link to="/admin/product" style={{ textDecoration: "none" }}>
       <ListItem button>
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
-        <ListItemText primary="product" />
+        <Muted>
+        <ListItemText primary="Product" />
+        </Muted>
       </ListItem>
     </Link>
 
-    <ListItem button>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItem>
+    <Link to="/admin/booking" style={{ textDecoration: "none" }}>
+      <ListItem button>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <Muted>
+        <ListItemText primary="Confirm" />
+        </Muted>
+      </ListItem>
+    </Link>
   </div>
 );
 
