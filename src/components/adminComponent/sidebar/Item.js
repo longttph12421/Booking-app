@@ -44,22 +44,34 @@ export const mainItems = (
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
-        <ListItemText primary="product" />
+        <ListItemText primary="Product" />
       </ListItem>
     </Link>
 
+    <Link to="/admin/allbooking">
     <ListItem button>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="Lịch Khám" />
     </ListItem>
+    </Link>
+
+    <Link to="/admin/allservice">
+    <ListItem button>
+      <ListItemIcon>
+        <LayersIcon />
+      </ListItemIcon>
+      <ListItemText primary="Dịch Vụ" />
+    </ListItem>
+    </Link>
+
   </div>
 );
 
 export const secondaryItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
+    {/* <ListSubheader inset>Saved reports</ListSubheader> */}
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />

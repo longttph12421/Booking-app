@@ -1,10 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as BookingService from "../../services/BookingService";
+import * as BookingDetailService from "../../services/BookingDetailService";
 
-export const getListB = createAsyncThunk("booking/getList", async () => {
-
-    const response = await BookingService.getList();
-    return response.data;
+export const getListBooking = createAsyncThunk("booking/getList", async () => {
+    const response = await BookingDetailService.getAllBooking();
+    return response.data.data;
 });
 
 export const bookingSlice = createSlice({
@@ -14,19 +13,19 @@ export const bookingSlice = createSlice({
     },
     reducers: {},
     extraReducers: {
-        [getListB.pending]: () => {
+        [getListBooking.pending]: () => {
             //show loading
         },
-        [getListB.fulfilled]: (state, action) => {
+        [getListBooking.fulfilled]: (state, action) => {
             state.value = action.payload;
         },
-        [getListB.rejected]: (state, error) => {
+        [getListBooking.rejected]: (state, error) => {
             console.log(error);
             state.value = state;
         },
     },
 });
 
-export const { getListBooking } = bookingSlice.actions;
+export const { getListBookingDetail } = bookingSlice.actions;
 
 export default bookingSlice.reducer;
