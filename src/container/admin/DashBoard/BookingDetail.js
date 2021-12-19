@@ -7,8 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {getListBooking} from "../../../redux/reducer/BookingSlide";
-import { useDispatch, useSelector } from "react-redux";
 import Danger from "../../../components/Typography/Danger";
 import Button from "../../../components/CustomButtons/Button";
 const useStyles = makeStyles({
@@ -17,20 +15,26 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BookingDetail() {
+export default function BookingDetail(props) {
   const classes = useStyles();
-//   const [listBooking, setListBooking] = React.useState([]);
+  const { list, action } = props;
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getListBooking());
-  }, [dispatch]);
-  
-  const list = useSelector((state) => state.booking.value);
-
+  const status = (s) => {
+    let cpn = null;
+    if (s == 1) {
+      cpn = <Danger>Chờ Xác Nhận</Danger>
+    }
+    else if (s == 2) {
+      cpn = <Danger>Đã Xác Nhận</Danger>
+    }
+    else if (s == 2) {
+      cpn = <Danger>Đã hủy</Danger>
+    }
+    return cpn;
+  }
   return (
     <TableContainer component={Paper}>
-            
+
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -44,7 +48,10 @@ export default function BookingDetail() {
             <TableCell align="center">Dịch vụ</TableCell>
             <TableCell align="center">Bác sĩ</TableCell>
             <TableCell align="center">Trạng thái</TableCell>
-            <TableCell align="center">Action</TableCell>
+            {
+              action == false ? null : <TableCell align="center">Action</TableCell>
+            }
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -61,11 +68,14 @@ export default function BookingDetail() {
               <TableCell align="center">{row.time_start}{row.time_end}</TableCell>
               <TableCell align="center">{row.serviceCustomer.name}</TableCell>
               <TableCell align="center">{row.staff.fullName}</TableCell>
-              <TableCell align="center">{row.status == 1 ? <Danger>Chờ Xác Nhận</Danger> : null}</TableCell>
-              <TableCell align="center">
-                <Button color ="success" size = "sm">Xác Nhận</Button>
-                <Button color ="danger" size = "sm">Huỷ</Button>
-              </TableCell>
+              <TableCell align="center">{ status(row.status) }</TableCell>
+              {
+                action == false ? null : <TableCell align="center">
+                  <Button color="success" size="sm">Xác Nhận</Button>
+                  <Button color="danger" size="sm">Huỷ</Button>
+                </TableCell>
+              }
+
             </TableRow>
           ))}
 
@@ -74,3 +84,5 @@ export default function BookingDetail() {
     </TableContainer>
   );
 }
+
+

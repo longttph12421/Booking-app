@@ -28,7 +28,7 @@ function Routers() {
             <AdminRoute exact path="/admin/product">
               <AdminProduct />
             </AdminRoute>
-            <AdminRoute exact path="/admin/allbooking">
+            <AdminRoute exact path="/admin/booking">
               <Booking />
             </AdminRoute>
 
