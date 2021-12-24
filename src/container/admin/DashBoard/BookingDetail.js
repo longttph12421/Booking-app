@@ -9,6 +9,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Danger from "../../../components/Typography/Danger";
 import Button from "../../../components/CustomButtons/Button";
+import * as toastHelper from "../../../common/toastHelper";
+import * as service from "../../../services/BookingDetailService";
+import { useDispatch, useSelector } from "react-redux";
+import { getListBooking } from "../../../redux/reducer/BookingSlide";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -17,21 +21,40 @@ const useStyles = makeStyles({
 
 export default function BookingDetail(props) {
   const classes = useStyles();
-  const { list, action } = props;
-
+  const dispatch = useDispatch();
+  const { list, action, setList } = props;
   const status = (s) => {
     let cpn = null;
-    if (s == 1) {
+    if (s === 1) {
       cpn = <Danger>Chờ Xác Nhận</Danger>
     }
-    else if (s == 2) {
+    else if (s === 2) {
       cpn = <Danger>Đã Xác Nhận</Danger>
     }
-    else if (s == 2) {
+    else if (s === 3) {
       cpn = <Danger>Đã hủy</Danger>
     }
     return cpn;
   }
+
+  const onConfirm = (data) => {
+    service.putConfirmBooking(data).then((response) => {
+      toastHelper.toastSuccess("Xac nhan thành công");
+      const newList = list.filter(e => {
+        if (e.bookingid === data.bookingid) {
+          console.log("e:-------------------- ", e);
+          return false;
+        }
+        return true;
+      })
+      console.log("New list :", newList);
+      setList(newList);
+    }).catch(error => {
+      toastHelper.toastError("Thất bại" + error);
+    })
+
+  }
+
   return (
     <TableContainer component={Paper}>
 
@@ -68,10 +91,12 @@ export default function BookingDetail(props) {
               <TableCell align="center">{row.time_start}{row.time_end}</TableCell>
               <TableCell align="center">{row.serviceCustomer.name}</TableCell>
               <TableCell align="center">{row.staff.fullName}</TableCell>
-              <TableCell align="center">{ status(row.status) }</TableCell>
+              <TableCell align="center">{status(row.status)}</TableCell>
               {
                 action == false ? null : <TableCell align="center">
-                  <Button color="success" size="sm">Xác Nhận</Button>
+                  <Button onClick={() => {
+                    onConfirm(row)
+                  }} color="success" size="sm">Xác Nhận</Button>
                   <Button color="danger" size="sm">Huỷ</Button>
                 </TableCell>
               }

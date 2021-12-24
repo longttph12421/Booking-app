@@ -11,8 +11,17 @@ export const serviceCustumerSlice = createSlice({
     name: "service",
     initialState: {
         value: [],
+        detail: {},
+
     },
-    reducers: {},
+    reducers: {
+        getById: (state, action) => {
+            state.detail = action.payload;
+        },
+        clear: (state, action) => {
+            state.detail = action.payload;
+        },
+    },
     extraReducers: {
         [getListServiceCustumer.pending]: () => {
             //show loading
@@ -27,6 +36,6 @@ export const serviceCustumerSlice = createSlice({
     },
 });
 
-export const { getList } = serviceCustumerSlice.actions;
+export const { getById } = serviceCustumerSlice.actions;
 
 export default serviceCustumerSlice.reducer;

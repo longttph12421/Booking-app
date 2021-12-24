@@ -13,3 +13,7 @@ export function getAllBooking() {
   export function getFindByStt3() {
     return axiosHelper.get(path.bookingdetail.GET_ALL_BOOKINGDETAIL+"/3");
   }
+
+  export function putConfirmBooking(data) {
+    return axiosHelper.put(path.bookingdetail.PUT_CONFIRM_BOOKING,data );
+  }

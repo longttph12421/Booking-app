@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import GridItem from "../../components/Grid/GridItem";
 import { makeStyles } from "@material-ui/core/styles";
-import { useHistory } from "react-router-dom";
 import { findById } from "../../redux/reducer/ProductSlide";
 import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles";
 import GridContainer from "../../components/Grid/GridContainer";

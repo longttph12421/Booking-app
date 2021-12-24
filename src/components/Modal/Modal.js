@@ -16,6 +16,7 @@ import GridItem from "../Grid/GridItem";
 import Button from "../CustomButtons/Button";
 import { closeModal } from "../../redux/reducer/UiSlider";
 import javascriptStyles from "../../assets/jss/material-kit-react/views/componentsSections/javascriptStyles";
+import { useState } from "react";
 
 const useStyles = makeStyles(javascriptStyles);
 
@@ -26,6 +27,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 Transition.displayName = "Transition";
 const CustomModal = ({ title, modalBody, onSave }) => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const classicModal = useSelector((state) => state.UI.modal);
 

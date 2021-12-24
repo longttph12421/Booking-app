@@ -14,10 +14,14 @@ const path = {
   
   bookingdetail: {
     GET_ALL_BOOKINGDETAIL: "http://localhost:6769/api/auth/admin/allbooking",
+    PUT_CONFIRM_BOOKING:"http://localhost:6769/api/auth/admin/confirm",
   },
 
   servicecustumer:{
     GET_ALL_SERVICECUSTUMER:"http://localhost:6769/api/auth/admin/allservice",
+    POST_SERVICECUSTUMER:"http://localhost:6769/api/auth/admin/save",
+    PUT_SERVICECUSTUMER:"http://localhost:6769/api/auth/admin/update",
   }
+  
 };
 export default path;
