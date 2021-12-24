@@ -47,13 +47,13 @@ export const mainItems = (
       </ListItem>
     </Link>
 
-    <Link to="/admin/product" style={{ textDecoration: "none" }}>
+    <Link to="/admin/allservice" style={{ textDecoration: "none" }}>
       <ListItem button>
         <ListItemIcon>
           <BarChartIcon />
         </ListItemIcon>
         <Muted>
-        <ListItemText primary="Product" />
+        <ListItemText primary="Dịch Vụ" />
         </Muted>
       </ListItem>
     </Link>
@@ -64,7 +64,7 @@ export const mainItems = (
           <LayersIcon />
         </ListItemIcon>
         <Muted>
-        <ListItemText primary="Confirm" />
+        <ListItemText primary="Lịch Khám" />
         </Muted>
       </ListItem>
     </Link>

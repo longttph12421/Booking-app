@@ -15,7 +15,7 @@ import AboutPage from "../container/AboutPage/AboutPage";
 import Contact from "../container/AboutPage/Sections/Contact";
 import AdminProduct from "../container/admin/DashBoard/AdminProduct";
 import Booking from "../container/admin/DashBoard/Booking";
-import ServiceCustumer from "../container/admin/DashBoard/ServiceCustumer";
+import ServiceCustumer from "../container/admin/ServiceCustumer";
 function Routers() {
   return (
     <Switch>
@@ -28,7 +28,7 @@ function Routers() {
             <AdminRoute exact path="/admin/product">
               <AdminProduct />
             </AdminRoute>
-            <AdminRoute exact path="/admin/allbooking">
+            <AdminRoute exact path="/admin/booking">
               <Booking />
             </AdminRoute>
 

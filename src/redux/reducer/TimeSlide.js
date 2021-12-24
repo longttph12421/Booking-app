@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as UiSlider from "./UiSlider";
 import * as ProductService from "../../services/ProductService";
 
 export const getList = createAsyncThunk("product/getAll", async () => {
