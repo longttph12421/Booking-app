@@ -137,6 +137,7 @@ function LoginPage(props) {
                       }}
                       inputProps={{
                         ...register("username"),
+                        
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">

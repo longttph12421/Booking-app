@@ -7,8 +7,6 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import {getListBooking} from "../../../redux/reducer/BookingSlide";
-import { useDispatch, useSelector } from "react-redux";
 import Danger from "../../../components/Typography/Danger";
 import Button from "../../../components/CustomButtons/Button";
 const useStyles = makeStyles({
@@ -17,17 +15,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BookingDetail() {
+export default function BookingDetail({list}) {
   const classes = useStyles();
-//   const [listBooking, setListBooking] = React.useState([]);
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getListBooking());
-  }, [dispatch]);
-  
-  const list = useSelector((state) => state.booking.value);
-
   return (
     <TableContainer component={Paper}>
             
