@@ -1,35 +1,71 @@
 import React from "react";
-import Button from "../../components/CustomButtons/Button";
-import { Grid, Box } from "@material-ui/core";
+import {
+  Grid,
+  Box,
+  Select,
+  MenuItem,
+  Button,
+  InputLabel,
+  Input,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import EventNoteIcon from "@material-ui/icons/EventNote";
-import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
+import { useForm } from "react-hook-form";
+import CustomInput from "../../components/CustomInput/CustomInput";
 import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles.js";
-import Muted from "../../components/Typography/Muted.js";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
-import Link from "@material-ui/core/Link";
+import CustomModal from "../../components/Modal/Modal.js";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getById } from "../../redux/reducer/DoctorSlide";
+import * as doctorSlice from "../../redux/reducer/DoctorSlide";
+import * as timeSlice from "../../redux/reducer/TimeSlide";
+import BookingForm from "../bookingForm/BookingForm";
+import * as BookingService from "../../services/BookingService";
+import * as serviceSlide from "../../redux/reducer/ServiceCustomerSlide";
+import DateTime from "../../components/DateTime/DateTime";
+import CustomSelect from "../../components/CustomInput/CustomSelect";
 
 const useStyles = makeStyles(imagesStyles);
 
 function DoctorDetail({ match }) {
   const classes = useStyles();
-  const [date, setDate] = React.useState("2");
   const dispatch = useDispatch();
 
-  const handleChange = (event) => {
-    setDate(event.target.value);
+  const { register, handleSubmit } = useForm();
+  const body = {
+    STAFF_ID: Number(match.params.id),
+    STATUS: 0,
   };
-
   useEffect(() => {
-    dispatch(getById(match.params.id));
-  }, [match.params.id]);
-
+    dispatch(doctorSlice.findById(match.params.id));
+    dispatch(timeSlice.getWeekByDoctor(body));
+    dispatch(serviceSlide.getListServiceCustomer());
+  }, []);
   const doctor = useSelector((state) => state.doctor.value);
-
+  const service = useSelector((state) => state.service.value);
+  const onSubmit = (value) => {
+    const data = {
+      customer: {
+        id: match.params.id,
+      },
+      staff: {
+        id: match.params.id,
+      },
+      serviceCustomer: {
+        id: 1,
+      },
+      timeStart: value.timeStart,
+      timeEnd: value.timeEnd,
+      dateBooking: value.dateBooking,
+      note: value.note,
+    };
+    console.log(data);
+    BookingService.booking(data)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div>
       <Box
@@ -39,9 +75,10 @@ function DoctorDetail({ match }) {
           marginRight: "auto",
         }}
       >
+        <CustomModal title="Đặt lịch khám" modalBody={<BookingForm />} />
         <hr className="mt-4" />
         <Grid container columnSpacing={{ xs: 1, sm: 4, md: 3 }}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={3}>
             <div>
               <div className="d-flex justify-content-center">
                 <img
@@ -57,130 +94,93 @@ function DoctorDetail({ match }) {
                 />
               </div>
               <div className="text-center mt-3">
-                <h5>{doctor.name} </h5>
-                <Muted>{doctor.detail} </Muted>
-                <Link
-                  component="button"
-                  variant="body2"
-                  onClick={() => {
-                    console.info("I'm a button.");
-                  }}
-                >
-                  Xem thêm
-                </Link>
+                <h5>{doctor.fullName} </h5>
               </div>
             </div>
           </Grid>
 
-          <Grid item xs={12} md={8}>
-            <Select className="col-md-3" value={date} onChange={handleChange}>
-              <MenuItem value={2}>Thứ 2 - 25/10</MenuItem>
-              <MenuItem value={3}>Thứ 3 - 26/10</MenuItem>
-              <MenuItem value={4}>Thứ 4 - 27/10</MenuItem>
-            </Select>
+          <Grid item xs={12} md={9}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={3}>
+                  <CustomInput
+                    labelText="Ngày khám..."
+                    id="1"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      ...register("bookingDate"),
+                      type: "date",
+                      format: "yyyy-MM-dd",
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={3}>
+                  <CustomInput
+                    labelText="Giờ bắt đầu..."
+                    id="2"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      ...register("timeStart"),
+                      type: "time",
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={3}>
+                  <CustomInput
+                    labelText="Giờ kết thúc..."
+                    id="3"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      ...register("timeEnd"),
+                      type: "time",
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} md={3}>
+                <CustomSelect
+                    labelText="Dịch vụ..."
+                    id="3"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    listItem={service}
+                    inputProps={{
+                      ...register("serviceId"),
+                      type: "time",
+                    }}
+                  />          
+                </Grid>
 
-            <div>
-              <h5 className="mt-3">
-                <EventNoteIcon />
-                LỊCH KHÁM
-              </h5>
-            </div>
-            <Box mt={3}>
-              <Grid container spacing={1}>
-                <Grid item>
-                  <Button color="lime">15:00 - 15:30</Button>
-                </Grid>
-                <Grid item>
-                  <Button color="lime">15:00 - 15:30</Button>
-                </Grid>
-                <Grid item>
-                  <Button color="lime">15:00 - 15:30</Button>
-                </Grid>
-                <Grid item>
-                  <Button color="lime">15:00 - 15:30</Button>
-                </Grid>
-                <Grid item>
-                  <Button color="lime">15:00 - 15:30</Button>
-                </Grid>
-                <Grid item>
-                  <Button color="lime">15:00 - 15:30</Button>
+                <Grid item xs={12} md={12}>
+                  <CustomInput
+                    labelText="Lí do đến khám"
+                    id="4"
+                    formControlProps={{
+                      fullWidth: true,
+                    }}
+                    inputProps={{
+                      ...register("note"),
+                      type: "text",
+                    }}
+                  />
                 </Grid>
               </Grid>
-            </Box>
-            <div className="mt-3">
-              Chọn <ArrowUpwardIcon size="sm" /> và đặt (miễn phí)
-            </div>
-            <hr />
-            <div>{doctor.title}</div>
-            <div>{doctor.name}</div>
-            <div>{doctor.address}</div>
-            <div>
-              Giá Khám: {doctor.price}.{" "}
-              <Link
-                component="button"
-                variant="body2"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
-              >
-                Xem thêm
-              </Link>
-            </div>
-            <div>
-              Loại Bảo Hiểm áp dụng.
-              <Link
-                component="button"
-                variant="body2"
-                onClick={() => {
-                  console.info("I'm a button.");
-                }}
-              >
-                Xem thêm
-              </Link>
-            </div>
+
+              <div>
+                <Button type="submit"> submit</Button>
+              </div>
+            </form>
           </Grid>
         </Grid>
       </Box>
       <hr className="mt-4" />
-      <Box mt={3}>
-        <ul>
-          <h3>{doctor.name}</h3>
-          <li>
-            <span>
-              Phó giáo sư, Tiến sĩ, Bác sĩ cao cấp chuyên khoa Da liễu
-            </span>
-          </li>
-          <li>
-            <span>Tốt nghiệp Đại học Y Hà Nội (1977)</span>
-          </li>
-          <li>
-            <span>Giảng viên bộ môn Da liễu tại Đại Học Y Hà Nội</span>
-          </li>
-          <li>
-            <span>
-              Nguyên Trưởng phòng chỉ đạo tuyến tại Bệnh viện Da liễu Trung ương
-            </span>
-          </li>
-          <li>
-            <span>
-              Đạt chứng chỉ Diploma về Da liễu tại Viện da liễu Băng Cốc - Thái
-              Lan
-            </span>
-          </li>
-          <li>
-            <span>
-              Bác sĩ thường xuyên tham gia các Hội thảo, Hội nghị Quốc tế về Da
-              liễu
-            </span>
-          </li>
-          <li>
-            <span>Tổng thư ký hội Da liễu Việt Nam</span>
-          </li>
-          <li>
-            <span>Hội viên của Hội Da liễu Đông Nam Á, Châu Á và Thế giới</span>
-          </li>
-        </ul>
-      </Box>
+      <Box mt={3}></Box>
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import axiosHelper from '../common/axiosHelper';
-
-export const getList = () =>{
-    return axiosHelper.get(`https://6012349784695f0017779d27.mockapi.io/vanh/booking_detail`);
-}
+import axiosHelper from "../common/axiosHelper";
+import path from "../configures/constants";
+export const booking = (data) => {
+  return axiosHelper.post(path.booking.POST_BOOKING, data);
+};

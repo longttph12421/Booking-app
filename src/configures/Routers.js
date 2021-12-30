@@ -15,7 +15,8 @@ import AboutPage from "../container/AboutPage/AboutPage";
 import Contact from "../container/AboutPage/Sections/Contact";
 import AdminProduct from "../container/admin/DashBoard/AdminProduct";
 import Booking from "../container/admin/DashBoard/Booking";
-import ServiceCustumer from "../container/admin/ServiceCustumer";
+import ServiceCustomer from "../container/admin/ServiceCustomer";
+import Register from "../container/Register";
 function Routers() {
   return (
     <Switch>
@@ -33,7 +34,7 @@ function Routers() {
             </AdminRoute>
 
             <AdminRoute exact path="/admin/allservice">
-              <ServiceCustumer />
+              <ServiceCustomer />
             </AdminRoute>
           </Switch>
         </AdminLayout>
@@ -42,14 +43,17 @@ function Routers() {
         exact
         path="/login"
         render={() => {
-          return localStorage.getItem("TokenLoginnnn") !== null ? (
-            <Redirect to="/" />
-          ) : (
-            <LoginPage />
-          );
+          return <LoginPage />;
         }}
       />
 
+      <Route
+        exact
+        path="/register"
+        render={() => {
+          return <Register />;
+        }}
+      />
       <Route>
         <HomePage>
           <Switch>

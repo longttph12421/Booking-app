@@ -1,46 +1,34 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as ProductService from "../../services/ProductService";
+import * as TimeSeries from "../../services/TimeService";
 
-export const getList = createAsyncThunk("product/getAll", async () => {
-  const response = await ProductService.getList();
-  return response.data.data;
-});
-
-export const findById = createAsyncThunk("product/findById", async (id) => {
-  const response = await ProductService.findById(id);
-  return response.data.data;
-});
+export const getWeekByDoctor = createAsyncThunk(
+  "week/findByDoctor",
+  async (body) => {
+    const response = await TimeSeries.findWeekByDoctorAndStatus(body);
+    console.log(response.data);
+    return response.data;
+  }
+);
 
 export const TimeSlide = createSlice({
-  name: "product",
+  name: "Time",
   initialState: {
-    data: [],
-    value: {},
+    weeks: [],
+    days: [],
   },
   reducers: {},
   extraReducers: {
-    [getList.pending]: () => {},
-
-    [getList.fulfilled]: (state, action) => {
-      state.data = action.payload;
+    [getWeekByDoctor.fulfilled]: (state, action) => {
+      state.weeks = action.payload;
     },
 
-    [getList.rejected]: (state, error) => {
+    [getWeekByDoctor.rejected]: (state, error) => {
       console.log(error);
-      state.data = state;
-    },
-
-    [findById.fulfilled]: (state, action) => {
-      state.value = action.payload;
-    },
-
-    [findById.rejected]: (state, error) => {
-      console.log(error);
-      state.value = state;
+      state.weeks = state;
     },
   },
 });
 
-export const { getListProduct } = TimeSlide.actions;
+export const { getById } = TimeSlide.actions;
 
 export default TimeSlide.reducer;

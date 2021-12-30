@@ -1,15 +1,9 @@
 import axiosHelper from "../common/axiosHelper";
-import constants from "../configures/constants";
-export const getAll = () => {
-  const data = [
-    {
-      direction: "asc",
-      property: "id",
-    },
-  ];
-  return axiosHelper.post(`${constants.API_URL}rest/time/getAll`,data);
+import path from "../configures/constants";
+export const findWeekByDoctorAndStatus = (body) => {
+  return axiosHelper.post(path.time.GET_BY_DOCTOR, body);
 };
 
-export function findById(id) {
-  return axiosHelper.get(`${constants.API_URL}rest/time/${id}`);
-}
+// export function findById(id) {
+//   return axiosHelper.get(`${constants.API_URL}rest/time/${id}`);
+// }

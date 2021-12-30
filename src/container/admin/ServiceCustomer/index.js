@@ -8,12 +8,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { useDispatch, useSelector } from "react-redux";
-import { getListServiceCustumer, getById } from "../../../redux/reducer/ServiceCustumerSlide";
+import { getListServiceCustomer, getById } from "../../../redux/reducer/ServiceCustomerSlide";
 import Button from "../../../components/CustomButtons/Button";
-import Typography from '@mui/material/Typography';
 import CustomModal from '../../../components/Modal/Modal';
 import { openModal } from "../../../redux/reducer/UiSlider";
-import ServiceCustumerForm from "./ServiceCustumerForm";
+import ServiceCustomerForm from "./ServiceCustomerForm";
 
 const useStyles = makeStyles({
   table: {
@@ -31,12 +30,12 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function ServiceCustumer() {
+export default function ServiceCustomer() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   useEffect(() => {
-    dispatch(getListServiceCustumer());
+    dispatch(getListServiceCustomer());
   }, [dispatch]);
 
   const list = useSelector((state) => state.service.value);
@@ -59,7 +58,7 @@ const data ={
   return (
 
     <div>
-      <CustomModal title={title} modalBody={<ServiceCustumerForm />} />
+      <CustomModal title={title} modalBody={<ServiceCustomerForm />} />
       <div>
         <Button onClick={()=>{handleOpen("Thêm mới", data)}}>Thêm mới</Button>
 

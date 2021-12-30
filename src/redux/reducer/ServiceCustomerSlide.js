@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as ServiceCustumerService from "../../services/ServiceCustumerService";
+import * as ServiceCustomerService from "../../services/ServiceCustomerService";
 
-export const getListServiceCustumer = createAsyncThunk("service/getList", async () => {
-    const response = await ServiceCustumerService.getAllServiceCustumer();
+export const getListServiceCustomer = createAsyncThunk("service/getList", async () => {
+    const response = await ServiceCustomerService.getAllServiceCustomer();
     console.log(response.data.data)
     return response.data.data;
 });
 
-export const serviceCustumerSlice = createSlice({
+export const serviceCustomerSlice = createSlice({
     name: "service",
     initialState: {
         value: [],
@@ -23,19 +23,19 @@ export const serviceCustumerSlice = createSlice({
         },
     },
     extraReducers: {
-        [getListServiceCustumer.pending]: () => {
+        [getListServiceCustomer.pending]: () => {
             //show loading
         },
-        [getListServiceCustumer.fulfilled]: (state, action) => {
+        [getListServiceCustomer.fulfilled]: (state, action) => {
             state.value = action.payload;
         },
-        [getListServiceCustumer.rejected]: (state, error) => {
+        [getListServiceCustomer.rejected]: (state, error) => {
             console.log(error);
             state.value = state;
         },
     },
 });
 
-export const { getById } = serviceCustumerSlice.actions;
+export const { getById } = serviceCustomerSlice.actions;
 
-export default serviceCustumerSlice.reducer;
+export default serviceCustomerSlice.reducer;

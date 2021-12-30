@@ -7,6 +7,9 @@ import Icon from "@material-ui/core/Icon";
 import * as LoginService from "../services/auth/LoginService";
 // @material-ui/icons
 import People from "@material-ui/icons/People";
+import PhoneIcon from "@material-ui/icons/Phone";
+import EmailIcon from "@material-ui/icons/Email";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 // core components
 import Footer from "../components/Footer/Footer.js";
 import GridContainer from "../components/Grid/GridContainer.js";
@@ -24,7 +27,7 @@ import { Link, useHistory } from "react-router-dom";
 import * as toastHelper from "../common/toastHelper";
 const useStyles = makeStyles(styles);
 
-function LoginPage(props) {
+function Register(props) {
   const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
   let history = useHistory();
   const { register, handleSubmit } = useForm();
@@ -33,47 +36,19 @@ function LoginPage(props) {
   }, 700);
   const classes = useStyles();
   const onSubmit = (data) => {
-    onLogin(data);
-  }
-  const onLogin = async (data) => {
-    LoginService.loginToken(data)
+    console.log(data);
+    onRegister(data);
+  };
+  const onRegister = async (data) => {
+    LoginService.register(data)
       .then((response) => {
-        console.log("đây là data gửi về: ", response.data);
-        if (
-          response.data !== "" &&
-          response.data !== undefined &&
-          response.data !== null
-        ) {
-          if (
-            response.data.role === "ADMIN" ||
-            response.data.role === "STAFF"
-          ) {
-            toastHelper.toastSuccess("Đăng nhập thành công!");
-            localStorage.setItem("TokenLogin", response.data);
-            // //lưu vào localStorage đổi obj thành json
-            localStorage.setItem("userLogin", JSON.stringify(response.data));
-            history.replace("/admin");
-          }
-          if (response.data.role === "USER") {
-            toastHelper.toastSuccess("Đăng nhập thành công!");
-            localStorage.setItem("TokenLogin", response.data);
-            // //lưu vào localStorage đổi obj thành json
-            localStorage.setItem("userLogin", JSON.stringify(response.data));
-            history.replace("/");
-          }
-        } else {
-          toastHelper.toastError("Đăng nhập thất bại!!!");
-          localStorage.removeItem("userLogin");
-          localStorage.removeItem("TokenLogin");
-        }
+        toastHelper.toastSuccess("Bạn đã đăng kí thành công!");
+        history.replace("/login");
       })
       .catch(function (error) {
         toastHelper.toastError(
-          "Thông tin tài khoản hoặc mật khẩu không chính xác!!!"
+          "Đã có lỗi sảy ra, xin vui lòng thử lại sau !!!"
         );
-        localStorage.removeItem("userLogin");
-        localStorage.removeItem("TokenLogin");
-        console.log(error);
       });
   };
 
@@ -96,7 +71,7 @@ function LoginPage(props) {
                   onSubmit={handleSubmit(onSubmit)}
                 >
                   <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Login</h4>
+                    <h4>REGISTER</h4>
                     <div className={classes.socialLine}>
                       <Button
                         justIcon
@@ -127,8 +102,8 @@ function LoginPage(props) {
                       </Button>
                     </div>
                   </CardHeader>
-                  <Link to="/register"  style={{ textDecoration: "none" }}>
-                    <p className={classes.divider}>OR REGISTER</p> 
+                  <Link to="/login"  style={{ textDecoration: "none" }}>
+                    <p className={classes.divider}>BACK LOGIN</p>
                   </Link>
                   <CardBody>
                     <CustomInput
@@ -139,7 +114,7 @@ function LoginPage(props) {
                       }}
                       inputProps={{
                         ...register("username"),
-                        
+
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
@@ -167,10 +142,61 @@ function LoginPage(props) {
                         autoComplete: "off",
                       }}
                     />
+                    <CustomInput
+                      labelText="Full name..."
+                      id="first"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        ...register("fullName"),
+
+                        type: "text",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <AccountCircleIcon className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <CustomInput
+                      labelText="Email..."
+                      id="first"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        ...register("email"),
+
+                        type: "text",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <EmailIcon className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                    <CustomInput
+                      labelText="Phone Number..."
+                      id="first"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        ...register("phone"),
+
+                        type: "number",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <PhoneIcon className={classes.inputIconsColor} />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
                     <Button simple color="primary" type="submit" size="lg">
-                      LOGIN
+                      SUBMIT
                     </Button>
                   </CardFooter>
                 </form>
@@ -183,4 +209,4 @@ function LoginPage(props) {
     </div>
   );
 }
-export default LoginPage;
+export default Register;

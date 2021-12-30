@@ -11,6 +11,7 @@ import Danger from "../../components/Typography/Danger";
 import Box from "@material-ui/core/Box";
 const useStyles = makeStyles(imagesStyles);
 function ProductDetail({ match }) {
+  
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {

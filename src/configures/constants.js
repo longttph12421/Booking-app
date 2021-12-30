@@ -1,15 +1,21 @@
 const path = {
   auth: {
     LOGIN_TOKEN: "http://localhost:6769/api/auth/login",
+    REGISTER_USER: "http://localhost:6769/api/auth/register",
   },
   product: {
     GET_ALL_PRODUCT: "http://localhost:6769/rest/customer/getAll",
   },
   time: {
-    GET_ALL_TIME: "http://localhost:6769/rest/customer/getAll",
+    GET_BY_DOCTOR: "http://localhost:6769/api/week/findByStaffIdAndStatus",
   },
+  booking: {
+    POST_BOOKING: "http://localhost:6769/api/booking/create",
+  },
+
   doctor: {
-    GET_ALL_DOCTOR: "http://localhost:6769/rest/customer/getAll",
+    GET_ALL_DOCTOR: "http://localhost:6769/api/staff/getAll",
+    GET_DOCTOR_BY_ID: "http://localhost:6769/api/staff",
   },
   
   bookingdetail: {

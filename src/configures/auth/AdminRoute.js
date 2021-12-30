@@ -16,7 +16,7 @@ const AdminRoute = ({ children }) => {
   return (
     <Route
       render={() => {
-        return checkAdmin() ? children : <Redirect to={{ pathname: "/" }} />;
+        return checkAdmin() ? children : <Redirect to={{ pathname: "/login" }} />;
       }}
     />
   );

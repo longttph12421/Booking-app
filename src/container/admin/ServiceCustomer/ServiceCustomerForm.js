@@ -1,23 +1,16 @@
 import React, { useEffect } from "react";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
-import People from "@material-ui/icons/People";
 // core components
 import Button from "../../../components/CustomButtons/Button.js";
-import Card from "../../../components/Card/Card";
 import CardBody from "../../../components/Card/CardBody.js";
-import CardHeader from "../../../components/Card/CardHeader.js";
 import CardFooter from "../../../components/Card/CardFooter.js";
 import CustomInput from "../../../components/CustomInput/CustomInput.js";
-import * as Service from "../../../services/ServiceCustumerService";
+import * as Service from "../../../services/ServiceCustomerService";
 import * as toastHelper from "../../../common/toastHelper";
 import { useDispatch, useSelector } from "react-redux";
-import { getListServiceCustumer } from "../../../redux/reducer/ServiceCustumerSlide";
-function ServiceCustumerForm() {
+import { getListServiceCustomer } from "../../../redux/reducer/ServiceCustomerSlide";
+function ServiceCustomerForm() {
 
 
     const detai = useSelector((state) => state.service.detail);
@@ -31,9 +24,9 @@ function ServiceCustumerForm() {
     });
     const dispatch = useDispatch();
     const onSubmit = (data) => {
-        Service.postServiceCustumer(data).then((repo) => {
+        Service.postServiceCustomer(data).then((repo) => {
             toastHelper.toastSuccess("Thêm mới thành công");
-            dispatch(getListServiceCustumer());
+            dispatch(getListServiceCustomer());
         }).catch(error => {
             toastHelper.toastError("Thêm mới thất bại" + error);
         })
@@ -94,4 +87,4 @@ function ServiceCustumerForm() {
     )
 
 }
-export default ServiceCustumerForm;
+export default ServiceCustomerForm;
