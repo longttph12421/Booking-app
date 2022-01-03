@@ -78,6 +78,20 @@ const customInputStyle = {
       color: "#AAAAAA",
     },
   },
+  select: {
+    color: "#495057",
+    //height: "unset",
+    "&,&::placeholder": {
+      fontSize: "14px",
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: "400",
+      lineHeight: "1.42857",
+      opacity: "1",
+    },
+    "&::placeholder": {
+      color: "#AAAAAA",
+    },
+  },
   whiteInput: {
     "&,&::placeholder": {
       color: "#FFFFFF",

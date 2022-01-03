@@ -7,9 +7,6 @@ import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import BookingDetail from "./BookingDetail";
 import * as BookingDetailService from "../../../services/BookingDetailService";
-import * as toastHelper from "../../../common/toastHelper";
-import { useDispatch, useSelector } from "react-redux";
-import { getListBooking } from "../../../redux/reducer/BookingSlide";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -23,21 +20,18 @@ export default function Booking() {
   const [list, setList] = React.useState([]);
   const [list2, setListStt2] = React.useState([]);
   const [list3, setListStt3] = React.useState([]);
-  const dispatch = useDispatch();
   useEffect(() => {
     BookingDetailService.getFindByStt1().then((response) => {
       setList(response.data.data);
     });
-
     BookingDetailService.getFindByStt2().then((response) => {
       setListStt2(response.data.data);
     });
-
     BookingDetailService.getFindByStt3().then((response) => {
       setListStt3(response.data.data);
       console.log(response.data.data);
     });
-  }, []);
+  }, [value]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

@@ -5,7 +5,13 @@ export const getWeekByDoctor = createAsyncThunk(
   "week/findByDoctor",
   async (body) => {
     const response = await TimeSeries.findWeekByDoctorAndStatus(body);
-    console.log(response.data);
+    return response.data;
+  }
+);
+export const getDayByDoctor = createAsyncThunk(
+  "day/findByDoctor",
+  async (body) => {
+    const response = await TimeSeries.findDayByDoctorAndDay(body);
     return response.data;
   }
 );
@@ -15,8 +21,14 @@ export const TimeSlide = createSlice({
   initialState: {
     weeks: [],
     days: [],
+    dataBooking: {},
   },
-  reducers: {},
+
+  reducers: {
+    mapDataBooking: (state, action) => {
+      state.dataBooking = action.payload;
+    },
+  },
   extraReducers: {
     [getWeekByDoctor.fulfilled]: (state, action) => {
       state.weeks = action.payload;
@@ -26,9 +38,17 @@ export const TimeSlide = createSlice({
       console.log(error);
       state.weeks = state;
     },
+    [getDayByDoctor.fulfilled]: (state, action) => {
+      state.days = action.payload;
+    },
+
+    [getDayByDoctor.rejected]: (state, error) => {
+      console.log(error);
+      state.days = state;
+    },
   },
 });
 
-export const { getById } = TimeSlide.actions;
+export const { getById, mapDataBooking } = TimeSlide.actions;
 
 export default TimeSlide.reducer;

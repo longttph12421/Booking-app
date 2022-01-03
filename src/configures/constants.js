@@ -8,6 +8,7 @@ const path = {
   },
   time: {
     GET_BY_DOCTOR: "http://localhost:6769/api/week/findByStaffIdAndStatus",
+    GET_DAY_BY_STAFF: "http://localhost:6769/api/day/findByStaffIdAndStatus",
   },
   booking: {
     POST_BOOKING: "http://localhost:6769/api/booking/create",
@@ -23,10 +24,11 @@ const path = {
     PUT_CONFIRM_BOOKING:"http://localhost:6769/api/auth/admin/confirm",
   },
 
-  servicecustumer:{
-    GET_ALL_SERVICECUSTUMER:"http://localhost:6769/api/auth/admin/allservice",
-    POST_SERVICECUSTUMER:"http://localhost:6769/api/auth/admin/save",
-    PUT_SERVICECUSTUMER:"http://localhost:6769/api/auth/admin/update",
+  service:{
+    GET_ALL_SERVICE:"http://localhost:6769/api/auth/admin/allservice",
+    POST_SERVICE:"http://localhost:6769/api/auth/admin/save",
+    PUT_SERVICE:"http://localhost:6769/api/auth/admin/update",
+    DELETE_SERVICE: "http://localhost:6769/api/auth/admin/delete"
   }
   
 };

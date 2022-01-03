@@ -3,7 +3,6 @@ import * as ServiceCustomerService from "../../services/ServiceCustomerService";
 
 export const getListServiceCustomer = createAsyncThunk("service/getList", async () => {
     const response = await ServiceCustomerService.getAllServiceCustomer();
-    console.log(response.data.data)
     return response.data.data;
 });
 

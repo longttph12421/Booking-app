@@ -42,7 +42,7 @@ export default function CustomSelect(props) {
     [inputRootCustomClasses]: inputRootCustomClasses !== undefined,
   });
   const inputClasses = classNames({
-    [classes.input]: true,
+    [classes.select]: true,
     [classes.whiteInput]: white,
   });
   var formControlClasses;
@@ -56,11 +56,21 @@ export default function CustomSelect(props) {
   }
   return (
     <FormControl {...formControlProps} className={formControlClasses}>
-      {labelText !== undefined ? <InputLabel>{labelText}</InputLabel> : null}
+      {labelText !== undefined ? (
+        <InputLabel
+          className={classes.labelRoot + " " + labelClasses}
+          htmlFor={id}
+          {...labelProps}
+        >
+          {labelText}
+        </InputLabel>
+      ) : null}
       <Select
         id={id}
-        classes={{
+        className={{
           input: inputClasses,
+          root: marginTop,
+          disabled: classes.disabled,
           underline: underlineClasses,
         }}
         {...inputProps}

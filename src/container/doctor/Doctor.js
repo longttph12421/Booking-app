@@ -3,14 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAll } from "../../redux/reducer/DoctorSlide";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import EventNoteIcon from "@material-ui/icons/EventNote";
-import Button from "../../components/CustomButtons/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Tooltip from "@material-ui/core/Tooltip";
 import { CssBaseline, Box, Grid } from "@material-ui/core";
 
 // core components
-import Muted from "../../components/Typography/Muted.js";
+import CustomModal from "../../components/Modal/Modal.js";
 import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles.js";
-
+import BookingForm from "../bookingForm/BookingForm";
+// sections for this page
 const useStyles = makeStyles(imagesStyles);
 
 export default function Doctor(props) {
@@ -24,6 +25,8 @@ export default function Doctor(props) {
   return (
     <React.Fragment>
       <CssBaseline />
+      <CustomModal title="Đặt lịch khám" modalBody={<BookingForm />} />
+
       <Box
         sx={{
           width: "90%",
@@ -33,6 +36,9 @@ export default function Doctor(props) {
       >
         <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={12}>
+            <Box mt={3} className="d-flex justify-content-center">
+              <h3>CHỌN BÁC SĨ</h3>
+            </Box>
             {ListDoctor.map((doctor, index) => {
               return (
                 <>
@@ -44,61 +50,47 @@ export default function Doctor(props) {
                   >
                     <Grid item xs={12} md={4}>
                       <div>
-                        <a href={`/doctor/${doctor.id}`}>
-                          <div className="d-flex justify-content-center mt-3">
-                            <img
-                              src={doctor.photo}
-                              alt="..."
-                              className={
-                                classes.imgRaised +
-                                " " +
-                                classes.imgRoundedCircle +
-                                " " +
-                                classes.imgFluid
-                              }
-                            />
-                          </div>
-                        </a>
-                        <div className="text-center mt-3">
-                          <h3>{doctor.fullName}</h3>
-                        </div>
-                        <div className="text-center mt-3">
-                          <Muted>
-                            <Button
-                              href={`/doctor/${doctor.id}`}
-                              size="sm"
-                              color="lime"
-                            >
-                              ĐẶT LỊCH
-                            </Button>
-                          </Muted>
+                        <div className="d-flex justify-content-center">
+                          <Tooltip title="Đặt lịch hẹn">
+                            <IconButton aria-label="Đặt lịch hẹn">
+                              <a href={`/doctor/${doctor.id}`}>
+                                <img
+                                  src={doctor.photo}
+                                  alt="..."
+                                  className={
+                                    classes.imgRaised +
+                                    " " +
+                                    classes.imgRoundedCircle +
+                                    " " +
+                                    classes.imgFluid
+                                  }
+                                />
+                              </a>
+                            </IconButton>
+                          </Tooltip>
                         </div>
                       </div>
                     </Grid>
+
                     <Grid item xs={12} md={8}>
-                      <div>
-                        <h5 className="mt-3">
-                          <EventNoteIcon />
-                          KINH NGHIỆM LÀM VIỆC
-                        </h5>
-                      </div>
                       <Box mt={3}>
-                        <Muted>
-                          <ul>
-                            <li>
-                              <span>Giáo sư tiến sĩ {doctor.fullName}</span>
-                            </li>
-                            <li>
-                              <span>{doctor.academicLevel}</span>
-                            </li>
-                            <li>
-                              <span>{doctor.workExperience}</span>
-                            </li>
-                            <li>
-                              <span>{doctor.description}</span>
-                            </li>                       
-                          </ul>
-                        </Muted>
+                        <a
+                          href={`/doctor/${doctor.id}`}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <h4 className="mt-3">{doctor.fullName}</h4>
+                        </a>
+                        <ul>
+                          <li>
+                            <span>{doctor.description}</span>
+                          </li>
+                          <li>
+                            <span>{doctor.academicLevel}</span>
+                          </li>
+                          <li>
+                            <span>{doctor.workExperience}</span>
+                          </li>
+                        </ul>
                       </Box>
                     </Grid>
                   </Grid>

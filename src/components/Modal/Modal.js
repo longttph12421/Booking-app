@@ -25,9 +25,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 Transition.displayName = "Transition";
-const CustomModal = ({ title, modalBody, onSave }) => {
+const CustomModal = ({ title, modalBody, onSubmit }) => {
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const classicModal = useSelector((state) => state.UI.modal);
 
@@ -74,14 +73,6 @@ const CustomModal = ({ title, modalBody, onSave }) => {
           >
             {modalBody}
           </DialogContent>
-          <DialogActions className={classes.modalFooter}>
-            <Button color="transparent" simple onClick={()=>{console.log("log")}}>
-              Nice Button
-            </Button>
-            <Button onClick={onClose} color="danger" simple>
-              Close
-            </Button>
-          </DialogActions>
         </Dialog>
       </GridItem>
     </GridContainer>

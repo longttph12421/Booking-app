@@ -9,22 +9,36 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Tooltip from "@material-ui/core/Tooltip";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import MenuIcon from "@material-ui/icons/Menu";
 // @material-ui/icons
-import { Apps, CloudDownload } from "@material-ui/icons";
-import InstagramIcon from "@material-ui/icons/Instagram";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import FacebookIcon from "@material-ui/icons/Facebook";
+import { Apps } from "@material-ui/icons";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import LockIcon from "@material-ui/icons/Lock";
 // core components
 import CustomDropdown from "../CustomDropdown/CustomDropdown";
 import Button from "../CustomButtons/Button";
-
 import styles from "../../assets/jss/material-kit-react/components/headerLinksStyle";
-
+import Muted from "../../components/Typography/Muted";
 const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
   const classes = useStyles();
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <List className={classes.list}>
       <ListItem className={classes.listItem}>
@@ -69,56 +83,63 @@ export default function HeaderLinks(props) {
           <span className={classes.text}>LIÊN HỆ</span>
         </Button>
       </ListItem>
+
       <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-twitter"
-          title="Follow us on twitter"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
-        >
-          <Button
-            href="#"
-            target="_blank"
-            color="transparent"
-            className={classes.navLink}
-          >
-            <TwitterIcon className={classes.socialIcons} />
-          </Button>
-        </Tooltip>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-facebook"
-          title="Follow us on facebook"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
-        >
-          <Button
-            color="transparent"
-            href="#"
-            target="_blank"
-            className={classes.navLink}
-          >
-            <FacebookIcon className={classes.socialIcons} />
-          </Button>
-        </Tooltip>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Tooltip
-          id="instagram-tooltip"
-          title="Follow us on instagram"
-          placement={window.innerWidth > 959 ? "top" : "left"}
-          classes={{ tooltip: classes.tooltip }}
-        >
-          <Button
-            color="transparent"
-            href="#"
-            target="_blank"
-            className={classes.navLink}
-          >
-            <InstagramIcon className={classes.socialIcons} />
-          </Button>
-        </Tooltip>
+        {auth && (
+          <>
+            <Button
+              color="transparent"
+              className={classes.navLink}
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+            >
+              <AccountCircle className={classes.socialIcons} />
+              <span className={classes.text}>MY ACCOUNT</span>
+            </Button>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={open}
+              onClose={handleClose}
+            >
+              <Link to="/profile" style={{ textDecoration: "none" }}>
+                <MenuItem>
+                  <ListItemIcon>
+                    <AccountCircle fontSize="small" />
+                  </ListItemIcon>
+                  <Muted variant="inherit">MY PROFILE</Muted>
+                </MenuItem>
+              </Link>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <MenuItem>
+                  <ListItemIcon>
+                    <LockOpenIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Muted variant="inherit">LOGIN</Muted>
+                </MenuItem>
+              </Link>
+              <Link to="/logout" style={{ textDecoration: "none" }}>
+                <MenuItem>
+                  <ListItemIcon>
+                    <LockIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Muted variant="inherit">LOGOUT</Muted>
+                </MenuItem>
+              </Link>
+            </Menu>
+          </>
+        )}
       </ListItem>
     </List>
   );

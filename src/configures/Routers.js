@@ -17,6 +17,7 @@ import AdminProduct from "../container/admin/DashBoard/AdminProduct";
 import Booking from "../container/admin/DashBoard/Booking";
 import ServiceCustomer from "../container/admin/ServiceCustomer";
 import Register from "../container/Register";
+import ProfilePage from "../container/ProfilePage/ProfilePage";
 function Routers() {
   return (
     <Switch>
@@ -63,12 +64,13 @@ function Routers() {
             <Route exact path="/doctor/:id" component={DoctorDetail} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/about" component={AboutPage} />
+            <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/" component={Index} />
           </Switch>
         </HomePage>
       </Route>
 
-      <Route exact path="/*" component={Page404} />
+      <Route exact path="*" component={Page404} />
     </Switch>
   );
 }

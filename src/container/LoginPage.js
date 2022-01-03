@@ -33,8 +33,9 @@ function LoginPage(props) {
   }, 700);
   const classes = useStyles();
   const onSubmit = (data) => {
-    onLogin(data);
-  }
+ onLogin(data);
+     
+  };
   const onLogin = async (data) => {
     LoginService.loginToken(data)
       .then((response) => {
@@ -50,14 +51,12 @@ function LoginPage(props) {
           ) {
             toastHelper.toastSuccess("Đăng nhập thành công!");
             localStorage.setItem("TokenLogin", response.data);
-            // //lưu vào localStorage đổi obj thành json
             localStorage.setItem("userLogin", JSON.stringify(response.data));
             history.replace("/admin");
           }
           if (response.data.role === "USER") {
             toastHelper.toastSuccess("Đăng nhập thành công!");
             localStorage.setItem("TokenLogin", response.data);
-            // //lưu vào localStorage đổi obj thành json
             localStorage.setItem("userLogin", JSON.stringify(response.data));
             history.replace("/");
           }
@@ -127,8 +126,8 @@ function LoginPage(props) {
                       </Button>
                     </div>
                   </CardHeader>
-                  <Link to="/register"  style={{ textDecoration: "none" }}>
-                    <p className={classes.divider}>OR REGISTER</p> 
+                  <Link to="/register" style={{ textDecoration: "none" }}>
+                    <p className={classes.divider}>OR REGISTER</p>
                   </Link>
                   <CardBody>
                     <CustomInput
@@ -139,7 +138,7 @@ function LoginPage(props) {
                       }}
                       inputProps={{
                         ...register("username"),
-                        
+
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">

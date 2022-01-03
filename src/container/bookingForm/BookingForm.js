@@ -1,117 +1,138 @@
 import React from "react";
-//------------------------------------------------------
-//  MATERIAL - UI
-//------------------------------------------------------
-import PropTypes from "prop-types";
-import Grid from "@material-ui/core/Grid";
-import { reduxForm, Field } from "redux-form";
-//------------------------------------------------------
-//  COMPONENT
-//------------------------------------------------------
-
+import { Grid, Button } from "@material-ui/core";
+import CardBody from "../../components/Card/CardBody.js";
+import CardFooter from "../../components/Card/CardFooter.js";
+import { useForm } from "react-hook-form";
 import CustomInput from "../../components/CustomInput/CustomInput";
-import DateTime from "../../components/DateTime/DateTime";
-import constants from "../../configures/constants";
-import Container from "@material-ui/core/Container";
-
+import * as UI from "../../redux/reducer/UiSlider";
+import { useDispatch, useSelector } from "react-redux";
+import * as BookingService from "../../services/BookingService";
+import * as toastHelper from "../../common/toastHelper";
+import Danger from "../../components/Typography/Danger";
+import CustomSelect from "../../components/CustomInput/CustomSelect";
+import moment from "moment";
 //------------------------------------------------------
 
-function BookingForm({onsubmit}) {
+function BookingForm() {
+  const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("userLogin"));
+  const bookingData = useSelector((state) => state.time.dataBooking);
+  const service = useSelector((state) => state.service.value);
+  const onCancel = () => {
+    dispatch(UI.closeModal());
+  };
+  const onSubmit = (value) => {
+    const data = {
+      customer: {
+        id: user.id,
+      },
+      staff: {
+        id: bookingData.staff,
+      },
+      serviceCustomer: {
+        id: value.service,
+      },
+      //time: bookingData.time,
+      timeEnd: bookingData.time.endTime,
+      timeStart: bookingData.time.startTime,
+      dateBooking: moment(bookingData.date).format("DD/MM/YYYY"),
+      note: value.note,
+    };
+    console.log(data);
+    BookingService.booking(data)
+      .then((response) => {
+        console.log(response.data);
+        toastHelper.toastSuccess("Đặt lịch thành công");
+      })
+      .catch((err) => {
+        console.log(err);
+        toastHelper.toastError("Đã có lỗi sảy ra...");
+      });
+  };
   return (
     <React.Fragment>
-      <form onSubmit={onsubmit}>
-        <Container>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardBody>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              <Field
-                inputProps={{
-                  placeholder: "Họ và tên",
-                }}
+              <CustomInput
+                labelText="Họ và tên"
+                id="1"
                 formControlProps={{
                   fullWidth: true,
                 }}
-                name="name"
-                component={CustomInput}
+                inputProps={{
+                  ...register("fullName"),
+                  type: "text",
+                }}
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Field
-                type="number"
-                name="price"
-                inputProps={{
-                  placeholder: "Số điện thoại",
-                }}
+              <CustomInput
+                labelText="Email"
+                id="2"
                 formControlProps={{
                   fullWidth: true,
                 }}
-                component={CustomInput}
+                inputProps={{
+                  ...register("email"),
+                  type: "text",
+                }}
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Field
-                 type="number"
-                 name="price"
-                 inputProps={{
-                   placeholder: "Năm sinh",
-                 }}
-                 formControlProps={{
-                   fullWidth: true,
-                 }}
-                 component={CustomInput}
+              <CustomInput
+                labelText="Số điện thoại"
+                id="3"
+                formControlProps={{
+                  fullWidth: true,
+                }}
+                inputProps={{
+                  ...register("phone"),
+                  type: "number",
+                }}
+              />
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <CustomInput
+                labelText="Lí do đến khám"
+                id="4"
+                formControlProps={{
+                  fullWidth: true,
+                }}
+                inputProps={{
+                  ...register("note"),
+                  type: "text",
+                }}
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Field
-                type="number"
-                inputProps={{
-                  placeholder: "giới tính",
-                }}
+              <CustomSelect
+                labelText="Dịch vụ..."
+                id="3"
                 formControlProps={{
                   fullWidth: true,
                 }}
-                name="quantity"
-                component={CustomInput}
-              />
-            </Grid>
-            <Grid item xs={12} md={12}>
-              <Field
-                name="date"
+                listItem={service}
                 inputProps={{
-                  placeholder: "Năm sinh",
+                  ...register("service"),
+                  type: "time",
                 }}
-                fullWidth={{
-                  fullWidth: true,
-                }}
-                component={DateTime}
-              />
-            </Grid>
-            <Grid item xs={12} md={12}>
-              <Field
-                name="ap"
-                inputProps={{
-                  placeholder: "Lí do đến khám",
-                }}
-                formControlProps={{
-                  fullWidth: true,
-                }}
-                component={CustomInput}
               />
             </Grid>
           </Grid>
-        </Container>
+        </CardBody>
+        <CardFooter>
+          <Button type="submit"> Submit</Button>
+          <Button onClick={onCancel}>
+            <Danger>Cancel</Danger>
+          </Button>
+        </CardFooter>
       </form>
     </React.Fragment>
   );
 }
 
-BookingForm.propTypes = {
-  classes: PropTypes.object,
-  initialValues: PropTypes.object,
-  submitForm: PropTypes.func,
-  invalid: PropTypes.bool,
-  submitting: PropTypes.bool,
-};
-const withReduxForm = reduxForm({
-  form: constants.REDUX_FORM,
-});
-export default withReduxForm(BookingForm);
+export default BookingForm;
