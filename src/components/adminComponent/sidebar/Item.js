@@ -6,54 +6,64 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
-import BarChartIcon from "@material-ui/icons/BarChart";
-import LayersIcon from "@material-ui/icons/Layers";
+import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import AssignmentIcon from "@material-ui/icons/Assignment";
-import { Link } from "react-router-dom";
+import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
+import EventNoteIcon from "@material-ui/icons/EventNote";
 import Muted from "../../Typography/Muted";
+import { Link } from "react-router-dom";
+
 export const mainItems = (
   <div>
-    <Link to="/admin" style={{ textDecoration: "none"}}>
+    <Link to="/admin" style={{ textDecoration: "none" }}>
       <ListItem button>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <Muted>
-        <ListItemText primary="Dashboard" />
+          <ListItemText primary="Trang chủ" />
         </Muted>
-
       </ListItem>
     </Link>
 
-    <Link to="/admin/staff" style={{ textDecoration: "none" }}>
+    <Link to="/admin/product" style={{ textDecoration: "none" }}>
       <ListItem button>
         <ListItemIcon>
           <ShoppingCartIcon />
         </ListItemIcon>
         <Muted>
-        <ListItemText primary="Staff" />
+          <ListItemText primary="Sản phẩm" />
         </Muted>
       </ListItem>
     </Link>
 
-    <Link to="/admin/customers" style={{ textDecoration: "none" }}>
+    <Link to="/admin/customer" style={{ textDecoration: "none" }}>
       <ListItem button>
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
         <Muted>
-        <ListItemText primary="Customer" />
+          <ListItemText primary="Người dùng" />
         </Muted>
       </ListItem>
     </Link>
-
-    <Link to="/admin/allservice" style={{ textDecoration: "none" }}>
+    <Link to="/admin/staff" style={{ textDecoration: "none" }}>
       <ListItem button>
         <ListItemIcon>
-          <BarChartIcon />
+          <PermContactCalendarIcon />
         </ListItemIcon>
         <Muted>
-        <ListItemText primary="Dịch Vụ" />
+          <ListItemText primary="Nhân viên" />
+        </Muted>
+      </ListItem>
+    </Link>
+    <Link to="/admin/service" style={{ textDecoration: "none" }}>
+      <ListItem button>
+        <ListItemIcon>
+          <EventNoteIcon />
+        </ListItemIcon>
+        <Muted>
+          <ListItemText primary="Dịch Vụ" />
         </Muted>
       </ListItem>
     </Link>
@@ -61,10 +71,10 @@ export const mainItems = (
     <Link to="/admin/booking" style={{ textDecoration: "none" }}>
       <ListItem button>
         <ListItemIcon>
-          <LayersIcon />
+          <EventAvailableIcon />
         </ListItemIcon>
         <Muted>
-        <ListItemText primary="Lịch Khám" />
+          <ListItemText primary="Lịch Khám" />
         </Muted>
       </ListItem>
     </Link>
@@ -73,24 +83,24 @@ export const mainItems = (
 
 export const secondaryItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
+    <ListSubheader inset>Thống kê</ListSubheader>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Theo tuần" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="Theo tháng" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
+      <ListItemText primary="Theo năm" />
     </ListItem>
   </div>
 );

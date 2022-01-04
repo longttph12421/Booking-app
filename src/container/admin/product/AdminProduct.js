@@ -11,16 +11,11 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Danger from "../../../components/Typography/Danger";
 import Warning from "../../../components/Typography/Warning";
-//==================  SERVICE  =====================================
-import {
-  getListServiceCustomer,
-  getById,
-} from "../../../redux/reducer/ServiceCustomerSlide";
+import ProductForm from "./ProductForm";
 import Button from "../../../components/CustomButtons/Button";
 import CustomModal from "../../../components/Modal/Modal";
+//==================  SERVICE  =====================================
 import { openModal } from "../../../redux/reducer/UiSlider";
-import ServiceForm from "./ServiceForm";
-import * as Service from "../../../services/ServiceCustomerService";
 import * as toastHelper from "../../../common/toastHelper";
 //======================   ICON   ================================
 import EditIcon from "@material-ui/icons/Edit";
@@ -34,44 +29,26 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ServiceCustomer() {
+function AdminProduct() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
-  useEffect(() => {
-    dispatch(getListServiceCustomer());
-  }, [dispatch]);
+  useEffect(() => {}, [dispatch]);
 
-  const list = useSelector((state) => state.service.value);
+  const productList = [{ id: 1 }];
   const UI = useSelector((state) => state.UI.modal);
   const handleOpen = (string, data) => {
     setTitle(string);
     dispatch(openModal());
-    dispatch(getById(data));
   };
-  const data = {
-    id: "",
-    name: "",
-    price: "",
-    description: "",
-    time_examination: "",
-  };
+  const data = {};
   const handleDelete = (id) => {
-    Service.deleteService(id)
-      .then(() => {
-        dispatch(getListServiceCustomer());
-        setTimeout(() => {
-          toastHelper.toastSuccess("Bạn đã xóa thành công ...");
-        }, 1000);
-      })
-      .catch((err) => {
-        toastHelper.toastError("Đã có lỗi sảy ra !" + err);
-      });
+    toastHelper.toastSuccess("Bạn đã xóa thành công ...");
   };
   return (
     <div>
       {UI === true ? (
-        <CustomModal title={title} modalBody={<ServiceForm />} />
+        <CustomModal title={title} modalBody={<ProductForm />} />
       ) : null}
       <div>
         <Button
@@ -89,24 +66,24 @@ export default function ServiceCustomer() {
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="center">STT</TableCell>
-              <TableCell align="center">Tên dịch vụ</TableCell>
+              <TableCell align="center">Id</TableCell>
+              <TableCell align="center">Tên Sản phẩm</TableCell>
               <TableCell align="center">Giá</TableCell>
-              <TableCell align="center">Mô tả</TableCell>
-              <TableCell align="center">Thời gian</TableCell>
-              <TableCell align="center">Action</TableCell>
+              <TableCell align="center">Số lượng</TableCell>
+              <TableCell align="center">Hình ảnh</TableCell>
+              <TableCell align="center">Thao tác</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {list.map((row) => (
+            {productList.map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" align="center" scope="row">
                   {row.id}
                 </TableCell>
                 <TableCell align="center">{row.name}</TableCell>
                 <TableCell align="center">{row.price}</TableCell>
-                <TableCell align="center">{row.description}</TableCell>
-                <TableCell align="center">{row.timeExamination}</TableCell>
+                <TableCell align="center">{row.quantity}</TableCell>
+                <TableCell align="center">{row.image}</TableCell>
                 <TableCell align="center">
                   <Tooltip title="Chỉnh sửa">
                     <Button
@@ -143,3 +120,5 @@ export default function ServiceCustomer() {
     </div>
   );
 }
+
+export default AdminProduct;

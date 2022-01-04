@@ -5,7 +5,7 @@ import Button from "../../components/CustomButtons/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles.js";
 import CustomModal from "../../components/Modal/Modal.js";
-import BookingForm from "../bookingForm/BookingForm";
+import BookingForm from "./BookingForm";
 import moment from "moment";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
@@ -13,7 +13,7 @@ import { CssBaseline } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
-import Danger from "../../components/Typography/Danger";
+
 //=============================================================
 //     API and React redux
 //=============================================================

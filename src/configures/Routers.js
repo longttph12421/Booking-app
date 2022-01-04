@@ -13,11 +13,14 @@ import Doctor from "../container/doctor/Doctor";
 import DoctorDetail from "../container/doctor/DoctorDetail";
 import AboutPage from "../container/AboutPage/AboutPage";
 import Contact from "../container/AboutPage/Sections/Contact";
-import AdminProduct from "../container/admin/DashBoard/AdminProduct";
-import Booking from "../container/admin/DashBoard/Booking";
+import AdminProduct from "../container/admin/product/AdminProduct";
+import Booking from "../container/admin/booking/Booking";
 import ServiceCustomer from "../container/admin/ServiceCustomer";
 import Register from "../container/Register";
 import ProfilePage from "../container/ProfilePage/ProfilePage";
+import Staff from "../container/admin/calender/Staff";
+import WeekSchedule from "../container/admin/calender/weekSchedule";
+import Customer from "../container/admin/customer/Customer";
 function Routers() {
   return (
     <Switch>
@@ -27,15 +30,29 @@ function Routers() {
             <AdminRoute exact path="/admin">
               <Dashboard />
             </AdminRoute>
+
             <AdminRoute exact path="/admin/product">
               <AdminProduct />
             </AdminRoute>
+
             <AdminRoute exact path="/admin/booking">
               <Booking />
             </AdminRoute>
 
-            <AdminRoute exact path="/admin/allservice">
+            <AdminRoute exact path="/admin/service">
               <ServiceCustomer />
+            </AdminRoute>
+
+            <AdminRoute exact path="/admin/customer">
+              <Customer />
+            </AdminRoute>
+
+            <AdminRoute exact path="/admin/staff">
+              <Staff />
+            </AdminRoute>
+
+            <AdminRoute exact path="/admin/staff/:id">
+              <WeekSchedule />
             </AdminRoute>
           </Switch>
         </AdminLayout>

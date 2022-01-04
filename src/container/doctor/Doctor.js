@@ -10,7 +10,7 @@ import { CssBaseline, Box, Grid } from "@material-ui/core";
 // core components
 import CustomModal from "../../components/Modal/Modal.js";
 import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles.js";
-import BookingForm from "../bookingForm/BookingForm";
+import BookingForm from "./BookingForm";
 // sections for this page
 const useStyles = makeStyles(imagesStyles);
 
