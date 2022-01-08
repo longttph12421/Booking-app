@@ -9,6 +9,9 @@ const path = {
   time: {
     GET_BY_DOCTOR: "http://localhost:6769/api/week/findByStaffIdAndStatus",
     GET_DAY_BY_STAFF: "http://localhost:6769/api/day/findByStaffIdAndStatus",
+    GET_DAY_BY_WEEK: "http://localhost:6769/api/day/findByWeek",
+    SAVE_DAY_BY_STAFF: "http://localhost:6769/api/week/create",
+    DELETE_BY_STAFF: "http://localhost:6769/api/week/delete"
   },
   booking: {
     POST_BOOKING: "http://localhost:6769/api/booking/create",
@@ -19,8 +22,8 @@ const path = {
     GET_DOCTOR_BY_ID: "http://localhost:6769/api/staff",
   },
   
-  bookingdetail: {
-    GET_ALL_BOOKINGDETAIL: "http://localhost:6769/api/auth/admin/allbooking",
+  bookingDetail: {
+    GET_ALL_BOOKING_DETAIL: "http://localhost:6769/api/auth/admin/allbooking",
     PUT_CONFIRM_BOOKING:"http://localhost:6769/api/auth/admin/confirm",
   },
 

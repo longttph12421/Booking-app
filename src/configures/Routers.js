@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import HomePage from "../container/homePage/HomePage";
 import Dashboard from "../container/admin/DashBoard/Dashboard";
@@ -19,12 +19,13 @@ import ServiceCustomer from "../container/admin/ServiceCustomer";
 import Register from "../container/Register";
 import ProfilePage from "../container/ProfilePage/ProfilePage";
 import Staff from "../container/admin/calender/Staff";
-import WeekSchedule from "../container/admin/calender/weekSchedule";
+import Days from "../container/admin/calender/day/Days";
 import Customer from "../container/admin/customer/Customer";
+import Times from "../container/admin/calender/time/Times";
 function Routers() {
   return (
     <Switch>
-      <Route exact path="/admin/:path?/:path?/:path?">
+      <Route exact path="/admin/:path?/:path?/:path?/:path?">
         <AdminLayout>
           <Switch>
             <AdminRoute exact path="/admin">
@@ -51,8 +52,10 @@ function Routers() {
               <Staff />
             </AdminRoute>
 
-            <AdminRoute exact path="/admin/staff/:id">
-              <WeekSchedule />
+            <Route exact path="/admin/time/:id" component={Times} />
+            
+            <AdminRoute>
+              <Route exact path="/admin/staff/:id" component={Days} />
             </AdminRoute>
           </Switch>
         </AdminLayout>

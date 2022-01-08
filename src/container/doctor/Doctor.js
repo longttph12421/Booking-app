@@ -19,7 +19,8 @@ export default function Doctor(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAll());
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   const ListDoctor = useSelector((state) => state.doctor.data);
   return (

@@ -22,21 +22,21 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import Success from "../../../components/Typography/Success";
 import { Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
 });
 
-export default function Staff() {
+const Staff = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(Service.getAll());
-  }, [dispatch]);
-
+  }, []);
   const ListDoctor = useSelector((state) => state.doctor.data);
-
   return (
     <div>
       <div>
@@ -60,55 +60,66 @@ export default function Staff() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {ListDoctor.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell component="th" align="center" scope="row">
-                  {row.id}
-                </TableCell>
-                <TableCell align="center">{row.fullName}</TableCell>
-                <TableCell align="center">
-                  {row.gender === true ? <span>Nam</span> : <span>Nữ</span>}
-                </TableCell>
-                <TableCell align="center">{row.phoneNumber}</TableCell>
-                <TableCell align="center">{row.email}</TableCell>
-                <TableCell align="center">{row.workExperience}</TableCell>
-                <TableCell align="center">{row.academicLevel}</TableCell>
-                <TableCell align="center">
-                  <Grid container>
-                    <Grid xs={4}>
-                      <Tooltip title="Lịch khám">
-                        <Button color="transparent" size="sm">
-                          <Success>
-                            <EventAvailableIcon size="lg" />
-                          </Success>
-                        </Button>
-                      </Tooltip>
+            {ListDoctor != null ? (
+              ListDoctor.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" align="center" scope="row">
+                    {row.id}
+                  </TableCell>
+                  <TableCell align="center">{row.fullName}</TableCell>
+                  <TableCell align="center">
+                    {row.gender == true ? <span>Nam</span> : <span>Nữ</span>}
+                  </TableCell>
+                  <TableCell align="center">{row.phoneNumber}</TableCell>
+                  <TableCell align="center">{row.email}</TableCell>
+                  <TableCell align="center">{row.workExperience}</TableCell>
+                  <TableCell align="center">{row.academicLevel}</TableCell>
+                  <TableCell align="center">
+                    <Grid container>
+                      <Grid xs={4}>
+                        <Tooltip title="Lịch khám">
+                          <Link to={`/admin/staff/${row.id}`}>
+                            <Button
+                              color="transparent"
+                              size="sm"
+                            >
+                              <Success>
+                                <EventAvailableIcon size="lg" />
+                              </Success>
+                            </Button>
+                          </Link>
+                        </Tooltip>
+                      </Grid>
+                      <Grid xs={4}>
+                        <Tooltip title="Chỉnh sửa">
+                          <Button color="transparent" size="sm">
+                            <Warning>
+                              <EditIcon size="lg" />
+                            </Warning>
+                          </Button>
+                        </Tooltip>
+                      </Grid>
+                      <Grid xs={4}>
+                        <Tooltip title="Xóa">
+                          <Button color="transparent" size="sm">
+                            <Danger>
+                              <DeleteIcon size="lg" />
+                            </Danger>
+                          </Button>
+                        </Tooltip>
+                      </Grid>
                     </Grid>
-                    <Grid xs={4}>
-                      <Tooltip title="Chỉnh sửa">
-                        <Button color="transparent" size="sm">
-                          <Warning>
-                            <EditIcon size="lg" />
-                          </Warning>
-                        </Button>
-                      </Tooltip>
-                    </Grid>
-                    <Grid xs={4}>
-                      <Tooltip title="Xóa">
-                        <Button color="transparent" size="sm">
-                          <Danger>
-                            <DeleteIcon size="lg" />
-                          </Danger>
-                        </Button>
-                      </Tooltip>
-                    </Grid>
-                  </Grid>
-                </TableCell>
-              </TableRow>
-            ))}
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <span>...</span>
+            )}
           </TableBody>
         </Table>
       </TableContainer>
     </div>
   );
-}
+};
+
+export default Staff;

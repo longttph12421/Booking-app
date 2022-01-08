@@ -18,10 +18,10 @@ function Index() {
         <SliderDoctor />
       </GridItem>
       <CssBaseline />
-      <GridItem md={12} className={"mt-5 " + classes.textCenter}>
+      {/* <GridItem md={12} className={"mt-5 " + classes.textCenter}>
         <h2>SẢN PHẨM BÁN CHẠY</h2>
         <ProductSlider />
-      </GridItem>
+      </GridItem> */}
 
       <GridItem md={12} className={"mt-5 " + classes.textCenter}>
         <h2>CẨM NANG</h2>

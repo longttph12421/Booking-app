@@ -9,8 +9,8 @@ import { List, ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui/icons
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import footerStyle from "../../assets/jss/material-kit-react/components/footerStyle"
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import footerStyle from "../../assets/jss/material-kit-react/components/footerStyle";
 //import styles from "assets/jss/material-kit-react/components/footerStyle.js";
 
 const useStyles = makeStyles(footerStyle);
@@ -32,49 +32,33 @@ export default function Footer(props) {
         <div className={classes.left}>
           <List className={classes.list}>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="/about"
-                className={classes.block}
-              >
+              <a href="/" className={classes.block}>
+                TRANG CHỦ
+              </a>
+            </ListItem>
+            <ListItem className={classes.inlineBlock}>
+              <a href="/about" className={classes.block}>
                 GIỚI THIỆU
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="/contact"
-                className={classes.block}
-              >
+              <a href="/contact" className={classes.block}>
                 LIÊN HỆ
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
-                className={classes.block}
-              >
-                Blog
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="#"
-                className={classes.block}
-              >
+              <a href="#" className={classes.block}>
                 HỖ TRỢ
               </a>
             </ListItem>
           </List>
         </div>
         <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} , bản quyền{" "}
-          <FavoriteIcon/> thuộc{" "}
-          <a
-            href="#"
-            className={aClasses}
-            target="_blank"
-          >
+          &copy; {1900 + new Date().getYear()} , bản quyền <FavoriteIcon />{" "}
+          thuộc{" "}
+          <a href="#" className={aClasses} target="_blank">
             Team Dragon
-          </a>{" "}        
+          </a>{" "}
         </div>
       </div>
     </footer>

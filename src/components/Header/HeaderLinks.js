@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useEffect } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import IconButton from "@material-ui/core/IconButton";
 // react components for routing our app without refresh
@@ -13,6 +13,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
+import * as toast from "../../common/toastHelper";
 // @material-ui/icons
 import { Apps } from "@material-ui/icons";
 import AccountCircle from "@material-ui/icons/AccountCircle";
@@ -27,9 +28,19 @@ const useStyles = makeStyles(styles);
 
 export default function HeaderLinks(props) {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+  const user = JSON.parse(localStorage.getItem("userLogin"));
+  const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  useEffect(() => {
+    if (user == null || user == "undefined") {
+      setAuth(false);
+    }
+    if (user != null || user != undefined) {
+      setAuth(true);
+    }
+    console.log(user);
+  }, []);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -85,7 +96,7 @@ export default function HeaderLinks(props) {
       </ListItem>
 
       <ListItem className={classes.listItem}>
-        {auth && (
+        {auth === true ? (
           <>
             <Button
               color="transparent"
@@ -96,7 +107,7 @@ export default function HeaderLinks(props) {
               onClick={handleMenu}
             >
               <AccountCircle className={classes.socialIcons} />
-              <span className={classes.text}>MY ACCOUNT</span>
+              <span className={classes.text}>TÀI KHOẢN</span>
             </Button>
             <Menu
               id="menu-appbar"
@@ -118,7 +129,7 @@ export default function HeaderLinks(props) {
                   <ListItemIcon>
                     <AccountCircle fontSize="small" />
                   </ListItemIcon>
-                  <Muted variant="inherit">MY PROFILE</Muted>
+                  <Muted variant="inherit">TÀI KHOẢN</Muted>
                 </MenuItem>
               </Link>
               <Link to="/login" style={{ textDecoration: "none" }}>
@@ -126,19 +137,30 @@ export default function HeaderLinks(props) {
                   <ListItemIcon>
                     <LockOpenIcon fontSize="small" />
                   </ListItemIcon>
-                  <Muted variant="inherit">LOGIN</Muted>
+                  <Muted variant="inherit">ĐĂNG NHẬP</Muted>
                 </MenuItem>
               </Link>
-              <Link to="/logout" style={{ textDecoration: "none" }}>
-                <MenuItem>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <MenuItem
+                  onClick={() => {
+                    toast.toastSuccess("Bạn đã đăng xuất thành công...");
+                    localStorage.removeItem("userLogin");
+                    localStorage.removeItem("TokenLogin");
+                  }}
+                >
                   <ListItemIcon>
                     <LockIcon fontSize="small" />
                   </ListItemIcon>
-                  <Muted variant="inherit">LOGOUT</Muted>
+                  <Muted variant="inherit">ĐĂNG XUẤT</Muted>
                 </MenuItem>
               </Link>
             </Menu>
           </>
+        ) : (
+          <Button href="/login" color="transparent" className={classes.navLink}>
+            <LockOpenIcon fontSize="small" className={classes.socialIcons} />
+            <span className={classes.text}>ĐĂNG NHẬP</span>
+          </Button>
         )}
       </ListItem>
     </List>

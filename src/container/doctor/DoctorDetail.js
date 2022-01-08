@@ -21,7 +21,6 @@ import * as serviceSlide from "../../redux/reducer/ServiceCustomerSlide";
 import * as doctorSlice from "../../redux/reducer/DoctorSlide";
 import * as timeSlice from "../../redux/reducer/TimeSlide";
 import * as UI from "../../redux/reducer/UiSlider.js";
-import * as TimeServices from "../../services/TimeService";
 import { addDays } from "date-fns";
 //===================================================
 const useStyles = makeStyles(imagesStyles);
@@ -36,7 +35,7 @@ function DoctorDetail({ match }) {
     STAFF_ID: Number(match.params.id),
     STATUS: 0,
   };
-
+  const modal = useSelector((state) => state.UI.modal);
   const [dayOfWeek, setDayOfWeek] = React.useState();
   const data = {
     STAFF_ID: Number(match.params.id),
@@ -48,7 +47,7 @@ function DoctorDetail({ match }) {
     dispatch(timeSlice.getWeekByDoctor(body));
     dispatch(timeSlice.getDayByDoctor(data));
     dispatch(serviceSlide.getListServiceCustomer());
-  }, []);
+  },[]);
 
   function onChangeDay(event) {
     const e = {
@@ -75,7 +74,10 @@ function DoctorDetail({ match }) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <CustomModal title="Đặt lịch khám" modalBody={<BookingForm />} />
+      {modal != null ? (
+        <CustomModal title="Đặt lịch khám" modalBody={<BookingForm />} />
+      ) : null}
+
       <Box
         sx={{
           width: "90%",

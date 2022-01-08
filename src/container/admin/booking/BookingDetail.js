@@ -91,8 +91,7 @@ export default function BookingDetail(props) {
               <TableCell align="center">{row.email}</TableCell>
               <TableCell align="center">{row.dateBooking}</TableCell>
               <TableCell align="center">
-                {moment(row.time_start).format("HH:mm")} -{" "}
-                {moment(row.time_end).format("HH:mm")}
+                {row.timeStart} - {row.timeEnd}
               </TableCell>
               <TableCell align="center">{row.serviceCustomer.name}</TableCell>
               <TableCell align="center">{row.staff.fullName}</TableCell>
