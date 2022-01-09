@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAll } from "../../redux/reducer/DoctorSlide";
+import * as service from "../../redux/reducer/DoctorSlide";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -17,10 +17,13 @@ const useStyles = makeStyles(imagesStyles);
 export default function Doctor(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const role = {
+    ROLE: "DOCTOR",
+  };
   useEffect(() => {
-    dispatch(getAll());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+    dispatch(service.findByRole(role));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const ListDoctor = useSelector((state) => state.doctor.data);
   return (

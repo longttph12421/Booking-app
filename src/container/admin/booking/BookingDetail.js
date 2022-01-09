@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 //======================   COMPONENT   ================================
-import moment from "moment";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,15 +14,19 @@ import Button from "../../../components/CustomButtons/Button";
 import Warning from "../../../components/Typography/Warning";
 import GridContainer from "../../../components/Grid/GridContainer";
 import GridItem from "../../../components/Grid/GridItem";
+import EditForm from "./EditForm";
 import Tooltip from "@material-ui/core/Tooltip";
 //======================   SERVICE   ================================
 import * as toastHelper from "../../../common/toastHelper";
+import * as BookingSlide from "../../../redux/reducer/BookingSlide";
 import * as service from "../../../services/BookingDetailService";
-
+import * as UI from "../../../redux/reducer/UiSlider";
 //======================   ICON   ================================
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CheckIcon from "@material-ui/icons/Check";
+import { useDispatch, useSelector } from "react-redux";
+import CustomModal from "../../../components/Modal/Modal";
 
 const useStyles = makeStyles({
   table: {
@@ -34,7 +37,13 @@ const useStyles = makeStyles({
 export default function BookingDetail(props) {
   const classes = useStyles();
   const { list, action, setList } = props;
-  console.log(list);
+  const modal = useSelector((state) => state.UI.modal);
+  const dispatch = useDispatch();
+
+  // const handleOpen = (string, data) => {
+  //   dispatch(UI.openModal());
+  // };
+
   const status = (s) => {
     let cpn = null;
     if (s === 1) {
@@ -64,9 +73,33 @@ export default function BookingDetail(props) {
         toastHelper.toastError("Đã có lỗi sảy ra" + error);
       });
   };
+  const onEdit = (data) => {
+    dispatch(BookingSlide.dataMapping(data));
+    dispatch(UI.openModal());
+  };
 
+  const onCancel = (data) => {
+    service
+      .deleteById(data.id)
+      .then((response) => {
+        toastHelper.toastSuccess("Hủy lịch khám thành công...");
+        const newList = list.filter((e) => {
+          if (e.id === data.id) {
+            return false;
+          }
+          return true;
+        });
+        setList(newList);
+      })
+      .catch((error) => {
+        toastHelper.toastError("Đã có lỗi sảy ra" + error);
+      });
+  };
   return (
     <TableContainer component={Paper} className={classes.table}>
+      {modal === true ? (
+        <CustomModal title="Chỉnh sửa" modalBody={<EditForm />} />
+      ) : null}
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -85,7 +118,7 @@ export default function BookingDetail(props) {
         </TableHead>
         <TableBody>
           {list.map((row) => (
-            <TableRow key={row.bookingid}>
+            <TableRow key={row.id}>
               <TableCell align="center">{row.fullName}</TableCell>
               <TableCell align="center">{row.phone}</TableCell>
               <TableCell align="center">{row.email}</TableCell>
@@ -116,7 +149,13 @@ export default function BookingDetail(props) {
                     </GridItem>
                     <GridItem xs={4}>
                       <Tooltip title="Chỉnh sửa">
-                        <Button color="transparent" size="sm">
+                        <Button
+                          color="transparent"
+                          size="sm"
+                          onClick={() => {
+                            onEdit(row);
+                          }}
+                        >
                           <Warning>
                             <EditIcon size="lg" />
                           </Warning>
@@ -125,7 +164,13 @@ export default function BookingDetail(props) {
                     </GridItem>
                     <GridItem xs={4}>
                       <Tooltip title="Hủy">
-                        <Button color="transparent" size="sm">
+                        <Button
+                          color="transparent"
+                          size="sm"
+                          onClick={() => {
+                            onCancel(row);
+                          }}
+                        >
                           <Danger>
                             <DeleteIcon size="lg" />
                           </Danger>

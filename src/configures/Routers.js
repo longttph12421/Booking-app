@@ -1,10 +1,10 @@
 import { Switch, Route } from "react-router-dom";
-
 import HomePage from "../container/homePage/HomePage";
 import Dashboard from "../container/admin/DashBoard/Dashboard";
 import AdminLayout from "../container/admin/Index";
 import Index from "../container/homePage/Sections/Index";
 import AdminRoute from "../configures/auth/AdminRoute";
+import AuthRoute from "./auth/AuthRoute";
 import Page404 from "../container/Page404";
 import Product from "../container/product/Product";
 import ProductDetail from "../container/product/ProductDetail";
@@ -21,7 +21,8 @@ import ProfilePage from "../container/ProfilePage/ProfilePage";
 import Staff from "../container/admin/calender/Staff";
 import Days from "../container/admin/calender/day/Days";
 import Customer from "../container/admin/customer/Customer";
-import Times from "../container/admin/calender/time/Times";
+import TimeSchedule from "../container/admin/calender/time/TimeSchedule";
+import History from "../container/ProfilePage/History";
 function Routers() {
   return (
     <Switch>
@@ -52,8 +53,8 @@ function Routers() {
               <Staff />
             </AdminRoute>
 
-            <Route exact path="/admin/time/:id" component={Times} />
-            
+            <Route exact path="/admin/time/:id" component={TimeSchedule} />
+
             <AdminRoute>
               <Route exact path="/admin/staff/:id" component={Days} />
             </AdminRoute>
@@ -84,8 +85,11 @@ function Routers() {
             <Route exact path="/doctor/:id" component={DoctorDetail} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/about" component={AboutPage} />
-            <Route exact path="/profile" component={ProfilePage} />
+            <Route exact path="/history" component={History} />
             <Route exact path="/" component={Index} />
+            <AuthRoute>
+              <Route exact path="/profile" component={ProfilePage} />
+            </AuthRoute>
           </Switch>
         </HomePage>
       </Route>

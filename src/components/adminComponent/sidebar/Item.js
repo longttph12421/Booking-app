@@ -10,9 +10,12 @@ import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import PermContactCalendarIcon from "@material-ui/icons/PermContactCalendar";
 import EventNoteIcon from "@material-ui/icons/EventNote";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import LockIcon from "@material-ui/icons/Lock";
 import Muted from "../../Typography/Muted";
 import { Link } from "react-router-dom";
-
+import * as toast from "../../../common/toastHelper";
 export const mainItems = (
   <div>
     <Link to="/admin" style={{ textDecoration: "none" }}>
@@ -83,24 +86,43 @@ export const mainItems = (
 
 export const secondaryItems = (
   <div>
-    <ListSubheader inset>Thống kê</ListSubheader>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Theo tuần" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Theo tháng" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Theo năm" />
-    </ListItem>
+    <ListSubheader inset>Tài khoản</ListSubheader>
+    <Link to="/admin/staff" style={{ textDecoration: "none" }}>
+      <ListItem button>
+        <ListItemIcon>
+          <AccountCircle />
+        </ListItemIcon>
+        <Muted>
+          <ListItemText primary="Tài khoản" />
+        </Muted>
+      </ListItem>
+    </Link>
+    <Link to="/login" style={{ textDecoration: "none" }}>
+      <ListItem button>
+        <ListItemIcon>
+          <LockOpenIcon />
+        </ListItemIcon>
+        <Muted>
+          <ListItemText primary="Đăng nhập" />
+        </Muted>
+      </ListItem>
+    </Link>
+    <Link to="/login" style={{ textDecoration: "none" }}>
+      <ListItem
+        button
+        onClick={() => {
+          toast.toastSuccess("Bạn đã đăng xuất thành công...");
+          localStorage.removeItem("userLogin");
+          localStorage.removeItem("TokenLogin");
+        }}
+      >
+        <ListItemIcon>
+          <LockIcon />
+        </ListItemIcon>
+        <Muted>
+          <ListItemText primary="Đăng xuất" />
+        </Muted>
+      </ListItem>
+    </Link>
   </div>
 );

@@ -33,13 +33,13 @@ function DoctorDetail({ match }) {
   const dispatch = useDispatch();
   const body = {
     STAFF_ID: Number(match.params.id),
-    STATUS: 0,
+    STATUS: 1,
   };
   const modal = useSelector((state) => state.UI.modal);
-  const [dayOfWeek, setDayOfWeek] = React.useState();
+  const [dayOfWeek, setDayOfWeek] = React.useState(Date);
   const data = {
     STAFF_ID: Number(match.params.id),
-    STATUS: 0,
+    STATUS: 1,
     DAY: moment(now).format("dddd"),
   };
   useEffect(() => {
@@ -52,7 +52,7 @@ function DoctorDetail({ match }) {
   function onChangeDay(event) {
     const e = {
       STAFF_ID: Number(match.params.id),
-      STATUS: 0,
+      STATUS: 1,
       DAY: moment(event.target.value).format("dddd"),
     };
     console.log(event.target.value);
@@ -65,7 +65,6 @@ function DoctorDetail({ match }) {
       time: data,
       staff: Number(match.params.id),
     };
-    console.log(value);
     dispatch(timeSlice.mapDataBooking(value));
     dispatch(UI.openModal());
   }
@@ -120,7 +119,8 @@ function DoctorDetail({ match }) {
                     <InputLabel id="select">Chọn ngày khám</InputLabel>
                     <Select
                       fullWidth={true}
-                      value={dayOfWeek}
+                      label={moment(dayOfWeek).format("dddd - DD/MM/YYYY")}
+                      value={moment(dayOfWeek).format("dddd - DD/MM/YYYY")}
                       onChange={onChangeDay}
                     >
                       <MenuItem value={now}>

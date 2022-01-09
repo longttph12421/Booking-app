@@ -19,6 +19,7 @@ import { Apps } from "@material-ui/icons";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import LockIcon from "@material-ui/icons/Lock";
+import HistoryIcon from "@material-ui/icons/History";
 // core components
 import CustomDropdown from "../CustomDropdown/CustomDropdown";
 import Button from "../CustomButtons/Button";
@@ -130,6 +131,14 @@ export default function HeaderLinks(props) {
                     <AccountCircle fontSize="small" />
                   </ListItemIcon>
                   <Muted variant="inherit">TÀI KHOẢN</Muted>
+                </MenuItem>
+              </Link>
+              <Link to="/history" style={{ textDecoration: "none" }}>
+                <MenuItem>
+                  <ListItemIcon>
+                    <HistoryIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Muted variant="inherit">LỊCH SỬ KHÁM</Muted>
                 </MenuItem>
               </Link>
               <Link to="/login" style={{ textDecoration: "none" }}>

@@ -29,6 +29,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 const useStyles = makeStyles({
   table: {
@@ -67,12 +68,6 @@ export default function DaySchedule({ days, setDays, match }) {
   };
 
   const handleClick = (row) => {
-    const data = {
-      STAFF_ID: row.staff.id,
-      STATUS: 0,
-      DAY: row.dayOfWeek,
-    };
-    dispatch(timeSlice.getDayByDoctor(data));
     history.push(`/admin/time/${row.id}`);
   };
 
@@ -87,16 +82,28 @@ export default function DaySchedule({ days, setDays, match }) {
         />
       ) : null}
       <div>
-        <Button
-          color="success"
-          size="sm"
-          onClick={() => {
-            handleOpen("Thêm mới", data);
-          }}
-        >
-          <AddIcon />
-          Thêm mới
-        </Button>
+        <Tooltip title="Trở về">
+          <Button
+            color="facebook"
+            size="sm"
+            onClick={() => {
+              history.goBack();
+            }}
+          >
+            <ArrowBackIcon />
+          </Button>
+        </Tooltip>
+        <Tooltip title="Thêm mới">
+          <Button
+            color="success"
+            size="sm"
+            onClick={() => {
+              handleOpen("Thêm mới", data);
+            }}
+          >
+            <AddIcon />
+          </Button>
+        </Tooltip>
       </div>
       <TableContainer component={Paper} className="mt-3">
         <Table className={classes.table} aria-label="simple table">

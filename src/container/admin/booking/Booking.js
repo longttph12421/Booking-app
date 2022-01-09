@@ -28,7 +28,6 @@ export default function Booking() {
     });
     BookingDetailService.getFindByStt3().then((response) => {
       setListStt3(response.data.data);
-      console.log(response.data.data);
     });
   }, [value]);
 

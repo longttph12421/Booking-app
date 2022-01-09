@@ -1,8 +1,8 @@
 /* eslint-disable eqeqeq */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useHistory } from "react-router-dom";
 //===================  COMPONENT  ===============================
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -13,42 +13,47 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Danger from "../../../../components/Typography/Danger";
 import Warning from "../../../../components/Typography/Warning";
-import { Tooltip } from "@material-ui/core";
+import { FormControlLabel, Switch, Tooltip } from "@material-ui/core";
+import TimeForm from "./TimeForm";
 //==================  SERVICE  =====================================
-
+import customCheckboxRadioSwitch from "../../../../assets/jss/material-kit-react/customCheckboxRadioSwitch";
 import Button from "../../../../components/CustomButtons/Button";
 import CustomModal from "../../../../components/Modal/Modal";
 import * as UI from "../../../../redux/reducer/UiSlider";
 import * as toastHelper from "../../../../common/toastHelper";
-import * as service from "../../../../services/TimeService";
+import * as services from "../../../../services/TimeService";
 //======================   ICON   ================================
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
-
-export default function TimeSchedule({ time, setTime, match }) {
+export default function TimeSchedule({ match }) {
+  const useStyles = makeStyles(customCheckboxRadioSwitch);
   const classes = useStyles();
   const [title, setTitle] = useState("");
-  console.log(time);
+  const [time, setTime] = useState([]);
   const dispatch = useDispatch();
+  const history = useHistory();
   const modal = useSelector((state) => state.UI.modal);
   const handleOpen = (string, data) => {
     setTitle(string);
     dispatch(UI.openModal());
   };
+  useEffect(() => {
+    services.findDayByWeekId(Number(match.params.id)).then((response) => {
+      console.log(response.data);
+      setTime(response.data);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const data = {};
   const handleDelete = (id) => {
-    service
-      .deleteByDoctor(id)
+    services
+      .deleteTimeById(id)
       .then(() => {
-        const newList = time.filter((day) => {
-          if (day.id === id) {
+        const newList = time.filter((t) => {
+          if (t.id === id) {
             return false;
           }
           return true;
@@ -61,26 +66,69 @@ export default function TimeSchedule({ time, setTime, match }) {
         toastHelper.toastError("Đã có lỗi xảy ra...");
       });
   };
+  const onChecked = (value, event) => {
+    let check = 0;
+    if (event.target.checked) {
+      check = 1;
+    } else {
+      check = 0;
+    }
+    const data = {
+      id: value.id,
+      endTime: value.endTime,
+      startTime: value.startTime,
+      status: check,
+      weekSchedule: { id: value.weekSchedule.id },
+    };
 
+    services
+      .updateTime(data)
+      .then((response) => {
+        const newList = time.map((value, index) => {
+          if (value.id === data.id) {
+            return response.data;
+          } else {
+            return value;
+          }
+        });
+        setTime(newList);
+        toastHelper.toastSuccess("Đã thay đổi Trạng thái...");
+      })
+      .catch((error) => {
+        toastHelper.toastError("Đã có lỗi sảy ra !");
+      });
+  };
   return (
     <div>
       {modal === true ? (
         <CustomModal
           title={title}
-          modalBody={<div setTime={setTime} match={match} time={time} />}
+          modalBody={<TimeForm setTime={setTime} match={match} time={time} />}
         />
       ) : null}
       <div>
-        <Button
-          color="success"
-          size="sm"
-          onClick={() => {
-            handleOpen("Thêm mới", data);
-          }}
-        >
-          <AddIcon />
-          Thêm mới
-        </Button>
+        <Tooltip title="Trở về">
+          <Button
+            color="facebook"
+            size="sm"
+            onClick={() => {
+              history.goBack();
+            }}
+          >
+            <ArrowBackIcon />
+          </Button>
+        </Tooltip>
+        <Tooltip title="Thêm mới">
+          <Button
+            color="success"
+            size="sm"
+            onClick={() => {
+              handleOpen("Thêm mới", data);
+            }}
+          >
+            <AddIcon />
+          </Button>
+        </Tooltip>
       </div>
       <TableContainer component={Paper} className="mt-3">
         <Table className={classes.table} aria-label="simple table">
@@ -103,11 +151,23 @@ export default function TimeSchedule({ time, setTime, match }) {
                   <TableCell align="center">{row.startTime}</TableCell>
                   <TableCell align="center">{row.endTime}</TableCell>
                   <TableCell align="center">
-                    {row.status == 1 ? (
-                      <span>Hoạt động</span>
-                    ) : (
-                      <span>Vô hiệu hóa</span>
-                    )}
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={row.status}
+                          onChange={(event) => onChecked(row, event)}
+                          classes={{
+                            switchBase: classes.switchBase,
+                            checked: classes.switchChecked,
+                            thumb: classes.switchIcon,
+                            track: classes.switchBar,
+                          }}
+                        />
+                      }
+                      classes={{
+                        label: classes.label,
+                      }}
+                    />
                   </TableCell>
                   <TableCell align="center">
                     <Tooltip title="Chỉnh sửa">

@@ -8,6 +8,11 @@ export const getWeekByDoctor = createAsyncThunk(
     return response.data;
   }
 );
+export const getTime = createAsyncThunk("day/getTime", async (id) => {
+  const response = await TimeSeries.findDayByWeekId(id);
+  return response.data;
+});
+
 export const getDayByDoctor = createAsyncThunk(
   "day/findByDoctor",
   async (body) => {
@@ -21,6 +26,7 @@ export const TimeSlide = createSlice({
   initialState: {
     weeks: [],
     days: [],
+    time: [],
     dataBooking: {},
   },
 
@@ -45,6 +51,15 @@ export const TimeSlide = createSlice({
     [getDayByDoctor.rejected]: (state, error) => {
       console.log(error);
       state.days = state;
+    },
+
+    [getTime.fulfilled]: (state, action) => {
+      state.time = action.payload;
+    },
+
+    [getTime.rejected]: (state, error) => {
+      console.log(error);
+      state.time = state;
     },
   },
 });

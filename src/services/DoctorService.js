@@ -4,7 +4,9 @@ import path from "../configures/constants";
 export const findAll = () => {
   return axiosHelper.get(path.doctor.GET_ALL_DOCTOR);
 };
-
+export const findByRole = (role) => {
+  return axiosHelper.post(path.doctor.GET_ALL_BY_ROLE, role);
+};
 export const findById = (id) => {
   return axiosHelper.get(`${path.doctor.GET_DOCTOR_BY_ID}/${id}`);
 };
