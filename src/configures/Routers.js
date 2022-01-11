@@ -18,6 +18,7 @@ import Booking from "../container/admin/booking/Booking";
 import ServiceCustomer from "../container/admin/ServiceCustomer";
 import Register from "../container/Register";
 import ProfilePage from "../container/ProfilePage/ProfilePage";
+import Account from "../container/admin/Account/index";
 import Staff from "../container/admin/calender/Staff";
 import Days from "../container/admin/calender/day/Days";
 import Customer from "../container/admin/customer/Customer";
@@ -34,7 +35,7 @@ function Routers() {
             </AdminRoute>
 
             <AdminRoute exact path="/admin/product">
-              <AdminProduct />
+              <AdminProduct/>
             </AdminRoute>
 
             <AdminRoute exact path="/admin/booking">
@@ -43,6 +44,10 @@ function Routers() {
 
             <AdminRoute exact path="/admin/service">
               <ServiceCustomer />
+            </AdminRoute>
+
+            <AdminRoute exact path="/admin/account">
+              <Account/>
             </AdminRoute>
 
             <AdminRoute exact path="/admin/customer">
@@ -84,11 +89,8 @@ function Routers() {
             <Route exact path="/doctor/:id" component={DoctorDetail} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/about" component={AboutPage} />
-            <Route exact path="/history" component={History} />
+            <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/" component={Index} />
-            <AuthRoute>
-              <Route exact path="/profile" component={ProfilePage} />
-            </AuthRoute>
           </Switch>
         </HomePage>
       </Route>
