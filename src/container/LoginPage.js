@@ -48,7 +48,8 @@ function LoginPage(props) {
         ) {
           if (
             response.data.role == "ADMIN" ||
-            response.data.role == "STAFF"
+            response.data.role == "STAFF" ||
+            response.data.role == "DOCTOR"
           ) {
             toastHelper.toastSuccess("Đăng nhập thành công!");
             localStorage.setItem("TokenLogin", response.data);

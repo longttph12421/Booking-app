@@ -9,7 +9,7 @@ import { store } from "./redux/store";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { ConfirmProvider } from "material-ui-confirm";
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -17,19 +17,21 @@ ReactDOM.render(
     <Provider store={store}>
       <Router history={hist}>
         <Suspense fallback="Loading...">
-          <App />
-          <Loading />
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
+          <ConfirmProvider>
+            <App />
+            <Loading />
+            <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </ConfirmProvider>
         </Suspense>
       </Router>
     </Provider>

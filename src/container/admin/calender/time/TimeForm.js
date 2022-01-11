@@ -20,7 +20,6 @@ function TimeForm({ setTime, match, time }) {
   };
 
   const onSubmit = (value) => {
-   
     const data = {
       id: value.id,
       startTime: value.startTime,
@@ -28,10 +27,12 @@ function TimeForm({ setTime, match, time }) {
       status: value.status,
       weekSchedule: { id: Number(match.params.id) },
     };
+    console.log(data);
     service
       .savaTime(data)
       .then((response) => {
         const newList = [];
+        // eslint-disable-next-line array-callback-return
         time.map((t) => {
           newList.push(t);
         });
@@ -63,7 +64,7 @@ function TimeForm({ setTime, match, time }) {
                 }}
                 inputProps={{
                   ...register("startTime"),
-                  type: "text",
+                  type: "time",
                 }}
               />
             </Grid>
@@ -76,7 +77,7 @@ function TimeForm({ setTime, match, time }) {
                 }}
                 inputProps={{
                   ...register("endTime"),
-                  type: "text",
+                  type: "time",
                 }}
               />
             </Grid>

@@ -23,6 +23,7 @@ export const UiSlider = createSlice({
   extraReducers: {},
 });
 
-export const { openModal, closeModal, showLoading, hiddenLoading} = UiSlider.actions;
+export const { openModal, closeModal, showLoading, hiddenLoading } =
+  UiSlider.actions;
 
 export default UiSlider.reducer;

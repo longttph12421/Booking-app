@@ -7,12 +7,16 @@ const AdminRoute = (props) => {
     if (user === null || user === "undefined") {
       return false;
     }
-    if (user.role === "ADMIN" || user.role === "STAFF") {
+    if (
+      user.role === "ADMIN" ||
+      user.role === "STAFF" ||
+      user.role === "DOCTOR"
+    ) {
       check = true;
     }
     return check;
   };
-
+  
   return checkAdmin() == true ? (
     props.children
   ) : (

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useConfirm } from "material-ui-confirm";
 //===================  COMPONENT  ===============================
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -30,6 +31,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 export default function TimeSchedule({ match }) {
   const useStyles = makeStyles(customCheckboxRadioSwitch);
+  const confirm = useConfirm();
   const classes = useStyles();
   const [title, setTitle] = useState("");
   const [time, setTime] = useState([]);
@@ -49,22 +51,28 @@ export default function TimeSchedule({ match }) {
   }, []);
   const data = {};
   const handleDelete = (id) => {
-    services
-      .deleteTimeById(id)
-      .then(() => {
-        const newList = time.filter((t) => {
-          if (t.id === id) {
-            return false;
-          }
-          return true;
+    confirm({
+      title: "Cảnh báo",
+      description: "Bạn Có chắc chắn muốn xóa !!!",
+      cancellationText: "Hủy",
+    }).then(() => {
+      services
+        .deleteTimeById(id)
+        .then(() => {
+          const newList = time.filter((t) => {
+            if (t.id === id) {
+              return false;
+            }
+            return true;
+          });
+          setTime(newList);
+          toastHelper.toastSuccess("Bạn đã xóa thành công ...");
+        })
+        .catch((err) => {
+          console.error(err);
+          toastHelper.toastError("Đã có lỗi xảy ra...");
         });
-        setTime(newList);
-        toastHelper.toastSuccess("Bạn đã xóa thành công ...");
-      })
-      .catch((err) => {
-        console.error(err);
-        toastHelper.toastError("Đã có lỗi xảy ra...");
-      });
+    });
   };
   const onChecked = (value, event) => {
     let check = 0;

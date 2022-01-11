@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useConfirm } from "material-ui-confirm";
 //===================  COMPONENT  ===============================
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -39,6 +40,7 @@ const useStyles = makeStyles({
 
 export default function DaySchedule({ days, setDays, match }) {
   const classes = useStyles();
+  const confirm = useConfirm();
   const [title, setTitle] = useState("");
   const history = useHistory();
   const dispatch = useDispatch();
@@ -49,22 +51,28 @@ export default function DaySchedule({ days, setDays, match }) {
   };
   const data = {};
   const handleDelete = (id) => {
-    service
-      .deleteByDoctor(id)
-      .then(() => {
-        const newList = days.filter((day) => {
-          if (day.id === id) {
-            return false;
-          }
-          return true;
+    confirm({
+      title: "Cảnh báo",
+      description: "Bạn Có chắc chắn muốn xóa !!!",
+      cancellationText: "Hủy",
+    }).then(() => {
+      service
+        .deleteByDoctor(id)
+        .then(() => {
+          const newList = days.filter((day) => {
+            if (day.id === id) {
+              return false;
+            }
+            return true;
+          });
+          setDays(newList);
+          toastHelper.toastSuccess("Bạn đã xóa thành công ...");
+        })
+        .catch((err) => {
+          console.error(err);
+          toastHelper.toastError("Đã có lỗi xảy ra...");
         });
-        setDays(newList);
-        toastHelper.toastSuccess("Bạn đã xóa thành công ...");
-      })
-      .catch((err) => {
-        console.error(err);
-        toastHelper.toastError("Đã có lỗi xảy ra...");
-      });
+    });
   };
 
   const handleClick = (row) => {

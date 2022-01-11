@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useConfirm } from "material-ui-confirm";
 //======================   COMPONENT   ================================
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -25,6 +26,7 @@ const useStyles = makeStyles({
   },
 });
 function HistoryTable(props) {
+  const confirm = useConfirm();
   const classes = useStyles();
   const { list, action, setList } = props;
   const status = (s) => {
@@ -39,21 +41,27 @@ function HistoryTable(props) {
     return cpn;
   };
   const onCancel = (data) => {
-    service
-      .deleteById(data.id)
-      .then((response) => {
-        toastHelper.toastSuccess("Hủy lịch khám thành công...");
-        const newList = list.filter((e) => {
-          if (e.id === data.id) {
-            return false;
-          }
-          return true;
+    confirm({
+      title: "Cảnh báo",
+      description: "Bạn có chắc muốn hủy lịch khám !!!",
+      cancellationText: "Hủy",
+    }).then(() => {
+      service
+        .deleteById(data.id)
+        .then((response) => {
+          toastHelper.toastSuccess("Hủy lịch khám thành công...");
+          const newList = list.filter((e) => {
+            if (e.id === data.id) {
+              return false;
+            }
+            return true;
+          });
+          setList(newList);
+        })
+        .catch((error) => {
+          toastHelper.toastError("Đã có lỗi sảy ra" + error);
         });
-        setList(newList);
-      })
-      .catch((error) => {
-        toastHelper.toastError("Đã có lỗi sảy ra" + error);
-      });
+    });
   };
   return (
     <TableContainer component={Paper} className={classes.table}>
@@ -92,11 +100,13 @@ function HistoryTable(props) {
                     <GridContainer>
                       <GridItem xs={4}>
                         <Tooltip title="Hủy">
-                          <Button color="transparent" size="sm" onClick={
-                              ()=>{
-                                onCancel(row);
-                              }
-                          }>
+                          <Button
+                            color="transparent"
+                            size="sm"
+                            onClick={() => {
+                              onCancel(row);
+                            }}
+                          >
                             <Danger>
                               <DeleteIcon size="lg" />
                             </Danger>

@@ -52,9 +52,8 @@ function Routers() {
             <AdminRoute exact path="/admin/staff">
               <Staff />
             </AdminRoute>
-
+            
             <Route exact path="/admin/time/:id" component={TimeSchedule} />
-
             <AdminRoute>
               <Route exact path="/admin/staff/:id" component={Days} />
             </AdminRoute>

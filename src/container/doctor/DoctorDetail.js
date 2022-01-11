@@ -24,12 +24,50 @@ import * as UI from "../../redux/reducer/UiSlider.js";
 import { addDays } from "date-fns";
 //===================================================
 const useStyles = makeStyles(imagesStyles);
+const styleSelect = makeStyles((theme) => ({
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  select: {
+    color: "#495057",
+    height: "unset",
+    "&,&::placeholder": {
+      fontSize: "14px",
+      fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+      fontWeight: "400",
+      lineHeight: "1.42857",
+      opacity: "1",
+    },
+    "&::placeholder": {
+      color: "#AAAAAA",
+    },
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 200,
+    position: "relative",
+    "& svg,& .fab,& .far,& .fal,& .fas,& .material-icons": {
+      color: "#495057",
+    },
+  },
+  labelRoot: {
+    color: "#AAAAAA !important",
+    fontWeight: "400",
+    fontSize: "14px",
+    lineHeight: "1.42857",
+    letterSpacing: "unset",
+    "& + $underline": {
+      marginTop: "0px",
+    },
+  },
+}));
 
 function DoctorDetail({ match }) {
   var now = new Date(); // Hàm lấy thời gian hôm nay
   var day2 = addDays(now, 1);
   var day3 = addDays(now, 2);
   const classes = useStyles();
+  const classSelect = styleSelect();
   const dispatch = useDispatch();
   const body = {
     STAFF_ID: Number(match.params.id),
@@ -47,7 +85,7 @@ function DoctorDetail({ match }) {
     dispatch(timeSlice.getWeekByDoctor(body));
     dispatch(timeSlice.getDayByDoctor(data));
     dispatch(serviceSlide.getListServiceCustomer());
-  },[]);
+  }, []);
 
   function onChangeDay(event) {
     const e = {
@@ -115,11 +153,12 @@ function DoctorDetail({ match }) {
               </Grid>
               <Grid item xs={12} md={8}>
                 <Grid item xs={12} md={4}>
-                  <FormControl className={classes.formControl}>
-                    <InputLabel id="select">Chọn ngày khám</InputLabel>
+                  <FormControl className={classSelect.formControl}>
+                    <InputLabel className={classSelect.labelRoot} id="select">
+                      Chọn ngày khám
+                    </InputLabel>
                     <Select
-                      fullWidth={true}
-                      label={moment(dayOfWeek).format("dddd - DD/MM/YYYY")}
+                      className={classSelect.select}
                       value={moment(dayOfWeek).format("dddd - DD/MM/YYYY")}
                       onChange={onChangeDay}
                     >
@@ -132,8 +171,7 @@ function DoctorDetail({ match }) {
                       <MenuItem value={day3}>
                         {moment(day3).format("dddd - DD/MM/YYYY")}
                       </MenuItem>
-                    </Select>
-                    <FormHelperText>Vui lòng chọn ngày khám</FormHelperText>
+                    </Select>               
                   </FormControl>
                 </Grid>
                 <div>

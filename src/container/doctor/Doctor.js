@@ -43,65 +43,69 @@ export default function Doctor(props) {
             <Box mt={3} className="d-flex justify-content-center">
               <h3>CHỌN BÁC SĨ</h3>
             </Box>
-            {ListDoctor.map((doctor, index) => {
-              return (
-                <>
-                  <hr className="mt-4" />
-                  <Grid
-                    container
-                    columnSpacing={{ xs: 1, sm: 4, md: 3 }}
-                    key={index}
-                  >
-                    <Grid item xs={12} md={4}>
-                      <div>
-                        <div className="d-flex justify-content-center">
-                          <Tooltip title="Đặt lịch hẹn">
-                            <IconButton aria-label="Đặt lịch hẹn">
-                              <a href={`/doctor/${doctor.id}`}>
-                                <img
-                                  src={doctor.photo}
-                                  alt="..."
-                                  className={
-                                    classes.imgRaised +
-                                    " " +
-                                    classes.imgRoundedCircle +
-                                    " " +
-                                    classes.imgFluid
-                                  }
-                                />
-                              </a>
-                            </IconButton>
-                          </Tooltip>
+            {ListDoctor != null ? (
+              ListDoctor.map((doctor, index) => {
+                return (
+                  <>
+                    <hr className="mt-4" />
+                    <Grid
+                      container
+                      columnSpacing={{ xs: 1, sm: 4, md: 3 }}
+                      key={index}
+                    >
+                      <Grid item xs={12} md={4}>
+                        <div>
+                          <div className="d-flex justify-content-center">
+                            <Tooltip title="Đặt lịch hẹn">
+                              <IconButton aria-label="Đặt lịch hẹn">
+                                <a href={`/doctor/${doctor.id}`}>
+                                  <img
+                                    src={doctor.photo}
+                                    alt="..."
+                                    className={
+                                      classes.imgRaised +
+                                      " " +
+                                      classes.imgRoundedCircle +
+                                      " " +
+                                      classes.imgFluid
+                                    }
+                                  />
+                                </a>
+                              </IconButton>
+                            </Tooltip>
+                          </div>
                         </div>
-                      </div>
-                    </Grid>
+                      </Grid>
 
-                    <Grid item xs={12} md={8}>
-                      <Box mt={3}>
-                        <a
-                          href={`/doctor/${doctor.id}`}
-                          style={{ textDecoration: "none" }}
-                        >
-                          <h4 className="mt-3">{doctor.fullName}</h4>
-                        </a>
-                        <ul>
-                          <li>
-                            <span>{doctor.description}</span>
-                          </li>
-                          <li>
-                            <span>{doctor.academicLevel}</span>
-                          </li>
-                          <li>
-                            <span>{doctor.workExperience}</span>
-                          </li>
-                        </ul>
-                      </Box>
+                      <Grid item xs={12} md={8}>
+                        <Box mt={3}>
+                          <a
+                            href={`/doctor/${doctor.id}`}
+                            style={{ textDecoration: "none" }}
+                          >
+                            <h4 className="mt-3">{doctor.fullName}</h4>
+                          </a>
+                          <ul>
+                            <li>
+                              <span>{doctor.description}</span>
+                            </li>
+                            <li>
+                              <span>{doctor.academicLevel}</span>
+                            </li>
+                            <li>
+                              <span>{doctor.workExperience}</span>
+                            </li>
+                          </ul>
+                        </Box>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                  <hr className="mt-4" />
-                </>
-              );
-            })}
+                    <hr className="mt-4" />
+                  </>
+                );
+              })
+            ) : (
+              <span>No data... </span>
+            )}
           </Grid>
         </Grid>
       </Box>

@@ -36,6 +36,7 @@ const Copyright = () => {
 
 export default function AdminLayout(props) {
   const classes = Styles();
+  const user = JSON.parse(localStorage.getItem("userLogin"));
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -70,7 +71,9 @@ export default function AdminLayout(props) {
             noWrap
             className={classes.title}
           >
-            ADMIN
+            {user.role === "ADMIN" ? <p>QUẢN TRỊ VIÊN</p> : null}
+            {user.role === "STAFF" ? <p>NHÂN VIÊN</p> : null}
+            {user.role === "DOCTOR" ? <p>BÁC SĨ</p> : null}
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
@@ -92,7 +95,7 @@ export default function AdminLayout(props) {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainItems}</List>
+        <List>{mainItems(user)}</List>
         <Divider />
         <List>{secondaryItems}</List>
       </Drawer>
