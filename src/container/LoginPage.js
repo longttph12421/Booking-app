@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,7 +26,7 @@ import * as toastHelper from "../common/toastHelper";
 const useStyles = makeStyles(styles);
 
 function LoginPage(props) {
-  const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
+  const [cardAnimation, setCardAnimation] = React.useState("cardHidden");
   let history = useHistory();
   const { register, handleSubmit } = useForm();
   setTimeout(function () {
@@ -33,28 +34,28 @@ function LoginPage(props) {
   }, 700);
   const classes = useStyles();
   const onSubmit = (data) => {
- onLogin(data);
-     
+    onLogin(data);
+    console.log(data);
   };
   const onLogin = async (data) => {
     LoginService.loginToken(data)
       .then((response) => {
         console.log("đây là data gửi về: ", response.data);
         if (
-          response.data !== "" &&
-          response.data !== undefined &&
-          response.data !== null
+          response.data != "" &&
+          response.data != undefined &&
+          response.data != null
         ) {
           if (
-            response.data.role === "ADMIN" ||
-            response.data.role === "STAFF"
+            response.data.role == "ADMIN" ||
+            response.data.role == "STAFF"
           ) {
             toastHelper.toastSuccess("Đăng nhập thành công!");
             localStorage.setItem("TokenLogin", response.data);
             localStorage.setItem("userLogin", JSON.stringify(response.data));
             history.replace("/admin");
           }
-          if (response.data.role === "USER") {
+          if (response.data.role == "USER") {
             toastHelper.toastSuccess("Đăng nhập thành công!");
             localStorage.setItem("TokenLogin", response.data);
             localStorage.setItem("userLogin", JSON.stringify(response.data));
@@ -89,7 +90,7 @@ function LoginPage(props) {
         <div className={classes.container}>
           <GridContainer justify="center">
             <GridItem xs={12} sm={12} md={4}>
-              <Card className={classes[cardAnimaton]}>
+              <Card className={classes[cardAnimation]}>
                 <form
                   className={classes.form}
                   onSubmit={handleSubmit(onSubmit)}

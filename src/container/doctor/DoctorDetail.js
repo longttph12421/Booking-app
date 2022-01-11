@@ -5,7 +5,7 @@ import Button from "../../components/CustomButtons/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles.js";
 import CustomModal from "../../components/Modal/Modal.js";
-import BookingForm from "../bookingForm/BookingForm";
+import BookingForm from "./BookingForm";
 import moment from "moment";
 import EventNoteIcon from "@material-ui/icons/EventNote";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
@@ -13,7 +13,7 @@ import { CssBaseline } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
-import Danger from "../../components/Typography/Danger";
+
 //=============================================================
 //     API and React redux
 //=============================================================
@@ -21,7 +21,6 @@ import * as serviceSlide from "../../redux/reducer/ServiceCustomerSlide";
 import * as doctorSlice from "../../redux/reducer/DoctorSlide";
 import * as timeSlice from "../../redux/reducer/TimeSlide";
 import * as UI from "../../redux/reducer/UiSlider.js";
-import * as TimeServices from "../../services/TimeService";
 import { addDays } from "date-fns";
 //===================================================
 const useStyles = makeStyles(imagesStyles);
@@ -34,13 +33,13 @@ function DoctorDetail({ match }) {
   const dispatch = useDispatch();
   const body = {
     STAFF_ID: Number(match.params.id),
-    STATUS: 0,
+    STATUS: 1,
   };
-
-  const [dayOfWeek, setDayOfWeek] = React.useState();
+  const modal = useSelector((state) => state.UI.modal);
+  const [dayOfWeek, setDayOfWeek] = React.useState(Date);
   const data = {
     STAFF_ID: Number(match.params.id),
-    STATUS: 0,
+    STATUS: 1,
     DAY: moment(now).format("dddd"),
   };
   useEffect(() => {
@@ -48,12 +47,12 @@ function DoctorDetail({ match }) {
     dispatch(timeSlice.getWeekByDoctor(body));
     dispatch(timeSlice.getDayByDoctor(data));
     dispatch(serviceSlide.getListServiceCustomer());
-  }, []);
+  },[]);
 
   function onChangeDay(event) {
     const e = {
       STAFF_ID: Number(match.params.id),
-      STATUS: 0,
+      STATUS: 1,
       DAY: moment(event.target.value).format("dddd"),
     };
     console.log(event.target.value);
@@ -66,7 +65,6 @@ function DoctorDetail({ match }) {
       time: data,
       staff: Number(match.params.id),
     };
-    console.log(value);
     dispatch(timeSlice.mapDataBooking(value));
     dispatch(UI.openModal());
   }
@@ -75,7 +73,10 @@ function DoctorDetail({ match }) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <CustomModal title="Đặt lịch khám" modalBody={<BookingForm />} />
+      {modal != null ? (
+        <CustomModal title="Đặt lịch khám" modalBody={<BookingForm />} />
+      ) : null}
+
       <Box
         sx={{
           width: "90%",
@@ -118,7 +119,8 @@ function DoctorDetail({ match }) {
                     <InputLabel id="select">Chọn ngày khám</InputLabel>
                     <Select
                       fullWidth={true}
-                      value={dayOfWeek}
+                      label={moment(dayOfWeek).format("dddd - DD/MM/YYYY")}
+                      value={moment(dayOfWeek).format("dddd - DD/MM/YYYY")}
                       onChange={onChangeDay}
                     >
                       <MenuItem value={now}>

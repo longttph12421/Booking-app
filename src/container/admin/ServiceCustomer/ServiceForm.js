@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 // @material-ui/core components
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 // core components
 import Button from "../../../components/CustomButtons/Button.js";
 import CardBody from "../../../components/Card/CardBody.js";
@@ -11,7 +11,7 @@ import * as toastHelper from "../../../common/toastHelper";
 import * as UI from "../../../redux/reducer/UiSlider";
 import { useDispatch, useSelector } from "react-redux";
 import { getListServiceCustomer } from "../../../redux/reducer/ServiceCustomerSlide";
-function ServiceCustomerForm() {
+function ServiceForm() {
   const dispatch = useDispatch();
   const detail = useSelector((state) => state.service.detail);
 
@@ -20,11 +20,12 @@ function ServiceCustomerForm() {
     name: detail.name,
     price: detail.price,
     description: detail.description,
-    timeExamination: detail.time_examination,
+    timeExamination: detail.timeExamination,
   };
   const { register, handleSubmit } = useForm({ defaultValues });
 
   const onSubmit = (data) => {
+    console.log(data);
     if (data.id != "") {
       Service.postServiceCustomer(data)
         .then((response) => {
@@ -104,14 +105,14 @@ function ServiceCustomerForm() {
         </CardBody>
         <CardFooter>
           <Button simple color="primary" type="submit" size="lg">
-            Submit
+            LƯU
           </Button>
           <Button simple color="danger" size="lg" onClick={onCancel}>
-            Cancel
+            TRỞ VỀ
           </Button>
         </CardFooter>
       </form>
     </>
   );
 }
-export default ServiceCustomerForm;
+export default ServiceForm;

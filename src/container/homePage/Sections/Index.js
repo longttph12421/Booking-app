@@ -2,7 +2,7 @@ import styles from "../../../assets/jss/material-kit-react/views/components.js";
 import { CssBaseline } from "@material-ui/core";
 import GridContainer from "../../../components/Grid/GridContainer";
 import GridItem from "../../../components/Grid/GridItem";
-import ProductSlider from "./ProductSlider";
+//import ProductSlider from "./ProductSlider";
 import SliderDoctor from "./SliderDoctor";
 import TipSlider from "./TipSlider";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,10 +18,10 @@ function Index() {
         <SliderDoctor />
       </GridItem>
       <CssBaseline />
-      <GridItem md={12} className={"mt-5 " + classes.textCenter}>
+      {/* <GridItem md={12} className={"mt-5 " + classes.textCenter}>
         <h2>SẢN PHẨM BÁN CHẠY</h2>
         <ProductSlider />
-      </GridItem>
+      </GridItem> */}
 
       <GridItem md={12} className={"mt-5 " + classes.textCenter}>
         <h2>CẨM NANG</h2>

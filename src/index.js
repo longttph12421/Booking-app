@@ -14,8 +14,8 @@ var hist = createBrowserHistory();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router history={hist}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <Router history={hist}>
         <Suspense fallback="Loading...">
           <App />
           <Loading />
@@ -31,8 +31,8 @@ ReactDOM.render(
             pauseOnHover
           />
         </Suspense>
-      </Provider>
-    </Router>
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

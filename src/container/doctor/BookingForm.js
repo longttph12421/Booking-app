@@ -7,7 +7,9 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import * as UI from "../../redux/reducer/UiSlider";
 import { useDispatch, useSelector } from "react-redux";
 import * as BookingService from "../../services/BookingService";
+import * as TimeService from "../../services/TimeService";
 import * as toastHelper from "../../common/toastHelper";
+import * as timeSlice from "../../redux/reducer/TimeSlide";
 import Danger from "../../components/Typography/Danger";
 import CustomSelect from "../../components/CustomInput/CustomSelect";
 import moment from "moment";
@@ -26,6 +28,9 @@ function BookingForm() {
     const data = {
       customer: {
         id: user.id,
+        fullName: value.fullName,
+        email: value.email,
+        phone: value.phone,
       },
       staff: {
         id: bookingData.staff,
@@ -33,13 +38,13 @@ function BookingForm() {
       serviceCustomer: {
         id: value.service,
       },
-      //time: bookingData.time,
+
       timeEnd: bookingData.time.endTime,
       timeStart: bookingData.time.startTime,
       dateBooking: moment(bookingData.date).format("DD/MM/YYYY"),
       note: value.note,
     };
-    console.log(data);
+    console.log(bookingData.time);
     BookingService.booking(data)
       .then((response) => {
         console.log(response.data);
@@ -49,6 +54,23 @@ function BookingForm() {
         console.log(err);
         toastHelper.toastError("Đã có lỗi sảy ra...");
       });
+    const timedData = {
+      id: bookingData.time.id,
+      endTime: bookingData.time.endTime,
+      startTime: bookingData.time.startTime,
+      status: 0,
+      weekSchedule: bookingData.time.weekSchedule,
+    };
+    const e = {
+      STAFF_ID: bookingData.staff,
+      STATUS: 1,
+      DAY: moment(bookingData.date).format("dddd"),
+    };
+    console.log(timedData);
+    TimeService.updateTime(timedData).then((response) => {
+      dispatch(UI.closeModal());
+      dispatch(timeSlice.getDayByDoctor(e));
+    });
   };
   return (
     <React.Fragment>
@@ -125,9 +147,9 @@ function BookingForm() {
           </Grid>
         </CardBody>
         <CardFooter>
-          <Button type="submit"> Submit</Button>
+          <Button type="submit"> ĐẶT LỊCH</Button>
           <Button onClick={onCancel}>
-            <Danger>Cancel</Danger>
+            <Danger>TRỞ VỀ</Danger>
           </Button>
         </CardFooter>
       </form>

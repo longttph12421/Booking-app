@@ -1,10 +1,10 @@
-import { Switch, Route, Redirect } from "react-router-dom";
-
+import { Switch, Route } from "react-router-dom";
 import HomePage from "../container/homePage/HomePage";
 import Dashboard from "../container/admin/DashBoard/Dashboard";
 import AdminLayout from "../container/admin/Index";
 import Index from "../container/homePage/Sections/Index";
 import AdminRoute from "../configures/auth/AdminRoute";
+import AuthRoute from "./auth/AuthRoute";
 import Page404 from "../container/Page404";
 import Product from "../container/product/Product";
 import ProductDetail from "../container/product/ProductDetail";
@@ -13,34 +13,55 @@ import Doctor from "../container/doctor/Doctor";
 import DoctorDetail from "../container/doctor/DoctorDetail";
 import AboutPage from "../container/AboutPage/AboutPage";
 import Contact from "../container/AboutPage/Sections/Contact";
-import AdminProduct from "../container/admin/DashBoard/AdminProduct";
-import Booking from "../container/admin/DashBoard/Booking";
+import AdminProduct from "../container/admin/product/AdminProduct";
+import Booking from "../container/admin/booking/Booking";
 import ServiceCustomer from "../container/admin/ServiceCustomer";
 import Register from "../container/Register";
 import ProfilePage from "../container/ProfilePage/ProfilePage";
 import Account from "../container/admin/Account/index";
+import Staff from "../container/admin/calender/Staff";
+import Days from "../container/admin/calender/day/Days";
+import Customer from "../container/admin/customer/Customer";
+import TimeSchedule from "../container/admin/calender/time/TimeSchedule";
+import History from "../container/ProfilePage/History";
 function Routers() {
   return (
     <Switch>
-      <Route exact path="/admin/:path?/:path?/:path?">
+      <Route exact path="/admin/:path?/:path?/:path?/:path?">
         <AdminLayout>
           <Switch>
             <AdminRoute exact path="/admin">
               <Dashboard />
             </AdminRoute>
+
             <AdminRoute exact path="/admin/product">
               <AdminProduct/>
             </AdminRoute>
+
             <AdminRoute exact path="/admin/booking">
               <Booking />
             </AdminRoute>
 
-            <AdminRoute exact path="/admin/allservice">
+            <AdminRoute exact path="/admin/service">
               <ServiceCustomer />
             </AdminRoute>
 
             <AdminRoute exact path="/admin/account">
               <Account/>
+            </AdminRoute>
+
+            <AdminRoute exact path="/admin/customer">
+              <Customer />
+            </AdminRoute>
+
+            <AdminRoute exact path="/admin/staff">
+              <Staff />
+            </AdminRoute>
+
+            <Route exact path="/admin/time/:id" component={TimeSchedule} />
+
+            <AdminRoute>
+              <Route exact path="/admin/staff/:id" component={Days} />
             </AdminRoute>
           </Switch>
         </AdminLayout>

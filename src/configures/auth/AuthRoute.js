@@ -1,22 +1,19 @@
 import { Redirect } from "react-router";
 
-const AdminRoute = (props) => {
-  const checkAdmin = () => {
-    let check = false;
+const AuthRoute = (props) => {
+  const checkLogin = () => {
     const user = JSON.parse(localStorage.getItem("userLogin"));
     if (user === null || user === "undefined") {
       return false;
+    } else {
+      return true;
     }
-    if (user.role === "ADMIN" || user.role === "STAFF") {
-      check = true;
-    }
-    return check;
   };
 
-  return checkAdmin() == true ? (
+  return checkLogin() ? (
     props.children
   ) : (
     <Redirect to={{ pathname: "/login" }} />
   );
 };
-export default AdminRoute;
+export default AuthRoute;

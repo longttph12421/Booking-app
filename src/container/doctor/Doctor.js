@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAll } from "../../redux/reducer/DoctorSlide";
+import * as service from "../../redux/reducer/DoctorSlide";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
@@ -10,15 +10,19 @@ import { CssBaseline, Box, Grid } from "@material-ui/core";
 // core components
 import CustomModal from "../../components/Modal/Modal.js";
 import imagesStyles from "../../assets/jss/material-kit-react/imagesStyles.js";
-import BookingForm from "../bookingForm/BookingForm";
+import BookingForm from "./BookingForm";
 // sections for this page
 const useStyles = makeStyles(imagesStyles);
 
 export default function Doctor(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const role = {
+    ROLE: "DOCTOR",
+  };
   useEffect(() => {
-    dispatch(getAll());
+    dispatch(service.findByRole(role));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const ListDoctor = useSelector((state) => state.doctor.data);

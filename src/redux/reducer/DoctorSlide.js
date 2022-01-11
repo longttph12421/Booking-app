@@ -5,16 +5,22 @@ export const getAll = createAsyncThunk("staff/getAll", async () => {
   const response = await DoctorService.findAll();
   return response.data;
 });
-
+export const findByRole = createAsyncThunk("staff/findByRole", async (role) => {
+  const response = await DoctorService.findByRole(role);
+  return response.data;
+});
 export const findById = createAsyncThunk("staff/findById", async (id) => {
   const response = await DoctorService.findById(id);
   return response.data;
 });
 
-export const findByUserId = createAsyncThunk("staff/findByUserId", async (id) => {
-  const response = await DoctorService.findByUserId(id);
-  return response.data;
-});
+export const findByUserId = createAsyncThunk(
+  "staff/findByUserId",
+  async (id) => {
+    const response = await DoctorService.findByUserId(id);
+    return response.data;
+  }
+);
 
 export const doctorSlice = createSlice({
   name: "doctor",
@@ -33,6 +39,13 @@ export const doctorSlice = createSlice({
     },
   },
   extraReducers: {
+    [findByRole.fulfilled]: (state, action) => {
+      state.data = action.payload;
+    },
+    [findByRole.rejected]: (state, error) => {
+      console.log(error);
+      state.data = state;
+    },
     [getAll.fulfilled]: (state, action) => {
       state.data = action.payload;
     },

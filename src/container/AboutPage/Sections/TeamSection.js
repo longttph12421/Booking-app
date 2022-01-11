@@ -106,7 +106,7 @@ export default function TeamSection() {
           <GridItem xs={12} sm={12} md={4}>
             <Card plain>
               <GridItem xs={12} sm={12} md={6} className={classes.itemGrid}>
-                <img src="https://scontent.fhan3-4.fna.fbcdn.net/v/t39.30808-6/259127553_3074790722796669_5860938531612923022_n.jpg?_nc_cat=106&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=DZREndS01rMAX_-HrGc&_nc_ht=scontent.fhan3-4.fna&oh=00_AT-B84IpB2feBd64pr-JRGOvvABmJq23nb8SD24DDmDPxg&oe=61C0577E" alt="..." className={imageClasses} />
+                <img src="https://cdn.bookingcare.vn/fr/w200/2020/03/17/114430-bshung.jpg" alt="..." className={imageClasses} />
               </GridItem>
               <h4 className={classes.cardTitle}>
                Dương Văn Đức
