@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +8,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from "../../../components/CustomButtons/Button";
+import CustomModal from "../../../components/Modal/Modal";
+import ServiceForm from "../ServiceCustomer/ServiceForm";
+import AddIcon from "@material-ui/icons/Add";
+import {useDispatch, useSelector} from "react-redux";
+import {openModal} from "../../../redux/reducer/UiSlider";
 
 const useStyles = makeStyles({
     table: {
@@ -18,9 +23,40 @@ const useStyles = makeStyles({
 export default function Staff(props) {
     const classes = useStyles();
     const { listStaff } = props;
+    const dispatch = useDispatch();
+    const [title, setTitle] = useState("");
     console.log(listStaff)
+    const UI = useSelector((state) => state.UI.modal);
+    const handleOpen = (string, data) => {
+        setTitle(string);
+        dispatch(openModal());
+        // dispatch(getById(data));
+    };
+    const data = {
+        id: "",
+        name: "",
+        price: "",
+        description: "",
+        time_examination: "",
+    };
 
     return (
+        <div>
+            {UI === true ? (
+                <CustomModal title={title} modalBody={<ServiceForm />} />
+            ) : null}
+            <div>
+                <Button
+                    color="success"
+                    size="sm"
+                    onClick={() => {
+                        handleOpen("Thêm mới", data);
+                    }}
+                >
+                    <AddIcon />
+                    Thêm mới
+                </Button>
+            </div>
         <TableContainer component={Paper}>
 
             <Table className={classes.table} aria-label="simple table">
@@ -61,6 +97,7 @@ export default function Staff(props) {
                 </TableBody>
             </Table>
         </TableContainer>
+        </div>
     );
 }
 

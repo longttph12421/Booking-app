@@ -42,7 +42,7 @@ const path = {
   },
   account:{
     GET_CUSTOMERS:"http://localhost:6769/api/auth/admin/getAllCustomer",
-    GET_DOCTOR:"http://localhost:6769/api/staff/findByUserRole",
+    GET_DOCTOR:"http://localhost:6769/api/staff/findByRole",
   },
   
 };
