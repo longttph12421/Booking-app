@@ -29,7 +29,11 @@ const path = {
     POST_SERVICE:"http://localhost:6769/api/auth/admin/save",
     PUT_SERVICE:"http://localhost:6769/api/auth/admin/update",
     DELETE_SERVICE: "http://localhost:6769/api/auth/admin/delete"
-  }
+  },
+  account:{
+    GET_CUSTOMERS:"http://localhost:6769/api/auth/admin/getAllCustomer",
+    GET_DOCTOR:"http://localhost:6769/api/staff/findByUserRole",
+  },
   
 };
 export default path;

@@ -68,6 +68,17 @@ export const mainItems = (
         </Muted>
       </ListItem>
     </Link>
+
+      <Link to="/admin/account" style={{ textDecoration: "none" }}>
+          <ListItem button>
+              <ListItemIcon>
+                  <PeopleIcon />
+              </ListItemIcon>
+              <Muted>
+                  <ListItemText primary="Account" />
+              </Muted>
+          </ListItem>
+      </Link>
   </div>
 );
 

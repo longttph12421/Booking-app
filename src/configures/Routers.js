@@ -18,6 +18,7 @@ import Booking from "../container/admin/DashBoard/Booking";
 import ServiceCustomer from "../container/admin/ServiceCustomer";
 import Register from "../container/Register";
 import ProfilePage from "../container/ProfilePage/ProfilePage";
+import Account from "../container/admin/Account/index";
 function Routers() {
   return (
     <Switch>
@@ -28,7 +29,7 @@ function Routers() {
               <Dashboard />
             </AdminRoute>
             <AdminRoute exact path="/admin/product">
-              <AdminProduct />
+              <AdminProduct/>
             </AdminRoute>
             <AdminRoute exact path="/admin/booking">
               <Booking />
@@ -36,6 +37,10 @@ function Routers() {
 
             <AdminRoute exact path="/admin/allservice">
               <ServiceCustomer />
+            </AdminRoute>
+
+            <AdminRoute exact path="/admin/account">
+              <Account/>
             </AdminRoute>
           </Switch>
         </AdminLayout>
