@@ -7,3 +7,11 @@ export function getListCustomer(){
 export function getListDocTorAndStaff(data){
     return axiosHelper.post(path.account.GET_DOCTOR,data);
 };
+
+export function insertDoctor(data) {
+    return axiosHelper.post(path.account.POST_DOCTOR, data);
+}
+
+export function insertStaff(data) {
+    return axiosHelper.post(path.account.POST_STAFF, data);
+}
