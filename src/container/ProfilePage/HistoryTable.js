@@ -20,15 +20,38 @@ import * as toastHelper from "../../common/toastHelper";
 import * as service from "../../services/BookingDetailService";
 //======================   ICON   ================================
 import DeleteIcon from "@material-ui/icons/Delete";
+import {
+  IconButton,
+  TablePagination,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import FilterListIcon from "@material-ui/icons/FilterList";
 const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
+  root: {
+    width: "100%",
+  },
+  container: {
+    maxHeight: 440,
+  },
+  title: {
+    flex: "1 1 100%",
   },
 });
 function HistoryTable(props) {
   const confirm = useConfirm();
   const classes = useStyles();
-  const { list, action, setList } = props;
+  const { rows, action, setRows } = props;
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   const status = (s) => {
     let cpn = null;
     if (s === 1) {
@@ -37,6 +60,10 @@ function HistoryTable(props) {
       cpn = <Success>Đã Xác nhận</Success>;
     } else if (s === 3) {
       cpn = <Danger>Đã hủy</Danger>;
+    } else if (s === 4) {
+      cpn = <Danger>Đang tiếp nhận</Danger>;
+    } else if (s === 5) {
+      cpn = <Danger>Đã xong</Danger>;
     }
     return cpn;
   };
@@ -50,13 +77,13 @@ function HistoryTable(props) {
         .deleteById(data.id)
         .then((response) => {
           toastHelper.toastSuccess("Hủy lịch khám thành công...");
-          const newList = list.filter((e) => {
+          const newList = rows.filter((e) => {
             if (e.id === data.id) {
               return false;
             }
             return true;
           });
-          setList(newList);
+          setRows(newList);
         })
         .catch((error) => {
           toastHelper.toastError("Đã có lỗi sảy ra" + error);
@@ -64,66 +91,121 @@ function HistoryTable(props) {
     });
   };
   return (
-    <TableContainer component={Paper} className={classes.table}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Tên</TableCell>
-            <TableCell align="center">SĐT</TableCell>
-            <TableCell align="center">Email</TableCell>
-            <TableCell align="center">Ngày khám</TableCell>
-            <TableCell align="center">Giờ khám</TableCell>
-            <TableCell align="center">Dịch vụ</TableCell>
-            <TableCell align="center">Bác sĩ</TableCell>
-            <TableCell align="center">Trạng thái</TableCell>
-            {action === false ? null : (
-              <TableCell align="center">Action</TableCell>
-            )}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {list != null ? (
-            list.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell align="center">{row.fullName}</TableCell>
-                <TableCell align="center">{row.phone}</TableCell>
-                <TableCell align="center">{row.email}</TableCell>
-                <TableCell align="center">{row.dateBooking}</TableCell>
-                <TableCell align="center">
-                  {row.timeStart} - {row.timeEnd}
+    <Paper className={classes.root}>
+      <Toolbar className={classes.root}>
+        <Typography
+          className={classes.title}
+          variant="h6"
+          id="tableTitle"
+          component="div"
+        >
+          Lịch khám
+        </Typography>
+
+        <Tooltip title="Filter list">
+          <IconButton aria-label="filter list">
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+      </Toolbar>
+      <TableContainer component={Paper}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center" style={{ minWidth: 150 }}>
+                Họ và tên
+              </TableCell>
+              <TableCell align="center" style={{ minWidth: 150 }}>
+                Số điện thoại
+              </TableCell>
+              <TableCell align="center" style={{ minWidth: 150 }}>
+                Email
+              </TableCell>
+              <TableCell align="center" style={{ minWidth: 150 }}>
+                Ngày khám
+              </TableCell>
+              <TableCell align="center" style={{ minWidth: 150 }}>
+                Giờ khám
+              </TableCell>
+              <TableCell align="center" style={{ minWidth: 150 }}>
+                Dịch vụ
+              </TableCell>
+              <TableCell align="center" style={{ minWidth: 150 }}>
+                Bác sĩ
+              </TableCell>
+              <TableCell align="center" style={{ minWidth: 150 }}>
+                Trạng thái
+              </TableCell>
+              {action === false ? null : (
+                <TableCell align="center" style={{ minWidth: 50 }}>
+                  Thao tác
                 </TableCell>
-                <TableCell align="center">{row.serviceCustomer.name}</TableCell>
-                <TableCell align="center">{row.staff.fullName}</TableCell>
-                <TableCell align="center">{status(row.status)}</TableCell>
-                {action === false ? null : (
-                  <TableCell align="center">
-                    <GridContainer>
-                      <GridItem xs={4}>
-                        <Tooltip title="Hủy">
-                          <Button
-                            color="transparent"
-                            size="sm"
-                            onClick={() => {
-                              onCancel(row);
-                            }}
-                          >
-                            <Danger>
-                              <DeleteIcon size="lg" />
-                            </Danger>
-                          </Button>
-                        </Tooltip>
-                      </GridItem>
-                    </GridContainer>
-                  </TableCell>
-                )}
-              </TableRow>
-            ))
-          ) : (
-            <span>No data...</span>
-          )}
-        </TableBody>
-      </Table>
-    </TableContainer>
+              )}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows != null ? (
+              rows
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell align="center">{row.fullName}</TableCell>
+                    <TableCell align="center">{row.phone}</TableCell>
+                    <TableCell align="center">{row.email}</TableCell>
+                    <TableCell align="center">{row.dateBooking}</TableCell>
+                    <TableCell align="center">
+                      {row.timeStart} - {row.timeEnd}
+                    </TableCell>
+                    <TableCell align="center">
+                      {row.serviceCustomer.name}
+                    </TableCell>
+                    <TableCell align="center">{row.staff.fullName}</TableCell>
+                    <TableCell align="center">{status(row.status)}</TableCell>
+                    {action === false ? null : (
+                      <TableCell align="center">
+                        <GridContainer>
+                          <GridItem xs={4}>
+                            <Tooltip title="Hủy">
+                              <Button
+                                color="transparent"
+                                size="sm"
+                                onClick={() => {
+                                  onCancel(row);
+                                }}
+                              >
+                                <Danger>
+                                  <DeleteIcon size="lg" />
+                                </Danger>
+                              </Button>
+                            </Tooltip>
+                          </GridItem>
+                        </GridContainer>
+                      </TableCell>
+                    )}
+                  </TableRow>
+                ))
+            ) : (
+              <span>No data...</span>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, 50]}
+        labelRowsPerPage="Số bản ghi"
+        labelDisplayedRows={({ from, to, count }) =>
+        {
+         return  `${from}- ${to}  /  ${count}`
+        }}
+       
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+    </Paper>
   );
 }
 

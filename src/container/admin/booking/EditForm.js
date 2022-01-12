@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 // @material-ui/core components
 import { useForm } from "react-hook-form";
-import { Grid } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { Grid, Input } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
@@ -12,11 +13,18 @@ import Button from "../../../components/CustomButtons/Button.js";
 import CardBody from "../../../components/Card/CardBody.js";
 import CardFooter from "../../../components/Card/CardFooter.js";
 import * as DoctorSlide from "../../../redux/reducer/DoctorSlide";
-import * as Service from "../../../services/ServiceCustomerService";
+import * as ServiceSlide from "../../../redux/reducer/ServiceCustomerSlide";
+import * as timeSlice from "../../../redux/reducer/TimeSlide";
 import * as toastHelper from "../../../common/toastHelper";
 import * as UI from "../../../redux/reducer/UiSlider";
-import { useDispatch, useSelector } from "react-redux";
-
+import * as bookingDetailService from "../../../services/BookingDetailService";
+import moment from "moment";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 const useStyles = makeStyles((theme) => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -43,6 +51,14 @@ const useStyles = makeStyles((theme) => ({
       color: "#495057",
     },
   },
+  formInput: {
+    margin: "0 0 17px 0",
+    paddingTop: "11px",
+    position: "relative",
+    "& svg,& .fab,& .far,& .fal,& .fas,& .material-icons": {
+      color: "#495057",
+    },
+  },
   labelRoot: {
     color: "#AAAAAA !important",
     fontWeight: "400",
@@ -54,19 +70,35 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function EditForm(props, state) {
+function EditForm(props) {
+  const detail = useSelector((state) => state.booking.dataMapping);
+  const { list, setList } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
-  const detail = useSelector((state) => state.booking.dataMapping);
-  const doctors = useSelector((state) => state.doctor.data);
-  const [selectDoctor, setSelectDoctor] = React.useState(detail.staff.id);
   const role = {
     ROLE: "DOCTOR",
   };
+  const data = {
+    STAFF_ID: detail.staff.id,
+    STATUS: 1,
+    DAY: moment(detail.dateBooking).format("dddd"),
+  };
   useEffect(() => {
     dispatch(DoctorSlide.findByRole(role));
+    dispatch(ServiceSlide.getListServiceCustomer());
+    dispatch(timeSlice.getDayByDoctor(data));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const doctors = useSelector((state) => state.doctor.data);
+  const services = useSelector((state) => state.service.value);
+  const Times = useSelector((state) => state.time.days);
+  const [selectDoctor, setSelectDoctor] = React.useState(detail.staff.id);
+  const [serviceCustomer, setServiceCustomer] = React.useState(
+    detail.serviceCustomer.id
+  );
+  const [date, setDate] = React.useState(detail.dateBooking);
+  const [time, setTime] = React.useState(detail.dayScheduleId);
   const defaultValues = {
     id: detail.id,
     fullName: detail.fullName,
@@ -77,29 +109,95 @@ function EditForm(props, state) {
     dateBooking: detail.dateBooking,
     note: detail.note,
     status: detail.status,
-    serviceCustomer: detail.serviceCustomer,
-    staff: detail.staff,
+    serviceCustomer: { id: detail.serviceCustomer.id },
+    staff: { id: detail.staff.id },
     booking: detail.booking,
+    dayScheduleId: detail.dayScheduleId,
   };
-  const { register, handleSubmit } = useForm({ defaultValues });
+  const { register, handleSubmit, setValue } = useForm({ defaultValues });
+
   const onSubmit = (data) => {
-    console.log(defaultValues);
-    toastHelper.toastError("Thêm mới thất bại");
+    const value = {
+      id: detail.id,
+      fullName: detail.fullName,
+      email: detail.email,
+      phone: detail.phone,
+      timeStart: data.timeStart,
+      timeEnd: data.timeEnd,
+      dateBooking: data.dateBooking,
+      note: detail.note,
+      status: detail.status,
+      serviceCustomer: { id: data.serviceCustomer },
+      staff: { id: data.staff.id },
+      booking: detail.booking,
+      dayScheduleId: data.dayScheduleId,
+    };
+    console.log(value);
+    bookingDetailService
+      .updateBookingDetail(data)
+      .then((response) => {
+        console.log(response);
+        const newList = list.map((value, index) => {
+          if (value.id === data.id) {
+            return response.data;
+          } else {
+            return value;
+          }
+        });
+        setList(newList);
+        toastHelper.toastSuccess("Chỉnh sửa thành công...");
+      })
+      .catch((err) => {
+        toastHelper.toastError("Đã có lỗi sảy ra..." + err.message);
+      });
   };
   const onCancel = () => {
     dispatch(UI.closeModal());
   };
   function handleSelect(event) {
     setSelectDoctor(event.target.value);
+    setValue("staff", { id: event.target.value });
   }
-
+  function handleSelectService(event) {
+    setServiceCustomer(event.target.value);
+    setValue(
+      "serviceCustomer",
+      { id: event.target.value },
+      {
+        shouldValidate: true,
+        shouldDirty: true,
+      }
+    );
+  }
+  const changeDate = (date) => {
+    const e = {
+      STAFF_ID: selectDoctor,
+      STATUS: 1,
+      DAY: moment(date).format("dddd"),
+    };
+    setValue("dateBooking", date);
+    console.log(moment(date).format("dddd"));
+    setDate(date);
+    dispatch(timeSlice.getDayByDoctor(e));
+  };
+  const handleSelectTime = (time) => {
+    setTime(time.id);
+    setValue("timeStart", time.startTime, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+    setValue("timeEnd", time.endTime, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  };
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input {...register("id")} type="hidden" />
         <CardBody>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6}>
               <FormControl className={`col-12 ` + classes.formControl}>
                 <InputLabel id="select-label" className={classes.labelRoot}>
                   Bác sĩ
@@ -124,8 +222,27 @@ function EditForm(props, state) {
                 </Select>
               </FormControl>
             </Grid>
-
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6}>
+              <FormControl className={`col-12`}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    className={classes.select}
+                    disableToolbar
+                    variant="inline"
+                    format="MM/dd/yyyy"
+                    margin="normal"
+                    id="date-picker-inline"
+                    label="Ngày khám"
+                    value={date}
+                    onChange={changeDate}
+                    KeyboardButtonProps={{
+                      "aria-label": "change date",
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
               <FormControl className={`col-12 ` + classes.formControl}>
                 <InputLabel id="select-label-2" className={classes.labelRoot}>
                   Giờ còn trống
@@ -134,17 +251,43 @@ function EditForm(props, state) {
                   labelId="select-label-2"
                   id="simple-select-2"
                   className={classes.select}
-                  {...register("staff")}
-                  value={selectDoctor}
-                  onChange={handleSelect}
+                  {...register("dayScheduleId")}
+                  value={time}
+                  //onChange={handleSelectTime}
                 >
-                  {doctors != null
-                    ? doctors.map((doctor) => {
+                  {Times != null
+                    ? Times.map((time) => {
                         return (
-                          <MenuItem value={doctor.id}>
-                            {doctor.fullName}
+                          <MenuItem
+                            value={time.id}
+                            onClick={() => {
+                              handleSelectTime(time);
+                            }}
+                          >
+                            {`${time.startTime} - ${time.endTime}`}
                           </MenuItem>
                         );
+                      })
+                    : null}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <FormControl className={`col-12 ` + classes.formControl}>
+                <InputLabel id="select-label-2" className={classes.labelRoot}>
+                  Dịch vụ
+                </InputLabel>
+                <Select
+                  labelId="select-label-2"
+                  id="simple-select-2"
+                  className={classes.select}
+                  {...register("serviceCustomer")}
+                  value={serviceCustomer}
+                  onChange={handleSelectService}
+                >
+                  {services != null
+                    ? services.map((s) => {
+                        return <MenuItem value={s.id}>{s.name}</MenuItem>;
                       })
                     : null}
                 </Select>

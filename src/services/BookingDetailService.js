@@ -22,6 +22,10 @@ export function findByCustomer(data) {
   return axiosHelper.post(path.bookingDetail.FIND_BY_CUSTOMER, data);
 }
 
+export const updateBookingDetail = (data) => {
+  return axiosHelper.put(path.bookingDetail.UPDATE_BOOKING_DETAIL, data);
+};
+
 export function deleteById(id) {
   return axiosHelper.put(`${path.bookingDetail.DELETE_BY_ID}/${id}`);
 }

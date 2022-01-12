@@ -35,7 +35,7 @@ function Routers() {
             </AdminRoute>
 
             <AdminRoute exact path="/admin/product">
-              <AdminProduct/>
+              <AdminProduct />
             </AdminRoute>
 
             <AdminRoute exact path="/admin/booking">
@@ -47,7 +47,7 @@ function Routers() {
             </AdminRoute>
 
             <AdminRoute exact path="/admin/account">
-              <Account/>
+              <Account />
             </AdminRoute>
 
             <AdminRoute exact path="/admin/customer">
@@ -57,8 +57,11 @@ function Routers() {
             <AdminRoute exact path="/admin/staff">
               <Staff />
             </AdminRoute>
-            
+
             <Route exact path="/admin/time/:id" component={TimeSchedule} />
+
+            <Route exact path="/admin/time/:id" component={TimeSchedule} />
+
             <AdminRoute>
               <Route exact path="/admin/staff/:id" component={Days} />
             </AdminRoute>
@@ -89,8 +92,11 @@ function Routers() {
             <Route exact path="/doctor/:id" component={DoctorDetail} />
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/about" component={AboutPage} />
-            <Route exact path="/profile" component={ProfilePage} />
+            <Route exact path="/history" component={History} />
             <Route exact path="/" component={Index} />
+            <AuthRoute>
+              <Route exact path="/profile" component={ProfilePage} />
+            </AuthRoute>
           </Switch>
         </HomePage>
       </Route>

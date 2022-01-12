@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { alpha, makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useConfirm } from "material-ui-confirm";
 //======================   COMPONENT   ================================
@@ -20,11 +20,13 @@ import EditForm from "./EditForm";
 import Tooltip from "@material-ui/core/Tooltip";
 import CustomModal from "../../../components/Modal/Modal";
 import {
+  AppBar,
   IconButton,
   TablePagination,
   Toolbar,
   Typography,
 } from "@material-ui/core";
+import InputBase from "@material-ui/core/InputBase";
 //======================   SERVICE   ================================
 import * as toastHelper from "../../../common/toastHelper";
 import * as BookingSlide from "../../../redux/reducer/BookingSlide";
@@ -35,10 +37,9 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CheckIcon from "@material-ui/icons/Check";
 import FilterListIcon from "@material-ui/icons/FilterList";
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
+import SearchIcon from "@material-ui/icons/Search";
+
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
@@ -48,7 +49,56 @@ const useStyles = makeStyles({
   title: {
     flex: "1 1 100%",
   },
-});
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  titleSearch: {
+    flexGrow: 1,
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.black, 0.15),
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.common.black, 0.25),
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "primary",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "18ch",
+      "&:focus": {
+        width: "22ch",
+      },
+    },
+  },
+}));
 
 export default function BookingDetail(props) {
   const classes = useStyles();
@@ -57,7 +107,7 @@ export default function BookingDetail(props) {
   const modal = useSelector((state) => state.UI.modal);
   const dispatch = useDispatch();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -141,16 +191,37 @@ export default function BookingDetail(props) {
         >
           Lịch khám
         </Typography>
-
-        <Tooltip title="Filter list">
+        <Tooltip title="Tìm theo ngày">
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              type="date"
+              inputProps={{ "aria-label": "search" }}
+              onBlurCapture={() => {
+                alert("abc");
+              }}
+            />
+          </div>
+        </Tooltip>
+        <Tooltip title="Lọc theo bác sĩ">
           <IconButton aria-label="filter list">
             <FilterListIcon />
           </IconButton>
         </Tooltip>
       </Toolbar>
-      <TableContainer component={Paper} className={classes.table}>
+      <TableContainer component={Paper}>
         {modal === true ? (
-          <CustomModal title="Chỉnh sửa" modalBody={<EditForm />} />
+          <CustomModal
+            title="Chỉnh sửa"
+            modalBody={<EditForm list={list} setList={setList} />}
+          />
         ) : null}
         <Table aria-label="simple table">
           <TableHead>
@@ -180,7 +251,7 @@ export default function BookingDetail(props) {
                 Trạng thái
               </TableCell>
               {action === false ? null : (
-                <TableCell align="center" style={{ minWidth: 150 }}>
+                <TableCell align="right" style={{ minWidth: 150 }}>
                   Thao tác
                 </TableCell>
               )}
@@ -267,6 +338,10 @@ export default function BookingDetail(props) {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage="Số bản ghi"
+        labelDisplayedRows={({ from, to, count }) => {
+          return `${from}- ${to}  /  ${count}`;
+        }}
       />
     </Paper>
   );

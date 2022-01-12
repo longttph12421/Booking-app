@@ -43,7 +43,7 @@ const styleSelect = makeStyles((theme) => ({
     },
   },
   formControl: {
-    margin: theme.spacing(1),
+    //margin: theme.spacing(1),
     minWidth: 200,
     position: "relative",
     "& svg,& .fab,& .far,& .fal,& .fas,& .material-icons": {

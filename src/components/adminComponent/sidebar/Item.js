@@ -30,13 +30,25 @@ export const mainItems = (user) => {
         </ListItem>
       </Link>
       {user.role != "ADMIN" && user.role != "STAFF" ? (
-        <Link to="/admin/product" style={{ textDecoration: "none" }}>
+        <Link to="/admin/schedule" style={{ textDecoration: "none" }}>
           <ListItem button>
             <ListItemIcon>
               <ShoppingCartIcon />
             </ListItemIcon>
             <Muted>
               <ListItemText primary="Lịch khám" />
+            </Muted>
+          </ListItem>
+        </Link>
+      ) : null}
+      {user.role == "ADMIN" ? (
+        <Link to="/admin/account" style={{ textDecoration: "none" }}>
+          <ListItem button>
+            <ListItemIcon>
+              <AccountCircle />
+            </ListItemIcon>
+            <Muted>
+              <ListItemText primary="QL Tài khoản" />
             </Muted>
           </ListItem>
         </Link>

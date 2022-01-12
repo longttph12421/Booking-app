@@ -64,16 +64,16 @@ function History() {
             >
               <Tab label="Chờ Xác Nhận" value="1" />
               <Tab label="Đã Xác Nhận" value="2" />
-              <Tab label="Đã Huỷ" value="3" />
+              <Tab label="Đã Huỷ" value="3" /> 
             </TabList>
             <TabPanel value="1">
-              <HistoryTable list={list} setList={setList} />
+              <HistoryTable rows={list} setRows={setList} />
             </TabPanel>
             <TabPanel value="2">
-              <HistoryTable list={list2} action={false}/>
+              <HistoryTable rows={list2} action={false}/>
             </TabPanel>
             <TabPanel value="3">
-              <HistoryTable list={list3} action={false}/>
+              <HistoryTable rows={list3} action={false}/>
             </TabPanel>
           </TabContext>
         </GridItem>
