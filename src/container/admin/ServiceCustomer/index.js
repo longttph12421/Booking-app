@@ -26,7 +26,7 @@ import * as toastHelper from "../../../common/toastHelper";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
-import { Tooltip } from "@material-ui/core";
+import {TablePagination, Tooltip} from "@material-ui/core";
 
 const useStyles = makeStyles({
   table: {
@@ -44,6 +44,15 @@ export default function ServiceCustomer() {
 
   const list = useSelector((state) => state.service.value);
   const UI = useSelector((state) => state.UI.modal);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   const handleOpen = (string, data) => {
     setTitle(string);
     dispatch(openModal());
@@ -98,7 +107,7 @@ export default function ServiceCustomer() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {list.map((row) => (
+            {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" align="center" scope="row">
                   {row.id}
@@ -140,6 +149,15 @@ export default function ServiceCustomer() {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50]}
+          component="div"
+          count={list.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </div>
   );
 }

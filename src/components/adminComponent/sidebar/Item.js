@@ -40,6 +40,7 @@ export const mainItems = (user) => {
             </Muted>
           </ListItem>
         </Link>
+
       ) : null}
       {user.role == "ADMIN" ? (
         <Link to="/admin/account" style={{ textDecoration: "none" }}>
@@ -53,6 +54,19 @@ export const mainItems = (user) => {
           </ListItem>
         </Link>
       ) : null}
+
+        {user.role == "ADMIN" ? (
+            <Link to="/admin/account" style={{ textDecoration: "none" }}>
+                <ListItem button>
+                    <ListItemIcon>
+                        <PermContactCalendarIcon />
+                    </ListItemIcon>
+                    <Muted>
+                        <ListItemText primary="Account" />
+                    </Muted>
+                </ListItem>
+            </Link>
+        ) : null}
 
       {user.role != "DOCTOR" ? (
         <Link to="/admin/staff" style={{ textDecoration: "none" }}>

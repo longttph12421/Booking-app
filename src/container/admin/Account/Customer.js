@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from "../../../components/CustomButtons/Button";
+import {TablePagination} from "@material-ui/core";
 
 const useStyles = makeStyles({
     table: {
@@ -19,8 +20,17 @@ export default function Customer(props) {
     const classes = useStyles();
     const { listCustomer } = props;
     console.log(listCustomer)
-
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
     return (
+        <div>
         <TableContainer component={Paper}>
 
             <Table className={classes.table} aria-label="simple table">
@@ -37,7 +47,7 @@ export default function Customer(props) {
                 </TableHead>
                 <TableBody>
                     {
-                        listCustomer.map((row)=>{
+                        listCustomer.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row)=>{
                             return(
                                 <TableRow key={row.id}>
                                     <TableCell component="th" align="center" scope="row">{row.id}</TableCell>
@@ -61,6 +71,16 @@ export default function Customer(props) {
                 </TableBody>
             </Table>
         </TableContainer>
+        <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50]}
+            component="div"
+            count={listCustomer.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+        </div>
     );
 }
 

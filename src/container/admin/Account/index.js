@@ -68,8 +68,8 @@ export default function Account() {
                     </TabList>
                 </AppBar>
                 <TabPanel value="1"><Customer listCustomer={listCustomer}/></TabPanel>
-                <TabPanel value="2"><Doctor listDoctor={listDoctor}/></TabPanel>
-                <TabPanel value="3"><Staff listStaff={listStaff}/></TabPanel>
+                <TabPanel value="2"><Doctor listDoctor={listDoctor} setListDoctor={setListDoctor}/></TabPanel>
+                <TabPanel value="3"><Staff listStaff={listStaff} setListStaff={setListStaff}/></TabPanel>
             </TabContext>
         </div>
     );
