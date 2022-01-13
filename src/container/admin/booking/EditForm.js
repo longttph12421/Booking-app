@@ -124,17 +124,17 @@ function EditForm(props) {
       phone: detail.phone,
       timeStart: data.timeStart,
       timeEnd: data.timeEnd,
-      dateBooking: data.dateBooking,
+      dateBooking: new Date(`${moment(date).format("DD-MM-YYYY")}T10:20:30`),
       note: detail.note,
       status: detail.status,
-      serviceCustomer: { id: data.serviceCustomer },
-      staff: { id: data.staff.id },
+      serviceCustomer: { id: serviceCustomer },
+      staff: { id: selectDoctor },
       booking: detail.booking,
       dayScheduleId: data.dayScheduleId,
     };
-    console.log(value);
+    console.log(new Date(moment(date).format("DD-MM-YYYY")));
     bookingDetailService
-      .updateBookingDetail(data)
+      .updateBookingDetail(value)
       .then((response) => {
         console.log(response);
         const newList = list.map((value, index) => {
@@ -149,6 +149,7 @@ function EditForm(props) {
       })
       .catch((err) => {
         toastHelper.toastError("Đã có lỗi sảy ra..." + err.message);
+        console.log(err.message);
       });
   };
   const onCancel = () => {
@@ -156,29 +157,33 @@ function EditForm(props) {
   };
   function handleSelect(event) {
     setSelectDoctor(event.target.value);
-    setValue("staff", { id: event.target.value });
-  }
-  function handleSelectService(event) {
-    setServiceCustomer(event.target.value);
     setValue(
-      "serviceCustomer",
+      "staff",
       { id: event.target.value },
       {
         shouldValidate: true,
         shouldDirty: true,
       }
     );
+    setTime("");
+    setDate(null);
+  }
+  function handleSelectService(event) {
+    setServiceCustomer(event.target.value);
+    setValue("serviceCustomer", event.target.value, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
   }
   const changeDate = (date) => {
-    const e = {
+    const body = {
       STAFF_ID: selectDoctor,
       STATUS: 1,
       DAY: moment(date).format("dddd"),
     };
-    setValue("dateBooking", date);
-    console.log(moment(date).format("dddd"));
+    setValue("dateBooking", moment(date).format("DD/MM/YYYY"));
     setDate(date);
-    dispatch(timeSlice.getDayByDoctor(e));
+    dispatch(timeSlice.getDayByDoctor(body));
   };
   const handleSelectTime = (time) => {
     setTime(time.id);

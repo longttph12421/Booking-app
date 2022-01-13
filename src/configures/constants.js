@@ -32,6 +32,7 @@ const path = {
     PUT_CONFIRM_BOOKING: "http://localhost:6769/api/auth/admin/confirm",
     FIND_BY_CUSTOMER: "http://localhost:6769/api/auth/admin/findByCustomer",
     DELETE_BY_ID: "http://localhost:6769/api/auth/admin/cancel",
+    UPDATE_BOOKING_DETAIL: "http://localhost:6769/api/auth/admin/updateBookingDetail"
   },
 
   service:{

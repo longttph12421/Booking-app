@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import * as toast from "../../../common/toastHelper";
 
 export const mainItems = (user) => {
+  
   return (
     <div>
       <Link to="/admin" style={{ textDecoration: "none" }}>
@@ -55,19 +56,6 @@ export const mainItems = (user) => {
         </Link>
       ) : null}
 
-        {user.role == "ADMIN" ? (
-            <Link to="/admin/account" style={{ textDecoration: "none" }}>
-                <ListItem button>
-                    <ListItemIcon>
-                        <PermContactCalendarIcon />
-                    </ListItemIcon>
-                    <Muted>
-                        <ListItemText primary="Account" />
-                    </Muted>
-                </ListItem>
-            </Link>
-        ) : null}
-
       {user.role != "DOCTOR" ? (
         <Link to="/admin/staff" style={{ textDecoration: "none" }}>
           <ListItem button>
@@ -75,7 +63,7 @@ export const mainItems = (user) => {
               <PermContactCalendarIcon />
             </ListItemIcon>
             <Muted>
-              <ListItemText primary="Nhân viên" />
+              <ListItemText primary="Lịch làm việc" />
             </Muted>
           </ListItem>
         </Link>
@@ -118,7 +106,7 @@ export const secondaryItems = (
           <AccountCircle />
         </ListItemIcon>
         <Muted>
-          <ListItemText primary="Đổi mật khẩu" />
+          <ListItemText primary="Tài khoản" />
         </Muted>
       </ListItem>
     </Link>
