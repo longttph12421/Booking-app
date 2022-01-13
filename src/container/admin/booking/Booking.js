@@ -22,6 +22,7 @@ export default function Booking() {
   useEffect(() => {
     BookingDetailService.findByStatus(1).then((response) => {
       setList(response.data.data);
+      console.log(response.data.data);
     });
     BookingDetailService.findByStatus(2).then((response) => {
       setListStt2(response.data.data);

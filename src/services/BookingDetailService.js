@@ -5,7 +5,7 @@ export function getAllBooking() {
   return axiosHelper.get(path.bookingDetail.GET_ALL_BOOKING_DETAIL);
 }
 export function findByStatus(status) {
-  return axiosHelper.get(path.bookingDetail.GET_ALL_BOOKING_DETAIL + `${status}`);
+  return axiosHelper.get(path.bookingDetail.GET_ALL_BOOKING_DETAIL + `/${status}`);
 }
 
 export function putConfirmBooking(data) {
