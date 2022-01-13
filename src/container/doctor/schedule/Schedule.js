@@ -4,8 +4,8 @@ import Tab from "@material-ui/core/Tab";
 import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
-import BookingDetail from "../booking/BookingDetail";
-import * as BookingDetailService from "../../../services/BookingDetailService";
+import ScheduleDetail from "./ScheduleDetail";
+import * as services from "../../../services/BookingDetailService";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -13,20 +13,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Booking() {
+export default function Schedule() {
   const classes = useStyles();
   const [value, setValue] = React.useState("1");
   const [list, setList] = React.useState([]);
   const [list2, setListStt2] = React.useState([]);
   const [list3, setListStt3] = React.useState([]);
   useEffect(() => {
-    BookingDetailService.findByStatus(1).then((response) => {
+    services.findByStatus(2).then((response) => {
       setList(response.data.data);
     });
-    BookingDetailService.findByStatus(2).then((response) => {
+    services.findByStatus(4).then((response) => {
       setListStt2(response.data.data);
     });
-    BookingDetailService.findByStatus(3).then((response) => {
+    services.findByStatus(5).then((response) => {
       setListStt3(response.data.data);
     });
   }, [value]);
@@ -43,18 +43,18 @@ export default function Booking() {
           indicatorColor="primary"
           textColor="primary"
         >
-          <Tab label="Chờ Xác Nhận" value="1" />
-          <Tab label="Đã Xác Nhận" value="2" />
-          <Tab label="Đã Huỷ" value="3" />
+          <Tab label="Đã xác nhận" value="1" />
+          <Tab label="Đã tiếp nhận" value="2" />
+          <Tab label="Đã Xong" value="3" />
         </TabList>
         <TabPanel value="1">
-          <BookingDetail list={list} setList={setList} />
+          <ScheduleDetail list={list} setList={setList} />
         </TabPanel>
         <TabPanel value="2">
-          <BookingDetail list={list2} action={false} />
+          <ScheduleDetail list={list2} action={false} />
         </TabPanel>
         <TabPanel value="3">
-          <BookingDetail list={list3} action={false} />
+          <ScheduleDetail list={list3} action={false} />
         </TabPanel>
       </TabContext>
     </div>

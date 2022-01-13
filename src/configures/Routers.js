@@ -24,6 +24,7 @@ import Days from "../container/admin/calender/day/Days";
 import Customer from "../container/admin/customer/Customer";
 import TimeSchedule from "../container/admin/calender/time/TimeSchedule";
 import History from "../container/ProfilePage/History";
+import Schedule from "../container/doctor/schedule/Schedule";
 function Routers() {
   return (
     <Switch>
@@ -60,7 +61,7 @@ function Routers() {
 
             <Route exact path="/admin/time/:id" component={TimeSchedule} />
 
-            <Route exact path="/admin/time/:id" component={TimeSchedule} />
+            <Route exact path="/admin/schedule" component={Schedule} />
 
             <AdminRoute>
               <Route exact path="/admin/staff/:id" component={Days} />

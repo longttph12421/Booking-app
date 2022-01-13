@@ -21,7 +21,6 @@ import * as bookingDetailService from "../../../services/BookingDetailService";
 import moment from "moment";
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
@@ -124,7 +123,7 @@ function EditForm(props) {
       phone: detail.phone,
       timeStart: data.timeStart,
       timeEnd: data.timeEnd,
-      dateBooking: new Date(`${moment(date).format("DD-MM-YYYY")}T10:20:30`),
+      dateBooking: `${moment(date).format("DD-MM-YYYY")} 10:20:30`,
       note: detail.note,
       status: detail.status,
       serviceCustomer: { id: serviceCustomer },
@@ -132,7 +131,7 @@ function EditForm(props) {
       booking: detail.booking,
       dayScheduleId: data.dayScheduleId,
     };
-    console.log(new Date(moment(date).format("DD-MM-YYYY")));
+    console.log(`${moment(date).format("DD-MM-YYYY")} 10:20:30`);
     bookingDetailService
       .updateBookingDetail(value)
       .then((response) => {

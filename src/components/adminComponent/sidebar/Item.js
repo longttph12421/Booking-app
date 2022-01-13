@@ -17,7 +17,6 @@ import { Link } from "react-router-dom";
 import * as toast from "../../../common/toastHelper";
 
 export const mainItems = (user) => {
-  
   return (
     <div>
       <Link to="/admin" style={{ textDecoration: "none" }}>
@@ -41,7 +40,6 @@ export const mainItems = (user) => {
             </Muted>
           </ListItem>
         </Link>
-
       ) : null}
       {user.role == "ADMIN" ? (
         <Link to="/admin/account" style={{ textDecoration: "none" }}>
@@ -81,6 +79,7 @@ export const mainItems = (user) => {
           </ListItem>
         </Link>
       ) : null}
+     
       {user.role != "DOCTOR" ? (
         <Link to="/admin/booking" style={{ textDecoration: "none" }}>
           <ListItem button>
