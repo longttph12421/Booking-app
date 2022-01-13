@@ -123,7 +123,7 @@ function EditForm(props) {
       phone: detail.phone,
       timeStart: data.timeStart,
       timeEnd: data.timeEnd,
-      dateBooking: `${moment(date).format("DD-MM-YYYY")} 10:20:30`,
+      dateBooking: moment(date).format("DD-MM-YYYY"),
       note: detail.note,
       status: detail.status,
       serviceCustomer: { id: serviceCustomer },
@@ -131,7 +131,7 @@ function EditForm(props) {
       booking: detail.booking,
       dayScheduleId: data.dayScheduleId,
     };
-    console.log(`${moment(date).format("DD-MM-YYYY")} 10:20:30`);
+    console.log(`${moment(date).format("DD-MM-YYYY")}`);
     bookingDetailService
       .updateBookingDetail(value)
       .then((response) => {
