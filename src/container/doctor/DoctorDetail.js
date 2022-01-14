@@ -11,8 +11,8 @@ import EventNoteIcon from "@material-ui/icons/EventNote";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import { CssBaseline } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
+import { format } from "date-fns";
 
 //=============================================================
 //     API and React redux
@@ -74,7 +74,9 @@ function DoctorDetail({ match }) {
     STATUS: 1,
   };
   const modal = useSelector((state) => state.UI.modal);
-  const [dayOfWeek, setDayOfWeek] = React.useState(Date);
+  const [dayOfWeek, setDayOfWeek] = React.useState(
+    moment(now).format("DD/MM/YYYY")
+  );
   const data = {
     STAFF_ID: Number(match.params.id),
     STATUS: 1,
@@ -87,13 +89,17 @@ function DoctorDetail({ match }) {
     dispatch(serviceSlide.getListServiceCustomer());
   }, []);
 
+  const toDate = (dateStr) => {
+    const [day, month, year] = dateStr.split("-");
+    return new Date(year, month - 1, day);
+  };
   function onChangeDay(event) {
-    const e = {
+    let day = toDate(event.target.value);
+    let e = {
       STAFF_ID: Number(match.params.id),
       STATUS: 1,
-      DAY: moment(event.target.value).format("dddd"),
+      DAY: moment(day).format("dddd"),
     };
-    console.log(event.target.value);
     setDayOfWeek(event.target.value);
     dispatch(timeSlice.getDayByDoctor(e));
   }
@@ -159,19 +165,19 @@ function DoctorDetail({ match }) {
                     </InputLabel>
                     <Select
                       className={classSelect.select}
-                      value={moment(dayOfWeek).format("dddd - DD/MM/YYYY")}
+                      value={dayOfWeek}
                       onChange={onChangeDay}
                     >
-                      <MenuItem value={now}>
+                      <MenuItem value={moment(now).format("DD-MM-YYYY")}>
                         {moment(now).format("dddd - DD/MM/YYYY")}
                       </MenuItem>
-                      <MenuItem value={day2}>
+                      <MenuItem value={moment(day2).format("DD-MM-YYYY")}>
                         {moment(day2).format("dddd - DD/MM/YYYY")}
                       </MenuItem>
-                      <MenuItem value={day3}>
+                      <MenuItem value={moment(day3).format("DD-MM-YYYY")}>
                         {moment(day3).format("dddd - DD/MM/YYYY")}
                       </MenuItem>
-                    </Select>               
+                    </Select>
                   </FormControl>
                 </Grid>
                 <div>

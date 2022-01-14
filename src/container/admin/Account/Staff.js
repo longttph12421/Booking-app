@@ -14,7 +14,6 @@ import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../redux/reducer/UiSlider";
 import {
-  IconButton,
   InputBase,
   TablePagination,
   Toolbar,
@@ -97,7 +96,7 @@ export default function Staff(props) {
   const [title, setTitle] = useState("");
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  console.log(listStaff);
+
   const UI = useSelector((state) => state.UI.modal);
 
   const handleOpen = (string, data) => {
@@ -113,7 +112,7 @@ export default function Staff(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  
+
   const data = {
     id: "",
     name: "",
@@ -123,15 +122,12 @@ export default function Staff(props) {
   };
 
   return (
-    <div>
+    <Paper className={classes.root}>
       {UI === true ? (
         <CustomModal
           title={title}
           modalBody={
-            <FormEditStaff
-              listStaff={listStaff}
-              setListStaff={setListStaff}
-            />
+            <FormEditStaff listStaff={listStaff} setListStaff={setListStaff} />
           }
         />
       ) : null}
@@ -277,6 +273,6 @@ export default function Staff(props) {
           return `${from}- ${to}  /  ${count}`;
         }}
       />
-    </div>
+    </Paper>
   );
 }

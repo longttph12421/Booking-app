@@ -14,7 +14,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Danger from "../../../../components/Typography/Danger";
 import Warning from "../../../../components/Typography/Warning";
-import { Tooltip } from "@material-ui/core";
+import { TablePagination, Tooltip } from "@material-ui/core";
 import Success from "../../../../components/Typography/Success";
 import FormEditDay from "./FormEditDay";
 //==================  SERVICE  =====================================
@@ -48,6 +48,16 @@ export default function DaySchedule({ days, setDays, match }) {
   const handleOpen = (string, data) => {
     setTitle(string);
     dispatch(UI.openModal());
+  };
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
   const data = {};
   const handleDelete = (id) => {
@@ -125,68 +135,83 @@ export default function DaySchedule({ days, setDays, match }) {
           </TableHead>
           <TableBody>
             {days != null ? (
-              days.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell component="th" align="center" scope="row">
-                    {row.id}
-                  </TableCell>
-                  <TableCell align="center">{row.dayOfWeek}</TableCell>
-                  <TableCell align="center">
-                    {row.status == 1 ? (
-                      <span>Hoạt động</span>
-                    ) : (
-                      <span>Vô hiệu hóa</span>
-                    )}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Tooltip title="Ca làm">
-                      <Button
-                        color="transparent"
-                        size="sm"
-                        onClick={() => {
-                          handleClick(row);
-                        }}
-                      >
-                        <Success>
-                          <EventAvailableIcon size="lg" />
-                        </Success>
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title="Chỉnh sửa">
-                      <Button
-                        color="transparent"
-                        size="sm"
-                        onClick={() => {
-                          handleOpen("Cập nhật", row);
-                        }}
-                      >
-                        <Warning>
-                          <EditIcon size="lg" />
-                        </Warning>
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title="Xóa">
-                      <Button
-                        color="transparent"
-                        size="sm"
-                        onClick={() => {
-                          handleDelete(row.id);
-                        }}
-                      >
-                        <Danger>
-                          <DeleteIcon size="lg" />
-                        </Danger>
-                      </Button>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))
+              days
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell component="th" align="center" scope="row">
+                      {row.id}
+                    </TableCell>
+                    <TableCell align="center">{row.dayOfWeek}</TableCell>
+                    <TableCell align="center">
+                      {row.status == 1 ? (
+                        <span>Hoạt động</span>
+                      ) : (
+                        <span>Vô hiệu hóa</span>
+                      )}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Tooltip title="Ca làm">
+                        <Button
+                          color="transparent"
+                          size="sm"
+                          onClick={() => {
+                            handleClick(row);
+                          }}
+                        >
+                          <Success>
+                            <EventAvailableIcon size="lg" />
+                          </Success>
+                        </Button>
+                      </Tooltip>
+                      <Tooltip title="Chỉnh sửa">
+                        <Button
+                          color="transparent"
+                          size="sm"
+                          onClick={() => {
+                            handleOpen("Cập nhật", row);
+                          }}
+                        >
+                          <Warning>
+                            <EditIcon size="lg" />
+                          </Warning>
+                        </Button>
+                      </Tooltip>
+                      <Tooltip title="Xóa">
+                        <Button
+                          color="transparent"
+                          size="sm"
+                          onClick={() => {
+                            handleDelete(row.id);
+                          }}
+                        >
+                          <Danger>
+                            <DeleteIcon size="lg" />
+                          </Danger>
+                        </Button>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))
             ) : (
               <span> No data...</span>
             )}
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, 50]}
+        component="div"
+        count={days.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage="Số bản ghi"
+        labelDisplayedRows={({ from, to, count }) => {
+          return `${from}- ${to}  /  ${count}`;
+        }}
+      />
     </div>
   );
 }

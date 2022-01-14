@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { alpha, makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 //===================  COMPONENT  ===============================
 import Table from "@material-ui/core/Table";
@@ -26,13 +26,68 @@ import * as toastHelper from "../../../common/toastHelper";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
-import {TablePagination, Tooltip} from "@material-ui/core";
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
+import { InputBase, TablePagination, Toolbar, Tooltip, Typography } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: "100%",
   },
-});
+  container: {
+    maxHeight: 440,
+  },
+  title: {
+    flex: "1 1 100%",
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  titleSearch: {
+    flexGrow: 1,
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.black, 0.15),
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.common.black, 0.25),
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "primary",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "18ch",
+      "&:focus": {
+        width: "22ch",
+      },
+    },
+  },
+}));
 
 export default function ServiceCustomer() {
   const classes = useStyles();
@@ -78,22 +133,48 @@ export default function ServiceCustomer() {
       });
   };
   return (
-    <div>
+    <Paper className={classes.root}>
       {UI === true ? (
         <CustomModal title={title} modalBody={<ServiceForm />} />
       ) : null}
-      <div>
-        <Button
-          color="success"
-          size="sm"
-          onClick={() => {
-            handleOpen("Thêm mới", data);
-          }}
+      <Toolbar className={classes.root}>
+        <Typography
+          className={classes.title}
+          variant="h6"
+          id="tableTitle"
+          component="div"
         >
-          <AddIcon />
-          Thêm mới
-        </Button>
-      </div>
+          <Button
+            color="success"
+            size="sm"
+            onClick={() => {
+              handleOpen("Thêm mới", data);
+            }}
+          >
+            <AddIcon />
+            Thêm mới
+          </Button>
+        </Typography>
+        <Tooltip title="Tìm kiếm">
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput,
+              }}
+              type="text"
+              inputProps={{ "aria-label": "search" }}
+              onBlurCapture={() => {
+                alert("abc");
+              }}
+            />
+          </div>
+        </Tooltip>
+      </Toolbar>
       <TableContainer component={Paper} className="mt-3">
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -107,57 +188,63 @@ export default function ServiceCustomer() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <TableRow key={row.id}>
-                <TableCell component="th" align="center" scope="row">
-                  {row.id}
-                </TableCell>
-                <TableCell align="center">{row.name}</TableCell>
-                <TableCell align="center">{row.price}</TableCell>
-                <TableCell align="center">{row.description}</TableCell>
-                <TableCell align="center">{row.timeExamination}</TableCell>
-                <TableCell align="center">
-                  <Tooltip title="Chỉnh sửa">
-                    <Button
-                      color="transparent"
-                      size="sm"
-                      onClick={() => {
-                        handleOpen("Cập nhật", row);
-                      }}
-                    >
-                      <Warning>
-                        <EditIcon size="lg" />
-                      </Warning>
-                    </Button>
-                  </Tooltip>
-                  <Tooltip title="Xóa">
-                    <Button
-                      color="transparent"
-                      size="sm"
-                      onClick={() => {
-                        handleDelete(row.id);
-                      }}
-                    >
-                      <Danger>
-                        <DeleteIcon size="lg" />
-                      </Danger>
-                    </Button>
-                  </Tooltip>
-                </TableCell>
-              </TableRow>
-            ))}
+            {list
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" align="center" scope="row">
+                    {row.id}
+                  </TableCell>
+                  <TableCell align="center">{row.name}</TableCell>
+                  <TableCell align="center">{row.price}</TableCell>
+                  <TableCell align="center">{row.description}</TableCell>
+                  <TableCell align="center">{row.timeExamination}</TableCell>
+                  <TableCell align="center">
+                    <Tooltip title="Chỉnh sửa">
+                      <Button
+                        color="transparent"
+                        size="sm"
+                        onClick={() => {
+                          handleOpen("Cập nhật", row);
+                        }}
+                      >
+                        <Warning>
+                          <EditIcon size="lg" />
+                        </Warning>
+                      </Button>
+                    </Tooltip>
+                    <Tooltip title="Xóa">
+                      <Button
+                        color="transparent"
+                        size="sm"
+                        onClick={() => {
+                          handleDelete(row.id);
+                        }}
+                      >
+                        <Danger>
+                          <DeleteIcon size="lg" />
+                        </Danger>
+                      </Button>
+                    </Tooltip>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-          rowsPerPageOptions={[5, 10, 25, 50]}
-          component="div"
-          count={list.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+        rowsPerPageOptions={[5, 10, 25, 50]}
+        component="div"
+        count={list.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage="Số bản ghi"
+        labelDisplayedRows={({ from, to, count }) => {
+          return `${from}- ${to}  /  ${count}`;
+        }}
       />
-    </div>
+    </Paper>
   );
 }

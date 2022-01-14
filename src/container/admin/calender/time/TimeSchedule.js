@@ -14,7 +14,15 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Danger from "../../../../components/Typography/Danger";
 import Warning from "../../../../components/Typography/Warning";
-import { FormControlLabel, Switch, Tooltip } from "@material-ui/core";
+import {
+  FormControlLabel,
+  InputBase,
+  Switch,
+  TablePagination,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@material-ui/core";
 import TimeForm from "./TimeForm";
 //==================  SERVICE  =====================================
 import customCheckboxRadioSwitch from "../../../../assets/jss/material-kit-react/customCheckboxRadioSwitch";
@@ -28,16 +36,27 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-
+import SearchIcon from "@material-ui/icons/Search";
 export default function TimeSchedule({ match }) {
   const useStyles = makeStyles(customCheckboxRadioSwitch);
   const confirm = useConfirm();
   const classes = useStyles();
   const [title, setTitle] = useState("");
   const [time, setTime] = useState([]);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const dispatch = useDispatch();
   const history = useHistory();
   const modal = useSelector((state) => state.UI.modal);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   const handleOpen = (string, data) => {
     setTitle(string);
     dispatch(UI.openModal());
@@ -107,7 +126,7 @@ export default function TimeSchedule({ match }) {
       });
   };
   return (
-    <div>
+    <Paper className={classes.root}>
       {modal === true ? (
         <CustomModal
           title={title}
@@ -115,28 +134,37 @@ export default function TimeSchedule({ match }) {
         />
       ) : null}
       <div>
-        <Tooltip title="Trở về">
-          <Button
-            color="facebook"
-            size="sm"
-            onClick={() => {
-              history.goBack();
-            }}
+        <Toolbar className={classes.root}>
+          <Typography
+            className={classes.title}
+            variant="h6"
+            id="tableTitle"
+            component="div"
           >
-            <ArrowBackIcon />
-          </Button>
-        </Tooltip>
-        <Tooltip title="Thêm mới">
-          <Button
-            color="success"
-            size="sm"
-            onClick={() => {
-              handleOpen("Thêm mới", data);
-            }}
-          >
-            <AddIcon />
-          </Button>
-        </Tooltip>
+            <Tooltip title="Trở về">
+              <Button
+                color="facebook"
+                size="sm"
+                onClick={() => {
+                  history.goBack();
+                }}
+              >
+                <ArrowBackIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Thêm mới">
+              <Button
+                color="success"
+                size="sm"
+                onClick={() => {
+                  handleOpen("Thêm mới", data);
+                }}
+              >
+                <AddIcon />
+              </Button>
+            </Tooltip>
+          </Typography>
+        </Toolbar>
       </div>
       <TableContainer component={Paper} className="mt-3">
         <Table className={classes.table} aria-label="simple table">
@@ -151,68 +179,83 @@ export default function TimeSchedule({ match }) {
           </TableHead>
           <TableBody>
             {time != null ? (
-              time.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell component="th" align="center" scope="row">
-                    {row.id}
-                  </TableCell>
-                  <TableCell align="center">{row.startTime}</TableCell>
-                  <TableCell align="center">{row.endTime}</TableCell>
-                  <TableCell align="center">
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={row.status}
-                          onChange={(event) => onChecked(row, event)}
-                          classes={{
-                            switchBase: classes.switchBase,
-                            checked: classes.switchChecked,
-                            thumb: classes.switchIcon,
-                            track: classes.switchBar,
+              time
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell component="th" align="center" scope="row">
+                      {row.id}
+                    </TableCell>
+                    <TableCell align="center">{row.startTime}</TableCell>
+                    <TableCell align="center">{row.endTime}</TableCell>
+                    <TableCell align="center">
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={row.status}
+                            onChange={(event) => onChecked(row, event)}
+                            classes={{
+                              switchBase: classes.switchBase,
+                              checked: classes.switchChecked,
+                              thumb: classes.switchIcon,
+                              track: classes.switchBar,
+                            }}
+                          />
+                        }
+                        classes={{
+                          label: classes.label,
+                        }}
+                      />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Tooltip title="Chỉnh sửa">
+                        <Button
+                          color="transparent"
+                          size="sm"
+                          onClick={() => {
+                            handleOpen("Cập nhật", row);
                           }}
-                        />
-                      }
-                      classes={{
-                        label: classes.label,
-                      }}
-                    />
-                  </TableCell>
-                  <TableCell align="center">
-                    <Tooltip title="Chỉnh sửa">
-                      <Button
-                        color="transparent"
-                        size="sm"
-                        onClick={() => {
-                          handleOpen("Cập nhật", row);
-                        }}
-                      >
-                        <Warning>
-                          <EditIcon size="lg" />
-                        </Warning>
-                      </Button>
-                    </Tooltip>
-                    <Tooltip title="Xóa">
-                      <Button
-                        color="transparent"
-                        size="sm"
-                        onClick={() => {
-                          handleDelete(row.id);
-                        }}
-                      >
-                        <Danger>
-                          <DeleteIcon size="lg" />
-                        </Danger>
-                      </Button>
-                    </Tooltip>
-                  </TableCell>
-                </TableRow>
-              ))
+                        >
+                          <Warning>
+                            <EditIcon size="lg" />
+                          </Warning>
+                        </Button>
+                      </Tooltip>
+                      <Tooltip title="Xóa">
+                        <Button
+                          color="transparent"
+                          size="sm"
+                          onClick={() => {
+                            handleDelete(row.id);
+                          }}
+                        >
+                          <Danger>
+                            <DeleteIcon size="lg" />
+                          </Danger>
+                        </Button>
+                      </Tooltip>
+                    </TableCell>
+                  </TableRow>
+                ))
             ) : (
               <span> No data...</span>
             )}
           </TableBody>
         </Table>
       </TableContainer>
-    </div>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25, 50]}
+        component="div"
+        count={time.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage="Số bản ghi"
+        labelDisplayedRows={({ from, to, count }) => {
+          return `${from}- ${to}  /  ${count}`;
+        }}
+      />
+    </Paper>
   );
 }
