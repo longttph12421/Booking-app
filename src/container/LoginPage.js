@@ -46,21 +46,27 @@ function LoginPage(props) {
           response.data != undefined &&
           response.data != null
         ) {
-          if (
-            response.data.role == "ADMIN" ||
-            response.data.role == "STAFF" ||
-            response.data.role == "DOCTOR"
-          ) {
-            toastHelper.toastSuccess("Đăng nhập thành công!");
-            localStorage.setItem("TokenLogin", response.data);
-            localStorage.setItem("userLogin", JSON.stringify(response.data));
-            history.replace("/admin");
-          }
-          if (response.data.role == "USER") {
-            toastHelper.toastSuccess("Đăng nhập thành công!");
-            localStorage.setItem("TokenLogin", response.data);
-            localStorage.setItem("userLogin", JSON.stringify(response.data));
-            history.replace("/");
+          if (response.data.locked != true) {
+            if (
+              response.data.role == "ADMIN" ||
+              response.data.role == "STAFF" ||
+              response.data.role == "DOCTOR"
+            ) {
+              toastHelper.toastSuccess("Đăng nhập thành công!");
+              localStorage.setItem("TokenLogin", response.data);
+              localStorage.setItem("userLogin", JSON.stringify(response.data));
+              history.replace("/admin");
+            }
+            if (response.data.role == "USER") {
+              toastHelper.toastSuccess("Đăng nhập thành công!");
+              localStorage.setItem("TokenLogin", response.data);
+              localStorage.setItem("userLogin", JSON.stringify(response.data));
+              history.replace("/");
+            }
+          } else {
+            toastHelper.toastError("Tài khoản đã bị khóa!!!");
+            localStorage.removeItem("userLogin");
+            localStorage.removeItem("TokenLogin");
           }
         } else {
           toastHelper.toastError("Đăng nhập thất bại!!!");

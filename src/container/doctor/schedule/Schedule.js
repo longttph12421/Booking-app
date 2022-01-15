@@ -48,10 +48,10 @@ export default function Schedule() {
           <Tab label="Đã Xong" value="3" />
         </TabList>
         <TabPanel value="1">
-          <ScheduleDetail list={list} setList={setList} />
+          <ScheduleDetail list={list} setList={setList} edit={false} finish={false} />
         </TabPanel>
         <TabPanel value="2">
-          <ScheduleDetail list={list2} action={false} />
+          <ScheduleDetail list={list2} setList={setListStt2} receive={false} />
         </TabPanel>
         <TabPanel value="3">
           <ScheduleDetail list={list3} action={false} />

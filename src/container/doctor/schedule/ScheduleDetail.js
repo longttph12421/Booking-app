@@ -20,7 +20,6 @@ import EditServiceForm from "./EditServiceForm";
 import Tooltip from "@material-ui/core/Tooltip";
 import CustomModal from "../../../components/Modal/Modal";
 import {
-  AppBar,
   IconButton,
   TablePagination,
   Toolbar,
@@ -103,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
 export default function ScheduleDetail(props) {
   const classes = useStyles();
   const confirm = useConfirm();
-  const { list, action, setList } = props;
+  const { list, action, setList, edit, finish, receive } = props;
   const modal = useSelector((state) => state.UI.modal);
   const dispatch = useDispatch();
   const [page, setPage] = React.useState(0);
@@ -116,6 +115,7 @@ export default function ScheduleDetail(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   const status = (s) => {
     let cpn = null;
     if (s === 1) {
@@ -124,23 +124,31 @@ export default function ScheduleDetail(props) {
       cpn = <Success>Đã Xác nhận</Success>;
     } else if (s === 3) {
       cpn = <Danger>Đã hủy</Danger>;
+    } else if (s === 4) {
+      cpn = <Warning>Đang tiếp nhận</Warning>;
+    } else if (s === 5) {
+      cpn = <Success>Đã xong</Success>;
     }
     return cpn;
   };
 
-  const onConfirm = (data) => {
+  const onConfirm = (value) => {
+    const data = {
+      bookingDetail: value,
+      status: 4,
+    };
+    console.log(data);
     confirm({
       title: "Cảnh báo",
-      description:
-        "Bạn đã xác nhận với khách hàng và muốn xác nhận lịch khám !!!",
+      description: "Bạn có chắc chắn muốn tiếp nhận bệnh nhân !!!",
       cancellationText: "Hủy",
     }).then(() => {
       service
-        .putConfirmBooking(data)
+        .updateStatus(data)
         .then((response) => {
-          toastHelper.toastSuccess("Xác nhận thành công");
+          toastHelper.toastSuccess("Tiếp nhận thành công...");
           const newList = list.filter((e) => {
-            if (e.id === data.id) {
+            if (e.id === value.id) {
               return false;
             }
             return true;
@@ -148,37 +156,45 @@ export default function ScheduleDetail(props) {
           setList(newList);
         })
         .catch((error) => {
-          toastHelper.toastError("Đã có lỗi sảy ra" + error);
+          toastHelper.toastError("Đã có lỗi sảy ra..." + error);
         });
     });
+  };
+
+  const onFinish = (value) => {
+    const data = {
+      bookingDetail: value,
+      status: 5,
+    };
+
+    confirm({
+      title: "Cảnh báo",
+      description: "Bạn có chắc chắn muốn hoàn thành lịch khám !!!",
+      cancellationText: "Hủy",
+    })
+      .then(() => {
+        service.updateStatus(data).then((response) => {
+          toastHelper.toastSuccess("Hoàn thành...");
+          const newFinish = list.filter((e) => {
+            if (e.id === value.id) {
+              return false;
+            }
+            return true;
+          });
+          console.log(newFinish);
+          setList(newFinish);
+        });
+      })
+      .catch((error) => {
+        toastHelper.toastError("Đã có lỗi sảy ra..." + error);
+      });
   };
   const onEdit = (data) => {
     dispatch(BookingSlide.dataMapping(data));
     dispatch(UI.openModal());
   };
-
-  const onCancel = (data) => {
-    confirm({
-      title: "Cảnh báo",
-      description: "Bạn có chắc chắn muốn hủy lịch khám !!!",
-      cancellationText: "Hủy",
-    }).then(() => {
-      service
-        .deleteById(data.id)
-        .then((response) => {
-          toastHelper.toastSuccess("Hủy lịch khám thành công...");
-          const newList = list.filter((e) => {
-            if (e.id === data.id) {
-              return false;
-            }
-            return true;
-          });
-          setList(newList);
-        })
-        .catch((error) => {
-          toastHelper.toastError("Đã có lỗi sảy ra" + error);
-        });
-    });
+  const onSearch = (event) => {
+    console.log(event.target.value);
   };
   return (
     <Paper className={classes.root}>
@@ -204,16 +220,11 @@ export default function ScheduleDetail(props) {
               }}
               type="date"
               inputProps={{ "aria-label": "search" }}
-              onBlurCapture={() => {
-                alert("abc");
+              onChange={(event) => {
+                onSearch(event);
               }}
             />
           </div>
-        </Tooltip>
-        <Tooltip title="Lọc theo bác sĩ">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
         </Tooltip>
       </Toolbar>
       <TableContainer component={Paper}>
@@ -251,7 +262,7 @@ export default function ScheduleDetail(props) {
                 Trạng thái
               </TableCell>
               {action === false ? null : (
-                <TableCell align="right" style={{ minWidth: 150 }}>
+                <TableCell align="right" style={{ minWidth: 115 }}>
                   Thao tác
                 </TableCell>
               )}
@@ -277,51 +288,57 @@ export default function ScheduleDetail(props) {
                   {action === false ? null : (
                     <TableCell align="center">
                       <GridContainer>
-                        <GridItem xs={4}>
-                          <Tooltip title="Xác nhận">
-                            <Button
-                              onClick={() => {
-                                onConfirm(row);
-                              }}
-                              color="transparent"
-                              size="sm"
-                            >
-                              <Success>
-                                <CheckIcon size="lg" />
-                              </Success>
-                            </Button>
-                          </Tooltip>
-                        </GridItem>
-                        <GridItem xs={4}>
-                          <Tooltip title="Chỉnh sửa">
-                            <Button
-                              color="transparent"
-                              size="sm"
-                              onClick={() => {
-                                onEdit(row);
-                              }}
-                            >
-                              <Warning>
-                                <EditIcon size="lg" />
-                              </Warning>
-                            </Button>
-                          </Tooltip>
-                        </GridItem>
-                        <GridItem xs={4}>
-                          <Tooltip title="Hủy">
-                            <Button
-                              color="transparent"
-                              size="sm"
-                              onClick={() => {
-                                onCancel(row);
-                              }}
-                            >
-                              <Danger>
-                                <DeleteIcon size="lg" />
-                              </Danger>
-                            </Button>
-                          </Tooltip>
-                        </GridItem>
+                        {receive === false ? null : (
+                          <GridItem xs={12}>
+                            <Tooltip title="Tiếp nhận">
+                              <Button
+                                onClick={() => {
+                                  onConfirm(row);
+                                }}
+                                color="transparent"
+                                size="sm"
+                              >
+                                <Success>
+                                  <CheckIcon size="lg" />
+                                </Success>
+                              </Button>
+                            </Tooltip>
+                          </GridItem>
+                        )}
+                        {finish === false ? null : (
+                          <GridItem xs={6}>
+                            <Tooltip title="Hoàn thành">
+                              <Button
+                                onClick={() => {
+                                  onFinish(row);
+                                }}
+                                color="transparent"
+                                size="sm"
+                              >
+                                <Success>
+                                  <CheckIcon size="lg" />
+                                </Success>
+                              </Button>
+                            </Tooltip>
+                          </GridItem>
+                        )}
+                        {edit === false ? null : (
+                          <GridItem xs={6}>
+                            <Tooltip title="Chỉnh sửa">
+                              <Button
+                                color="transparent"
+                                size="sm"
+                                onClick={() => {
+                                  onEdit(row);
+                                }}
+                              >
+                                <Warning>
+                                  <EditIcon size="lg" />
+                                </Warning>
+                              </Button>
+                            </Tooltip>
+                          </GridItem>
+                        )}
                       </GridContainer>
                     </TableCell>
                   )}

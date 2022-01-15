@@ -12,6 +12,10 @@ export function putConfirmBooking(data) {
   return axiosHelper.put(path.bookingDetail.PUT_CONFIRM_BOOKING, data);
 }
 
+export function updateStatus(data) {
+  return axiosHelper.put(path.bookingDetail.UPDATE_STATUS, data);
+}
+
 export function findByCustomer(data) {
   return axiosHelper.post(path.bookingDetail.FIND_BY_CUSTOMER, data);
 }

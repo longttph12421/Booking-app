@@ -30,21 +30,21 @@ function FormEditStaff(props) {
   const onSubmit = (data) => {
     console.log(data);
     // if (data.id != "") {
-    AccountService.insertStaff(data)
-      .then((response) => {
-        const newList = [];
-        // eslint-disable-next-line array-callback-return
-        listStaff.map((t) => {
-          newList.push(t);
-        });
-        newList.push(response.data);
-        setListStaff(newList);
-        toastHelper.toastSuccess("Thêm mới thành công");
-        dispatch(UI.closeModal());
-      })
-      .catch((error) => {
-        toastHelper.toastError("Đã sảy ra lỗi" + error);
-      });
+    // AccountService.insertStaff(data)
+    //   .then((response) => {
+    //     const newList = [];
+    //     // eslint-disable-next-line array-callback-return
+    //     listStaff.map((t) => {
+    //       newList.push(t);
+    //     });
+    //     newList.push(response.data);
+    //     setListStaff(newList);
+    //     toastHelper.toastSuccess("Thêm mới thành công");
+    //     dispatch(UI.closeModal());
+    //   })
+    //   .catch((error) => {
+    //     toastHelper.toastError("Đã sảy ra lỗi" + error);
+    //   });
   };
   const onCancel = () => {
     dispatch(UI.closeModal());
