@@ -9,7 +9,7 @@ import * as LoginService from "../services/auth/LoginService";
 import People from "@material-ui/icons/People";
 import PhoneIcon from "@material-ui/icons/Phone";
 import EmailIcon from "@material-ui/icons/Email";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 // core components
 import Footer from "../components/Footer/Footer.js";
 import GridContainer from "../components/Grid/GridContainer.js";
@@ -46,9 +46,7 @@ function Register(props) {
         history.replace("/login");
       })
       .catch(function (error) {
-        toastHelper.toastError(
-          "Đã có lỗi sảy ra, xin vui lòng thử lại sau !!!"
-        );
+        toastHelper.toastError("UserName đã tồn tại");
       });
   };
 
@@ -102,7 +100,7 @@ function Register(props) {
                       </Button>
                     </div>
                   </CardHeader>
-                  <Link to="/login"  style={{ textDecoration: "none" }}>
+                  <Link to="/login" style={{ textDecoration: "none" }}>
                     <p className={classes.divider}>BACK LOGIN</p>
                   </Link>
                   <CardBody>
@@ -154,7 +152,9 @@ function Register(props) {
                         type: "text",
                         endAdornment: (
                           <InputAdornment position="end">
-                            <AccountCircleIcon className={classes.inputIconsColor} />
+                            <AccountCircleIcon
+                              className={classes.inputIconsColor}
+                            />
                           </InputAdornment>
                         ),
                       }}

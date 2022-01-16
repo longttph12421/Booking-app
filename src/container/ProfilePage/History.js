@@ -20,6 +20,8 @@ function History() {
   const [list, setList] = React.useState([]);
   const [list2, setList2] = React.useState([]);
   const [list3, setList3] = React.useState([]);
+  const [list4, setList4] = React.useState([]);
+  const [list5, setList5] = React.useState([]);
   const wait = {
     CUSTOMER: user.id,
     STATUS: 1,
@@ -32,6 +34,14 @@ function History() {
     CUSTOMER: user.id,
     STATUS: 3,
   };
+  const receive = {
+    CUSTOMER: user.id,
+    STATUS: 4,
+  };
+  const finish = {
+    CUSTOMER: user.id,
+    STATUS: 5,
+  };
   useEffect(() => {
     service.findByCustomer(wait).then((response) => {
       setList(response.data);
@@ -41,6 +51,12 @@ function History() {
     });
     service.findByCustomer(cancel).then((response) => {
       setList3(response.data);
+    });
+    service.findByCustomer(receive).then((response) => {
+      setList4(response.data);
+    });
+    service.findByCustomer(finish).then((response) => {
+      setList5(response.data);
     });
   }, [value]);
   const handleChange = (event, newValue) => {
@@ -64,16 +80,24 @@ function History() {
             >
               <Tab label="Chờ Xác Nhận" value="1" />
               <Tab label="Đã Xác Nhận" value="2" />
-              <Tab label="Đã Huỷ" value="3" /> 
+              <Tab label="Đã Xác Nhận" value="4" />
+              <Tab label="Đã Xác Nhận" value="5" />
+              <Tab label="Đã Huỷ" value="3" />
             </TabList>
             <TabPanel value="1">
               <HistoryTable rows={list} setRows={setList} />
             </TabPanel>
             <TabPanel value="2">
-              <HistoryTable rows={list2} action={false}/>
+              <HistoryTable rows={list2} action={false} />
             </TabPanel>
             <TabPanel value="3">
-              <HistoryTable rows={list3} action={false}/>
+              <HistoryTable rows={list3} action={false} />
+            </TabPanel>
+            <TabPanel value="4">
+              <HistoryTable rows={list4} action={false} />
+            </TabPanel>
+            <TabPanel value="5">
+              <HistoryTable rows={list5} action={false} />
             </TabPanel>
           </TabContext>
         </GridItem>

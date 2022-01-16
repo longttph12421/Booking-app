@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Account() {
   const classes = useStyles();
   const [value, setValue] = React.useState("1");
-
+  const [status, setStatus] = React.useState(1);
   const [listCustomer, setListCustomer] = React.useState([]);
   const [listDoctor, setListDoctor] = React.useState([]);
   const [listStaff, setListStaff] = React.useState([]);
@@ -40,9 +40,10 @@ export default function Account() {
     AccountService.getListDocTorAndStaff(staff).then((response) => {
       setListStaff(response.data);
     });
-  }, []);
+  }, [value]);
 
   const handleChange = (event, newValue) => {
+    setStatus(newValue);
     setValue(newValue);
   };
 
@@ -60,10 +61,10 @@ export default function Account() {
           <Customer listCustomer={listCustomer} />
         </TabPanel>
         <TabPanel value="2">
-          <Staff listStaff={listDoctor} setListStaff={setListDoctor} />
+          <Staff listStaff={listDoctor} setListStaff={setListDoctor} status={status}/>
         </TabPanel>
         <TabPanel value="3">
-          <Staff listStaff={listStaff} setListStaff={setListStaff} />
+          <Staff listStaff={listStaff} setListStaff={setListStaff} status={status}/>
         </TabPanel>
       </TabContext>
     </div>

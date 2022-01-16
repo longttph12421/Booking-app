@@ -13,10 +13,10 @@ import * as UI from "../../../redux/reducer/UiSlider";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
 
-function FormEditStaff(props) {
-  const { listStaff, setListStaff } = props;
+export default function FormEditStaff(props) {
+  const { listStaff, setListStaff, status } = props;
   const dispatch = useDispatch();
-  // const detail = useSelector((state) => state.service.detail);
+  const detail = useSelector((state) => state.service.detail);
 
   const defaultValues = {
     // id: detail.id,
@@ -28,23 +28,39 @@ function FormEditStaff(props) {
   const { register, handleSubmit } = useForm({ defaultValues });
 
   const onSubmit = (data) => {
-    console.log(data);
-    // if (data.id != "") {
-    // AccountService.insertStaff(data)
-    //   .then((response) => {
-    //     const newList = [];
-    //     // eslint-disable-next-line array-callback-return
-    //     listStaff.map((t) => {
-    //       newList.push(t);
-    //     });
-    //     newList.push(response.data);
-    //     setListStaff(newList);
-    //     toastHelper.toastSuccess("Thêm mới thành công");
-    //     dispatch(UI.closeModal());
-    //   })
-    //   .catch((error) => {
-    //     toastHelper.toastError("Đã sảy ra lỗi" + error);
-    //   });
+    if (status == 3) {
+      AccountService.insertStaff(data)
+        .then((response) => {
+          const newList = [];
+          // eslint-disable-next-line array-callback-return
+          listStaff.map((t) => {
+            newList.push(t);
+          });
+          newList.push(response.data);
+          setListStaff(newList);
+          toastHelper.toastSuccess("Thêm mới thành công");
+          dispatch(UI.closeModal());
+        })
+        .catch((error) => {
+          toastHelper.toastError("Đã sảy ra lỗi" + error);
+        });
+    } else {
+      AccountService.insertDoctor(data)
+        .then((response) => {
+          const newList = [];
+          // eslint-disable-next-line array-callback-return
+          listStaff.map((t) => {
+            newList.push(t);
+          });
+          newList.push(response.data);
+          setListStaff(newList);
+          toastHelper.toastSuccess("Thêm mới thành công");
+          dispatch(UI.closeModal());
+        })
+        .catch((error) => {
+          toastHelper.toastError("Đã sảy ra lỗi" + error);
+        });
+    }
   };
   const onCancel = () => {
     dispatch(UI.closeModal());
@@ -125,32 +141,36 @@ function FormEditStaff(props) {
                 }}
               />
             </Grid>
-            <Grid item xs={12} md={6}>
-              <CustomInput
-                labelText="Khinh nghiệm"
-                id="first"
-                formControlProps={{
-                  fullWidth: true,
-                }}
-                inputProps={{
-                  ...register("photo"),
-                  type: "text",
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <CustomInput
-                labelText="Trình độ học vấn"
-                id="first"
-                formControlProps={{
-                  fullWidth: true,
-                }}
-                inputProps={{
-                  ...register("workExperience"),
-                  type: "text",
-                }}
-              />
-            </Grid>
+            {status == 3 ? null : (
+              <Grid item xs={12} md={6}>
+                <CustomInput
+                  labelText="Khinh nghiệm"
+                  id="first"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    ...register("workExperience"),
+                    type: "text",
+                  }}
+                />
+              </Grid>
+            )}
+            {status == 3 ? null : (
+              <Grid item xs={12} md={6}>
+                <CustomInput
+                  labelText="Trình độ học vấn"
+                  id="first"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    ...register("academicLevel"),
+                    type: "text",
+                  }}
+                />
+              </Grid>
+            )}
             <Grid item xs={12} md={6}>
               <CustomInput
                 labelText="Hình ảnh"
@@ -164,6 +184,22 @@ function FormEditStaff(props) {
                 }}
               />
             </Grid>
+            {status == 3 ? null : (
+              <Grid item xs={12}>
+                <CustomInput
+                  labelText="Mô tả"
+                  id="first"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  listItem={gender}
+                  inputProps={{
+                    ...register("description"),
+                    type: "tex",
+                  }}
+                />
+              </Grid>
+            )}
             <Grid item xs={12} md={6}>
               <CustomSelect
                 labelText="Giới tính"
@@ -192,4 +228,3 @@ function FormEditStaff(props) {
     </>
   );
 }
-export default FormEditStaff;

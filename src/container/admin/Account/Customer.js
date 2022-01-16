@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -7,16 +7,10 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import Button from "../../../components/CustomButtons/Button";
 import { TablePagination } from "@material-ui/core";
 import { InputBase, Toolbar, Tooltip, Typography } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import LockIcon from "@material-ui/icons/Lock";
 import SearchIcon from "@material-ui/icons/Search";
-import Danger from "../../../components/Typography/Danger";
-import GridItem from "../../../components/Grid/GridItem";
-import Warning from "../../../components/Typography/Warning";
-import GridContainer from "../../../components/Grid/GridContainer";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -140,13 +134,7 @@ export default function Customer(props) {
               </TableCell>
               <TableCell align="center" style={{ minWidth: 150 }}>
                 Email
-              </TableCell>
-              <TableCell align="center" style={{ minWidth: 150 }}>
-                Trạng thái
-              </TableCell>
-              <TableCell align="center" style={{ minWidth: 150 }}>
-                Thao tác
-              </TableCell>
+              </TableCell>         
             </TableRow>
           </TableHead>
           <TableBody>
@@ -164,41 +152,7 @@ export default function Customer(props) {
                     </TableCell>
                     <TableCell align="center">{row.phone}</TableCell>
                     <TableCell align="center">{row.email}</TableCell>
-                    <TableCell align="center">{row.address}</TableCell>
-                    <TableCell align="center">
-                      <GridContainer>
-                        <GridItem xs={4}>
-                          <Tooltip title="Chỉnh sửa">
-                            <Button
-                              color="transparent"
-                              size="sm"
-                              //   onClick={() => {
-                              //     onEdit(row);
-                              //   }}
-                            >
-                              <Warning>
-                                <EditIcon size="lg" />
-                              </Warning>
-                            </Button>
-                          </Tooltip>
-                        </GridItem>
-                        <GridItem xs={4}>
-                          <Tooltip title="Khóa">
-                            <Button
-                              color="transparent"
-                              size="sm"
-                              //   onClick={() => {
-                              //     onCancel(row);
-                              //   }}
-                            >
-                              <Danger>
-                                <LockIcon size="lg" />
-                              </Danger>
-                            </Button>
-                          </Tooltip>
-                        </GridItem>
-                      </GridContainer>
-                    </TableCell>
+                    <TableCell align="center">{row.address}</TableCell>                  
                   </TableRow>
                 );
               })}

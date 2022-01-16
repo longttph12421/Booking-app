@@ -17,18 +17,26 @@ export default function Booking() {
   const classes = useStyles();
   const [value, setValue] = React.useState("1");
   const [list, setList] = React.useState([]);
-  const [list2, setListStt2] = React.useState([]);
-  const [list3, setListStt3] = React.useState([]);
+  const [list2, setList2] = React.useState([]);
+  const [list3, setList3] = React.useState([]);
+  const [list4, setList4] = React.useState([]);
+  const [list5, setList5] = React.useState([]);
   useEffect(() => {
     BookingDetailService.findByStatus(1).then((response) => {
       setList(response.data.data);
       console.log(response.data.data);
     });
     BookingDetailService.findByStatus(2).then((response) => {
-      setListStt2(response.data.data);
+      setList2(response.data.data);
     });
     BookingDetailService.findByStatus(3).then((response) => {
-      setListStt3(response.data.data);
+      setList3(response.data.data);
+    });
+    BookingDetailService.findByStatus(4).then((response) => {
+      setList4(response.data.data);
+    });
+    BookingDetailService.findByStatus(5).then((response) => {
+      setList5(response.data.data);
     });
   }, [value]);
 
@@ -46,6 +54,8 @@ export default function Booking() {
         >
           <Tab label="Chờ Xác Nhận" value="1" />
           <Tab label="Đã Xác Nhận" value="2" />
+          <Tab label="Đang tiếp nhận" value="4" />
+          <Tab label="Đã hoàn thành" value="5" />
           <Tab label="Đã Huỷ" value="3" />
         </TabList>
         <TabPanel value="1">
@@ -56,6 +66,12 @@ export default function Booking() {
         </TabPanel>
         <TabPanel value="3">
           <BookingDetail list={list3} action={false} />
+        </TabPanel>
+        <TabPanel value="4">
+          <BookingDetail list={list4} action={false} />
+        </TabPanel>
+        <TabPanel value="5">
+          <BookingDetail list={list5} action={false} />
         </TabPanel>
       </TabContext>
     </div>

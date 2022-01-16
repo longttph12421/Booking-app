@@ -46,8 +46,12 @@ const Staff = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const role = {
+    ROLE: "DOCTOR",
+  };
   useEffect(() => {
-    dispatch(Service.getAll());
+    dispatch(Service.findByRole(role));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const ListDoctor = useSelector((state) => state.doctor.data);
   return (

@@ -9,6 +9,8 @@ const imagesStyles = {
   },
   imgRoundedCircle: {
     borderRadius: "50% !important",
+    maxWidth: "250px",
+    maxHeight: "250px",
   },
   imgRaised: {
     boxShadow:

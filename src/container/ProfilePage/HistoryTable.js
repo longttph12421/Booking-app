@@ -27,6 +27,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
+import Warning from "../../components/Typography/Warning";
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -61,9 +62,9 @@ function HistoryTable(props) {
     } else if (s === 3) {
       cpn = <Danger>Đã hủy</Danger>;
     } else if (s === 4) {
-      cpn = <Danger>Đang tiếp nhận</Danger>;
+      cpn = <Warning>Đang tiếp nhận</Warning>;
     } else if (s === 5) {
-      cpn = <Danger>Đã xong</Danger>;
+      cpn = <Success>Đã hoàn thành</Success>;
     }
     return cpn;
   };

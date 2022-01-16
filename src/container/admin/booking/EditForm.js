@@ -74,13 +74,17 @@ function EditForm(props) {
   const { list, setList } = props;
   const dispatch = useDispatch();
   const classes = useStyles();
+  const toDate = (dateStr) => {
+    const [day, month, year] = dateStr.split("-");
+    return new Date(year, month - 1, day);
+  };
   const role = {
     ROLE: "DOCTOR",
   };
   const data = {
     STAFF_ID: detail.staff.id,
     STATUS: 1,
-    DAY: moment(detail.dateBooking).format("dddd"),
+    DAY: moment(toDate(detail.dateBooking)).format("dddd"),
   };
   useEffect(() => {
     dispatch(DoctorSlide.findByRole(role));
@@ -96,7 +100,8 @@ function EditForm(props) {
   const [serviceCustomer, setServiceCustomer] = React.useState(
     detail.serviceCustomer.id
   );
-  const [date, setDate] = React.useState(detail.dateBooking);
+
+  const [date, setDate] = React.useState(toDate(detail.dateBooking));
   const [time, setTime] = React.useState(detail.dayScheduleId);
   const defaultValues = {
     id: detail.id,
@@ -144,6 +149,7 @@ function EditForm(props) {
           }
         });
         setList(newList);
+        dispatch(UI.closeModal());
         toastHelper.toastSuccess("Chỉnh sửa thành công...");
       })
       .catch((err) => {
@@ -231,7 +237,6 @@ function EditForm(props) {
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
                     className={classes.select}
-                    disableToolbar
                     variant="inline"
                     format="MM/dd/yyyy"
                     margin="normal"

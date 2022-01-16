@@ -124,6 +124,10 @@ export default function BookingDetail(props) {
       cpn = <Success>Đã Xác nhận</Success>;
     } else if (s === 3) {
       cpn = <Danger>Đã hủy</Danger>;
+    } else if (s === 4) {
+      cpn = <Warning>Đang tiếp nhận</Warning>;
+    } else if (s === 5) {
+      cpn = <Success>Đã hoàn thành</Success>;
     }
     return cpn;
   };

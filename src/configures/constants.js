@@ -32,22 +32,23 @@ const path = {
     PUT_CONFIRM_BOOKING: "http://localhost:6769/api/auth/admin/confirm",
     FIND_BY_CUSTOMER: "http://localhost:6769/api/auth/admin/findByCustomer",
     DELETE_BY_ID: "http://localhost:6769/api/auth/admin/cancel",
-    UPDATE_BOOKING_DETAIL: "http://localhost:6769/api/auth/admin/updateBookingDetail",
-    UPDATE_STATUS: "http://localhost:6769/api/auth/admin/updateStatus"
+    UPDATE_BOOKING_DETAIL:
+      "http://localhost:6769/api/auth/admin/updateBookingDetail",
+    UPDATE_STATUS: "http://localhost:6769/api/auth/admin/updateStatus",
   },
 
-  service:{
-    GET_ALL_SERVICE:"http://localhost:6769/api/auth/admin/allservice",
-    POST_SERVICE:"http://localhost:6769/api/auth/admin/save",
-    PUT_SERVICE:"http://localhost:6769/api/auth/admin/update",
-    DELETE_SERVICE: "http://localhost:6769/api/auth/admin/delete"
+  service: {
+    GET_ALL_SERVICE: "http://localhost:6769/api/auth/admin/allservice",
+    POST_SERVICE: "http://localhost:6769/api/auth/admin/save",
+    PUT_SERVICE: "http://localhost:6769/api/auth/admin/update",
+    DELETE_SERVICE: "http://localhost:6769/api/auth/admin/delete",
   },
-  account:{
-    GET_CUSTOMERS:"http://localhost:6769/api/auth/admin/getAllCustomer",
-    GET_DOCTOR:"http://localhost:6769/api/staff/findByRole",
-    POST_DOCTOR:"http://localhost:6769/api/staff/registerDoctor",
-    POST_STAFF:"http://localhost:6769/api/staff/registerStaff",
+  account: {
+    GET_CUSTOMERS: "http://localhost:6769/api/auth/admin/getAllCustomer",
+    GET_DOCTOR: "http://localhost:6769/api/staff/findByRole",
+    POST_DOCTOR: "http://localhost:6769/api/staff/registerDoctor",
+    POST_STAFF: "http://localhost:6769/api/staff/registerStaff",
+    GET_STAFF_BY_NAME_AND_ROLE: "http://localhost:6769/api/staff/findByNameAndRole",
   },
-  
 };
 export default path;
