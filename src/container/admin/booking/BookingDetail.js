@@ -38,6 +38,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CheckIcon from "@material-ui/icons/Check";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import SearchIcon from "@material-ui/icons/Search";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BookingDetail(props) {
   const classes = useStyles();
   const confirm = useConfirm();
-  const { list, action, setList } = props;
+  const { list, action, setList, tab } = props;
   const modal = useSelector((state) => state.UI.modal);
   const dispatch = useDispatch();
   const [page, setPage] = React.useState(0);
@@ -115,6 +116,10 @@ export default function BookingDetail(props) {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+  const toDate = (dateStr) => {
+    const [day, month, year] = dateStr.split("-");
+    return new Date(year, month - 1, day, "08","30","00");
   };
   const status = (s) => {
     let cpn = null;
@@ -184,6 +189,17 @@ export default function BookingDetail(props) {
         });
     });
   };
+  const onSearch = (value) => {
+    const data = {
+      date: toDate(moment(value).format("DD-MM-YYYY")),
+      status: tab,  
+    };
+    console.log(data);
+    service.searchByDate(data).then((response) => {
+      console.log(response.data);
+      setList(response.data);
+    }); 
+  };
   return (
     <Paper className={classes.root}>
       <Toolbar className={classes.root}>
@@ -208,8 +224,8 @@ export default function BookingDetail(props) {
               }}
               type="date"
               inputProps={{ "aria-label": "search" }}
-              onBlurCapture={() => {
-                alert("abc");
+              onChange={(event) => {
+                onSearch(event.target.value);
               }}
             />
           </div>
@@ -262,75 +278,79 @@ export default function BookingDetail(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {list
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell align="center">{row.fullName}</TableCell>
-                  <TableCell align="center">{row.phone}</TableCell>
-                  <TableCell align="center">{row.email}</TableCell>
-                  <TableCell align="center">{row.dateBooking}</TableCell>
-                  <TableCell align="center">
-                    {row.timeStart} - {row.timeEnd}
-                  </TableCell>
-                  <TableCell align="center">
-                    {row.serviceCustomer.name}
-                  </TableCell>
-                  <TableCell align="center">{row.staff.fullName}</TableCell>
-                  <TableCell align="center">{status(row.status)}</TableCell>
-                  {action === false ? null : (
+            {list != null || list != undefined ? (
+              list
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell align="center">{row.fullName}</TableCell>
+                    <TableCell align="center">{row.phone}</TableCell>
+                    <TableCell align="center">{row.email}</TableCell>
+                    <TableCell align="center">{row.dateBooking}</TableCell>
                     <TableCell align="center">
-                      <GridContainer>
-                        <GridItem xs={4}>
-                          <Tooltip title="Xác nhận">
-                            <Button
-                              onClick={() => {
-                                onConfirm(row);
-                              }}
-                              color="transparent"
-                              size="sm"
-                            >
-                              <Success>
-                                <CheckIcon size="lg" />
-                              </Success>
-                            </Button>
-                          </Tooltip>
-                        </GridItem>
-                        <GridItem xs={4}>
-                          <Tooltip title="Chỉnh sửa">
-                            <Button
-                              color="transparent"
-                              size="sm"
-                              onClick={() => {
-                                onEdit(row);
-                              }}
-                            >
-                              <Warning>
-                                <EditIcon size="lg" />
-                              </Warning>
-                            </Button>
-                          </Tooltip>
-                        </GridItem>
-                        <GridItem xs={4}>
-                          <Tooltip title="Hủy">
-                            <Button
-                              color="transparent"
-                              size="sm"
-                              onClick={() => {
-                                onCancel(row);
-                              }}
-                            >
-                              <Danger>
-                                <DeleteIcon size="lg" />
-                              </Danger>
-                            </Button>
-                          </Tooltip>
-                        </GridItem>
-                      </GridContainer>
+                      {row.timeStart} - {row.timeEnd}
                     </TableCell>
-                  )}
-                </TableRow>
-              ))}
+                    <TableCell align="center">
+                      {row.serviceCustomer.name}
+                    </TableCell>
+                    <TableCell align="center">{row.staff.fullName}</TableCell>
+                    <TableCell align="center">{status(row.status)}</TableCell>
+                    {action === false ? null : (
+                      <TableCell align="center">
+                        <GridContainer>
+                          <GridItem xs={4}>
+                            <Tooltip title="Xác nhận">
+                              <Button
+                                onClick={() => {
+                                  onConfirm(row);
+                                }}
+                                color="transparent"
+                                size="sm"
+                              >
+                                <Success>
+                                  <CheckIcon size="lg" />
+                                </Success>
+                              </Button>
+                            </Tooltip>
+                          </GridItem>
+                          <GridItem xs={4}>
+                            <Tooltip title="Chỉnh sửa">
+                              <Button
+                                color="transparent"
+                                size="sm"
+                                onClick={() => {
+                                  onEdit(row);
+                                }}
+                              >
+                                <Warning>
+                                  <EditIcon size="lg" />
+                                </Warning>
+                              </Button>
+                            </Tooltip>
+                          </GridItem>
+                          <GridItem xs={4}>
+                            <Tooltip title="Hủy">
+                              <Button
+                                color="transparent"
+                                size="sm"
+                                onClick={() => {
+                                  onCancel(row);
+                                }}
+                              >
+                                <Danger>
+                                  <DeleteIcon size="lg" />
+                                </Danger>
+                              </Button>
+                            </Tooltip>
+                          </GridItem>
+                        </GridContainer>
+                      </TableCell>
+                    )}
+                  </TableRow>
+                ))
+            ) : (
+              <span>No data</span>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

@@ -35,6 +35,8 @@ const path = {
     UPDATE_BOOKING_DETAIL:
       "http://localhost:6769/api/auth/admin/updateBookingDetail",
     UPDATE_STATUS: "http://localhost:6769/api/auth/admin/updateStatus",
+    SEARCH_BY_DOCTOR: "http://localhost:6769/api/auth/admin/searchByDoctor",
+    SEARCH_BY_DATE: "http://localhost:6769/api/auth/admin/searchByDate",
   },
 
   service: {
@@ -48,7 +50,8 @@ const path = {
     GET_DOCTOR: "http://localhost:6769/api/staff/findByRole",
     POST_DOCTOR: "http://localhost:6769/api/staff/registerDoctor",
     POST_STAFF: "http://localhost:6769/api/staff/registerStaff",
-    GET_STAFF_BY_NAME_AND_ROLE: "http://localhost:6769/api/staff/findByNameAndRole",
+    GET_STAFF_BY_NAME_AND_ROLE:
+      "http://localhost:6769/api/staff/findByNameAndRole",
   },
 };
 export default path;

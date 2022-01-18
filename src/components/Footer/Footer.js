@@ -57,7 +57,7 @@ export default function Footer(props) {
           &copy; {1900 + new Date().getYear()} , bản quyền <FavoriteIcon />{" "}
           thuộc{" "}
           <a href="#" className={aClasses} target="_blank">
-            Team Dragon
+            Team 152
           </a>{" "}
         </div>
       </div>

@@ -126,7 +126,7 @@ export default function HeaderLinks(props) {
               onClose={handleClose}
             >
               <Link to="/profile" style={{ textDecoration: "none" }}>
-                <MenuItem>
+                <MenuItem onClick={handleClose}>
                   <ListItemIcon>
                     <AccountCircle fontSize="small" />
                   </ListItemIcon>
@@ -134,15 +134,15 @@ export default function HeaderLinks(props) {
                 </MenuItem>
               </Link>
               <Link to="/history" style={{ textDecoration: "none" }}>
-                <MenuItem>
+                <MenuItem onClick={handleClose}>
                   <ListItemIcon>
                     <HistoryIcon fontSize="small" />
                   </ListItemIcon>
-                  <Muted variant="inherit">LỊCH SỬ KHÁM</Muted>
+                  <Muted variant="inherit">LỊCH SỬ</Muted>
                 </MenuItem>
               </Link>
               <Link to="/login" style={{ textDecoration: "none" }}>
-                <MenuItem>
+                <MenuItem onClick={handleClose}>
                   <ListItemIcon>
                     <LockOpenIcon fontSize="small" />
                   </ListItemIcon>
@@ -155,6 +155,7 @@ export default function HeaderLinks(props) {
                     toast.toastSuccess("Bạn đã đăng xuất thành công...");
                     localStorage.removeItem("userLogin");
                     localStorage.removeItem("TokenLogin");
+                    handleClose;
                   }}
                 >
                   <ListItemIcon>

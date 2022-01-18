@@ -24,7 +24,6 @@ export default function Booking() {
   useEffect(() => {
     BookingDetailService.findByStatus(1).then((response) => {
       setList(response.data.data);
-      console.log(response.data.data);
     });
     BookingDetailService.findByStatus(2).then((response) => {
       setList2(response.data.data);
@@ -59,19 +58,19 @@ export default function Booking() {
           <Tab label="Đã Huỷ" value="3" />
         </TabList>
         <TabPanel value="1">
-          <BookingDetail list={list} setList={setList} />
+          <BookingDetail list={list} setList={setList} tab={value} />
         </TabPanel>
         <TabPanel value="2">
-          <BookingDetail list={list2} action={false} />
+          <BookingDetail list={list2} setList={setList2} action={false} tab={value} />
         </TabPanel>
         <TabPanel value="3">
-          <BookingDetail list={list3} action={false} />
+          <BookingDetail list={list3} setList={setList3} action={false} tab={value} />
         </TabPanel>
         <TabPanel value="4">
-          <BookingDetail list={list4} action={false} />
+          <BookingDetail list={list4} setList={setList4} action={false} tab={value} />
         </TabPanel>
         <TabPanel value="5">
-          <BookingDetail list={list5} action={false} />
+          <BookingDetail list={list5}  setList={setList5} action={false} tab={value} />
         </TabPanel>
       </TabContext>
     </div>

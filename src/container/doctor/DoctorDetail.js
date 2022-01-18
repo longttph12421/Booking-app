@@ -22,6 +22,8 @@ import * as doctorSlice from "../../redux/reducer/DoctorSlide";
 import * as timeSlice from "../../redux/reducer/TimeSlide";
 import * as UI from "../../redux/reducer/UiSlider.js";
 import { addDays } from "date-fns";
+import * as toast from "../../common/toastHelper";
+import { useHistory } from "react-router-dom";
 //===================================================
 const useStyles = makeStyles(imagesStyles);
 const styleSelect = makeStyles((theme) => ({
@@ -69,6 +71,8 @@ function DoctorDetail({ match }) {
   const classes = useStyles();
   const classSelect = styleSelect();
   const dispatch = useDispatch();
+  const history = useHistory();
+  const user = JSON.parse(localStorage.getItem("userLogin"));
   const body = {
     STAFF_ID: Number(match.params.id),
     STATUS: 1,
@@ -104,13 +108,18 @@ function DoctorDetail({ match }) {
     dispatch(timeSlice.getDayByDoctor(e));
   }
   function onBook(data) {
-    const value = {
-      date: dayOfWeek,
-      time: data,
-      staff: Number(match.params.id),
-    };
-    dispatch(timeSlice.mapDataBooking(value));
-    dispatch(UI.openModal());
+    if (user != null || user != undefined) {
+      const value = {
+        date: dayOfWeek,
+        time: data,
+        staff: Number(match.params.id),
+      };
+      dispatch(timeSlice.mapDataBooking(value));
+      dispatch(UI.openModal());
+    } else {
+      history.push("/login");
+      toast.toastError("Bạn vui lòng đăng nhập để đặt lịch khám...");
+    }
   }
   const doctor = useSelector((state) => state.doctor.value);
   const Times = useSelector((state) => state.time.days);

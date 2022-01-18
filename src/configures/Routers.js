@@ -25,6 +25,7 @@ import Customer from "../container/admin/customer/Customer";
 import TimeSchedule from "../container/admin/calender/time/TimeSchedule";
 import History from "../container/ProfilePage/History";
 import Schedule from "../container/doctor/schedule/Schedule";
+import ForgotPassword from "../container/ForgotPassword";
 function Routers() {
   return (
     <Switch>
@@ -82,6 +83,13 @@ function Routers() {
         path="/register"
         render={() => {
           return <Register />;
+        }}
+      />
+      <Route
+        exact
+        path="/forgot"
+        render={() => {
+          return <ForgotPassword />;
         }}
       />
       <Route>
