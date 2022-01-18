@@ -16,14 +16,19 @@ import { Grid } from "@material-ui/core";
 export default function FormEditStaff(props) {
   const { listStaff, setListStaff, status } = props;
   const dispatch = useDispatch();
-  const detail = useSelector((state) => state.service.detail);
+  const detail = useSelector((state) => state.doctor.dataMapping);
 
   const defaultValues = {
-    // id: detail.id,
-    // name: detail.name,
-    // price: detail.price,
-    // description: detail.description,
-    // timeExamination: detail.timeExamination,
+    id: detail.id,
+    workExperience: detail.workExperience,
+    description: detail.description,
+    academicLevel: detail.academicLevel,
+    dateStartWork: detail.dateStartWork,
+    gender: detail.gender,
+    fullName: detail.fullName,
+    email: detail.email,
+    phone: detail.phoneNumber,
+    photo: detail.photo,
   };
   const { register, handleSubmit } = useForm({ defaultValues });
 
@@ -75,33 +80,37 @@ export default function FormEditStaff(props) {
         <CardBody>
           <input {...register("id")} type="hidden" />
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
-              <CustomInput
-                labelText="Tên tài khoản"
-                id="first"
-                formControlProps={{
-                  fullWidth: true,
-                }}
-                inputProps={{
-                  ...register("username"),
-                  type: "text",
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <CustomInput
-                labelText="Mật khẩu"
-                id="pass"
-                formControlProps={{
-                  fullWidth: true,
-                }}
-                inputProps={{
-                  ...register("password"),
-                  type: "password",
-                  autoComplete: "off",
-                }}
-              />
-            </Grid>
+            {detail.id == "" || detail.id == null ? (
+              <Grid item xs={12} md={6}>
+                <CustomInput
+                  labelText="Tên tài khoản"
+                  id="first"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    ...register("username"),
+                    type: "text",
+                  }}
+                />
+              </Grid>
+            ) : null}
+            {detail.id == "" || detail.id == null ? (
+              <Grid item xs={12} md={6}>
+                <CustomInput
+                  labelText="Mật khẩu"
+                  id="pass"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    ...register("password"),
+                    type: "password",
+                    autoComplete: "off",
+                  }}
+                />
+              </Grid>
+            ) : null}
             <Grid item xs={12} md={6}>
               <CustomInput
                 labelText="Họ và tên "
@@ -209,7 +218,7 @@ export default function FormEditStaff(props) {
                 }}
                 listItem={gender}
                 inputProps={{
-                  ...register("gender"),
+                  ...register("gender"),               
                   type: "number",
                 }}
               />

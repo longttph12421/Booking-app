@@ -103,7 +103,7 @@ function ForgotPassword(props) {
                   onSubmit={handleSubmit(onSubmit)}
                 >
                   <CardHeader color="primary" className={classes.cardHeader}>
-                    <h4>Login</h4>
+                    <h4>Đổi mật khẩu</h4>
                     <div className={classes.socialLine}>
                       <Button
                         justIcon
@@ -163,6 +163,25 @@ function ForgotPassword(props) {
                       }}
                       inputProps={{
                         ...register("password"),
+                        type: "password",
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Icon className={classes.inputIconsColor}>
+                              lock_outline
+                            </Icon>
+                          </InputAdornment>
+                        ),
+                        autoComplete: "off",
+                      }}
+                    />
+                      <CustomInput
+                      labelText="New Password"
+                      id="pass"
+                      formControlProps={{
+                        fullWidth: true,
+                      }}
+                      inputProps={{
+                        ...register("newPassword"),
                         type: "password",
                         endAdornment: (
                           <InputAdornment position="end">

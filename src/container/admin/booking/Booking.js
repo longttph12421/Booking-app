@@ -6,6 +6,7 @@ import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import BookingDetail from "../booking/BookingDetail";
 import * as BookingDetailService from "../../../services/BookingDetailService";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -21,6 +22,7 @@ export default function Booking() {
   const [list3, setList3] = React.useState([]);
   const [list4, setList4] = React.useState([]);
   const [list5, setList5] = React.useState([]);
+
   useEffect(() => {
     BookingDetailService.findByStatus(1).then((response) => {
       setList(response.data.data);
@@ -61,16 +63,36 @@ export default function Booking() {
           <BookingDetail list={list} setList={setList} tab={value} />
         </TabPanel>
         <TabPanel value="2">
-          <BookingDetail list={list2} setList={setList2} action={false} tab={value} />
+          <BookingDetail
+            list={list2}
+            setList={setList2}
+            action={false}
+            tab={value}
+          />
         </TabPanel>
         <TabPanel value="3">
-          <BookingDetail list={list3} setList={setList3} action={false} tab={value} />
+          <BookingDetail
+            list={list3}
+            setList={setList3}
+            action={false}
+            tab={value}
+          />
         </TabPanel>
         <TabPanel value="4">
-          <BookingDetail list={list4} setList={setList4} action={false} tab={value} />
+          <BookingDetail
+            list={list4}
+            setList={setList4}
+            action={false}
+            tab={value}
+          />
         </TabPanel>
         <TabPanel value="5">
-          <BookingDetail list={list5}  setList={setList5} action={false} tab={value} />
+          <BookingDetail
+            list={list5}
+            setList={setList5}
+            action={false}
+            tab={value}
+          />
         </TabPanel>
       </TabContext>
     </div>

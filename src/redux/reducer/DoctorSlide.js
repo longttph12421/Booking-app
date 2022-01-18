@@ -27,8 +27,12 @@ export const doctorSlice = createSlice({
   initialState: {
     data: [],
     value: {},
+    dataMapping: {},
   },
   reducers: {
+    mapData: (state, action) => {
+      state.dataMapping = action.payload;
+    },
     getById: (state, action) => {
       state.data.map((doctor) => {
         if (doctor.id === action.payload) {
@@ -70,6 +74,6 @@ export const doctorSlice = createSlice({
   },
 });
 
-export const { getById } = doctorSlice.actions;
+export const { getById, mapData } = doctorSlice.actions;
 
 export default doctorSlice.reducer;

@@ -11,7 +11,8 @@ import Button from "../../../components/CustomButtons/Button";
 import CustomModal from "../../../components/Modal/Modal";
 import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../../../redux/reducer/UiSlider";
+import * as modal from "../../../redux/reducer/UiSlider";
+import * as DoctorSlide from "../../../redux/reducer/DoctorSlide";
 import {
   FormControlLabel,
   InputBase,
@@ -38,10 +39,23 @@ export default function Staff(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const UI = useSelector((state) => state.UI.modal);
+  const data = {
+    id: "",
+    workExperience: "",
+    description:"",
+    academicLevel: "",
+    dateStartWork: "",
+    gender: "",
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    photo: "",
+  };
 
   const handleOpen = (string, data) => {
     setTitle(string);
-    dispatch(openModal());
+    dispatch(DoctorSlide.mapData(data));
+    dispatch(modal.openModal());
   };
 
   const handleChangePage = (event, newPage) => {
@@ -52,14 +66,12 @@ export default function Staff(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  const data = {
-    id: "",
-    name: "",
-    price: "",
-    description: "",
-    time_examination: "",
+  const onEdit = (string, data) => {
+    setTitle(string);
+    dispatch(DoctorSlide.mapData(data));
+    dispatch(modal.openModal());
   };
+
   const onSearch = (value) => {
     let data = null;
     if (status == 2) {
@@ -203,9 +215,9 @@ export default function Staff(props) {
                             <Button
                               color="transparent"
                               size="sm"
-                              //   onClick={() => {
-                              //     onEdit(row);
-                              //   }}
+                              onClick={() => {
+                                onEdit("Cập nhật", row);
+                              }}
                             >
                               <Warning>
                                 <EditIcon size="lg" />

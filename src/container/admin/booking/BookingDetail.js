@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { alpha, makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useConfirm } from "material-ui-confirm";
@@ -22,6 +22,8 @@ import CustomModal from "../../../components/Modal/Modal";
 import {
   AppBar,
   IconButton,
+  Menu,
+  MenuItem,
   TablePagination,
   Toolbar,
   Typography,
@@ -39,7 +41,7 @@ import CheckIcon from "@material-ui/icons/Check";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import SearchIcon from "@material-ui/icons/Search";
 import moment from "moment";
-
+import * as DoctorSlide from "../../../redux/reducer/DoctorSlide";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -109,6 +111,8 @@ export default function BookingDetail(props) {
   const dispatch = useDispatch();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -117,9 +121,20 @@ export default function BookingDetail(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const toDate = (dateStr) => {
-    const [day, month, year] = dateStr.split("-");
-    return new Date(year, month - 1, day, "08","30","00");
+  const role = {
+    ROLE: "DOCTOR",
+  };
+  useEffect(() => {
+    dispatch(DoctorSlide.findByRole(role));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const ListDoctor = useSelector((state) => state.doctor.data);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
   const status = (s) => {
     let cpn = null;
@@ -191,14 +206,27 @@ export default function BookingDetail(props) {
   };
   const onSearch = (value) => {
     const data = {
-      date: toDate(moment(value).format("DD-MM-YYYY")),
-      status: tab,  
+      date: moment(value).format("DD-MM-YYYY") + " 00:00:00",
+      dateEnd: moment(value).format("DD-MM-YYYY") + " 23:59:00",
+      status: tab,
     };
     console.log(data);
     service.searchByDate(data).then((response) => {
       console.log(response.data);
       setList(response.data);
-    }); 
+    });
+  };
+  const onSearchDoctor = (event, index, value) => {
+    setAnchorEl(null);
+    const data = {
+      STAFF_ID: value.id,
+      STATUS: Number(tab),
+    };
+    console.log(data);
+    service.searchByDoctor(data).then((response) => {
+      console.log(response.data);
+      setList(response.data);
+    });
   };
   return (
     <Paper className={classes.root}>
@@ -231,10 +259,35 @@ export default function BookingDetail(props) {
           </div>
         </Tooltip>
         <Tooltip title="Lọc theo bác sĩ">
-          <IconButton aria-label="filter list">
+          <IconButton aria-label="filter list" onClick={handleClick}>
             <FilterListIcon />
           </IconButton>
         </Tooltip>
+        <Menu
+          id="long-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            style: {
+              maxHeight: "200px",
+              width: "25ch",
+            },
+          }}
+        >
+          {ListDoctor.map((value, index) => (
+            <MenuItem
+              key={index}
+              value={value.id}
+              onClick={(event) => {
+                onSearchDoctor(event, index, value);
+              }}
+            >
+              {value.fullName}
+            </MenuItem>
+          ))}
+        </Menu>
       </Toolbar>
       <TableContainer component={Paper}>
         {modal === true ? (

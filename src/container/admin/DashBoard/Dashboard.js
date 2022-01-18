@@ -23,20 +23,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 function DashBoard() {
   const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem("userLogin"));
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   return (
     <div>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8} lg={9}>
-          <Paper className={fixedHeightPaper}>{<Chart />}</Paper>
+      {user.role === "ADMIN" ? (
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={8} lg={9}>
+            <Paper className={fixedHeightPaper}>{<Chart />}</Paper>
+          </Grid>
+          <Grid item xs={12} md={4} lg={3}>
+            <Paper className={fixedHeightPaper}>{<Counter />}</Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>{<Booking />}</Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={4} lg={3}>
-          <Paper className={fixedHeightPaper}>{<Counter />}</Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper className={classes.paper}>{<Booking />}</Paper>
-        </Grid>
-      </Grid>
+      ) : (
+        <div className="text-center">
+          <span>TRANG CHỦ</span>
+        </div>
+      )}
     </div>
   );
 }
