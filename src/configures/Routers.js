@@ -18,7 +18,7 @@ import Booking from "../container/admin/booking/Booking";
 import ServiceCustomer from "../container/admin/ServiceCustomer";
 import Register from "../container/Register";
 import ProfilePage from "../container/ProfilePage/ProfilePage";
-import Account from "../container/admin/account/Account";
+// import Account from "../container/admin/account/Account";
 import Staff from "../container/admin/calender/Staff";
 import Days from "../container/admin/calender/day/Days";
 import Customer from "../container/admin/customer/Customer";
@@ -48,9 +48,9 @@ function Routers() {
               <ServiceCustomer />
             </AdminRoute>
 
-            <AdminRoute exact path="/admin/account">
+            {/* <AdminRoute exact path="/admin/account">
               <Account />
-            </AdminRoute>
+            </AdminRoute> */}
 
             <AdminRoute exact path="/admin/customer">
               <Customer />
